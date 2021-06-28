@@ -21,12 +21,18 @@
   transition: ease-in-out 0.5s;
 }
 
+.checkpoints__item--current {
+  cursor: default;
+}
+
 .checkpoints__item--active:hover, .checkpoints__item--current {
   border-bottom: 0.15rem solid var(--border-current);
 }
 
 .checkpoints__item--inactive {
   color: var(--text-inactive);
+
+  cursor: default;
 }
 
 .checkpoints__item--hidden {
