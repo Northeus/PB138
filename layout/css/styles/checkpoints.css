@@ -14,7 +14,7 @@
   display: table;
   padding: 0.5rem;
 
-  border-bottom: 0.2rem solid var(--background-default);
+  border-bottom: 0.15rem solid var(--background-default);
 }
 
 .checkpoints__item--active {
@@ -22,7 +22,7 @@
 }
 
 .checkpoints__item--active:hover, .checkpoints__item--current {
-  border-bottom: 0.2rem solid var(--border-current);
+  border-bottom: 0.15rem solid var(--border-current);
 }
 
 .checkpoints__item--inactive {
