@@ -21,11 +21,7 @@
   transition: ease-in-out 0.5s;
 }
 
-.checkpoints__item--active:hover {
-  border-bottom: 0.2rem solid var(--border-current);
-}
-
-.checkpoints__item--current {
+.checkpoints__item--active:hover, .checkpoints__item--current {
   border-bottom: 0.2rem solid var(--border-current);
 }
 
