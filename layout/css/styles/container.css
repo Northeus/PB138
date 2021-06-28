@@ -1,0 +1,25 @@
+.container {
+  display: grid;
+  height: 100vh;
+
+  margin: 0;
+  padding: 0;
+
+  grid-template-rows: 1fr 11fr 1fr;
+  grid-template-areas: 
+    'header'
+    'main'
+    'footer';
+}
+
+.container__header {
+  grid-area: header;
+}
+
+.container__main {
+  grid-area: main;
+}
+
+.container__footer {
+  grid-area: footer;
+}
