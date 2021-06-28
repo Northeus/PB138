@@ -1,9 +1,11 @@
 :root {
   /* Background colors */
   --background-default: #EEF;
+  --background-dark: #334;
 
   /* Text colors */
   --text-default: #000;
+  --text-bright: #DDD;
   --text-inactive: #777;
 
   /* Border colors */

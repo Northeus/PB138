@@ -26,4 +26,6 @@
 
 .container__footer {
   grid-area: footer;
+  
+  background-color: var(--background-dark);
 }
