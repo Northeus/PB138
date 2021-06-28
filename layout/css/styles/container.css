@@ -22,10 +22,30 @@
 
 .container__main {
   grid-area: main;
+
+  background-image: url("../../assets/background/background1920x1200.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+
+  -webkit-box-shadow: 1rem 2rem 8rem 4rem var(--background-default) inset;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  -moz-box-shadow: 1rem 2rem 8rem 4rem var(--background-default) inset;     /* Firefox 3.5 - 3.6 */
+  box-shadow: 1rem 2rem 8rem 4rem var(--background-default) inset;          /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
 }
 
 .container__footer {
   grid-area: footer;
-  
+
   background-color: var(--background-dark);
+}
+
+@media only screen and (max-width: 720px) and (max-height: 450px) {
+  .container__main {
+    background-image: url("../../assets/background/background720x450.jpg");
+  }
+}
+
+@media only screen and (min-width: 721px) and (max-width: 1280px) and (min-height:451px) and (max-height: 800px) {
+  .container__main {
+    background-image: url("../../assets/background/background1280x800.jpg");
+  }
 }
