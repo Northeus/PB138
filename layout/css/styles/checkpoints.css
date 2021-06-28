@@ -29,8 +29,18 @@
   color: var(--text-inactive);
 }
 
+.checkpoints__item--hidden {
+  display: none;
+}
+
 .checkpoints__name {
   display: table-cell;
 
   vertical-align: middle;
+}
+
+@media only screen and (min-width: 60rem) {
+  .checkpoints__item--hidden {
+    display: table;
+  }
 }
