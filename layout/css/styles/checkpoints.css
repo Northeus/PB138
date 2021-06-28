@@ -1,0 +1,40 @@
+@import "../colors.css";
+
+.checkpoints {
+  display: flex;
+  height: 100%;
+
+  justify-content: center;
+  gap: 4rem;
+
+  border-bottom: 0.2rem groove var(--border-separate);
+}
+
+.checkpoints__item {
+  display: table;
+  padding: 0.5rem;
+
+  border-bottom: 0.2rem solid var(--background-default);
+}
+
+.checkpoints__item--active {
+  transition: ease-in-out 0.5s;
+}
+
+.checkpoints__item--active:hover {
+  border-bottom: 0.2rem solid var(--border-current);
+}
+
+.checkpoints__item--current {
+  border-bottom: 0.2rem solid var(--border-current);
+}
+
+.checkpoints__item--inactive {
+  color: var(--text-inactive);
+}
+
+.checkpoints__name {
+  display: table-cell;
+
+  vertical-align: middle;
+}

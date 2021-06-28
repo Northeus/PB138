@@ -1,0 +1,12 @@
+:root {
+  /* Background colors */
+  --background-default: #EEF;
+
+  /* Text colors */
+  --text-default: #000;
+  --text-inactive: #777;
+
+  /* Border colors */
+  --border-current: #E0A;
+  --border-separate: #AAA;
+}
