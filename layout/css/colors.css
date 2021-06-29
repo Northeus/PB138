@@ -11,4 +11,9 @@
   /* Border colors */
   --border-current: #E0A;
   --border-separate: #DDD;
+
+  /* Shadows */
+  --shadow-card: rgba(248, 8, 168, 0.5);
+  --shadow-card-weak: rgba(240, 0, 160, 0.4);
+  --shadow-card-strong: rgba(256, 16, 176, 0.6);
 }

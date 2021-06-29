@@ -18,6 +18,26 @@
 
   flex-direction: column;
   align-items: center;
+
+  transition: ease-in-out 0.5s;
+}
+
+.card:hover {
+  -webkit-transform: translate(-0.6rem, -0.6rem);
+  -moz-transform: translate(-0.6rem, -0.6rem);
+  -ms-transform: translate(-0.6rem, -0.6rem);
+  -o-transform: translate(-0.6rem, -0.6rem);
+  transform: translate(-0.6rem, -0.6rem);
+
+  box-shadow: 
+    var(--shadow-card-strong) 0.4rem 0.4rem,
+    var(--shadow-card) 0.8rem 0.8rem,
+    var(--shadow-card-weak) 1.2rem 1.2rem;
+}
+
+.card--flat {
+  width: 16rem;
+  height: 8rem;
 }
 
 .card__picture {
@@ -28,11 +48,15 @@
 }
 
 .card__name {
-  height: 3rem;
+  min-height: 2rem;
 
-  margin-top: auto;
-  margin-bottom: 1rem;
+  margin: auto;
 
   font-weight: 600;
   font-size: 1.2rem;
+}
+
+.card__name--bottom {
+  margin-top: auto;
+  margin-bottom: 1rem;
 }
