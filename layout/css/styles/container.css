@@ -18,6 +18,8 @@
 
 .container__header {
   grid-area: header;
+
+  background-color: var(--background-default);
 }
 
 .container__main {

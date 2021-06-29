@@ -1,9 +1,9 @@
 @import "../colors.css";
 
 .information-block {
-  width: min(max(30rem, 50%), 45rem);
+  width: min(60%, 60rem);
 
-  margin: 1rem auto;
+  margin: 0.8rem auto;
   padding: 1rem;
 
   font-weight: 600;
