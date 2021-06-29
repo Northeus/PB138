@@ -1,0 +1,38 @@
+.cards {
+  height: 100%;
+  display: flex;
+
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.card {
+  width: 12rem;
+  height: 15rem;
+  display: flex;
+
+  margin: 1rem;
+
+  flex-direction: column;
+  align-items: center;
+}
+
+.card__picture {
+  width: 8rem;
+  height: 8rem;
+
+  margin: auto;
+}
+
+.card__name {
+  height: 3rem;
+
+  margin-top: auto;
+  margin-bottom: 1rem;
+
+  font-weight: 600;
+  font-size: 1.2rem;
+}
