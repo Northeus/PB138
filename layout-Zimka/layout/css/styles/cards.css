@@ -1,0 +1,76 @@
+.cards {
+  height: 100%;
+  display: flex;
+
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.card {
+  width: 12rem;
+  height: 15rem;
+  display: flex;
+
+  margin: 1rem;
+
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--background-default);
+}
+
+.card--flat {
+  width: 80%;
+  /* height: 20%; */
+}
+
+.card__picture {
+  width: 8rem;
+  height: 8rem;
+
+  margin: auto;
+}
+
+.card__name {
+  margin: 1rem 0rem;
+
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.card__text {
+    margin: 1rem;
+}
+
+.card__contacts {
+    display: grid;
+    height: 100vh;
+
+    margin: 0;
+    padding: 0;
+
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: 
+        "building"
+        "telephone"
+        "mail";
+}
+
+.contacts__building {
+    grid-area: building;
+}
+
+.contacts__telephone {
+    grid-area: telephone;
+}
+
+.contacts__mail {
+    grid-area: mail;
+}
+
+.card__name--bottom {
+  margin-top: auto;
+  margin-bottom: 1rem;
+}
