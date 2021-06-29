@@ -45,7 +45,7 @@
 
   background-color: var(--background-highlight);
   border-color: var(--border-highlight);
-  border-radius: 1rem;
+  border-radius: 0.8rem;
   border-width: 0.3rem;
 }
 
