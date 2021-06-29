@@ -1,44 +1,47 @@
 import React, { useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import BEMHelper from 'react-bem-helper';
+import Informations from './components/Informations/Informations';
+import RoutingPaths from './utils/routingPaths';
+import VehicleType from './components/VehicleType/VehicleType';
+import {Switch, Route, BrowserRouter as Router} from 'react-router-dom';
+import './main.css';
+
+const classes = new BEMHelper('container');
 
 const App = () : JSX.Element => {
-    const [count, setCount] = useState(0);
-
     return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>Hello Vite + React!</p>
-                <p>
-                    <button type="button" onClick={() => setCount((count) => count + 1)}>
-                        count is: {count}
-                    </button>
-                </p>
-                <p>
-                    Edit <code>App.tsx</code> and save to test HMR updates.
-                </p>
-                <p>
-                    <a
-                        className="App-link"
-                        href="https://reactjs.org"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        
-                    </a>
-                    {' | '}
-                    <a
-                        className="App-link"
-                        href="https://vitejs.dev/guide/features.html"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Vite Docs
-                    </a>
-                </p>
-            </header>
-        </div>
+        <Router>
+            <div {...classes()}>
+                <header {...classes('header')}>
+                    <nav className="checkpoints">
+                        <a href="#" className="checkpoints__item checkpoints__item--current">
+                            <span className="checkpoints__name">Druh vozu</span></a>
+                        <a href="#" className="checkpoints__item checkpoints__item--inactive">
+                            <span className="checkpoints__name">Vyuzitie vozu</span>
+                        </a>
+                        <a href="#" className="checkpoints__item checkpoints__item--inactive">
+                            <span className="checkpoints__name">Parametre vozu</span>
+                        </a>
+                        <a href="#" className="checkpoints__item checkpoints__item--inactive checkpoints__item--hidden">
+                            <span className="checkpoints__name">Majitel vozu</span>
+                        </a>
+                        <a href="#" className="checkpoints__item checkpoints__item--inactive checkpoints__item--hidden">
+                            <span className="checkpoints__name">Typ poistenia</span>
+                        </a>
+                    </nav>
+                </header>
+                <main {...classes('main')}>
+                    <Switch>
+                        <Route path={RoutingPaths.VehicleType}>
+                            <VehicleType />
+                        </Route>
+                    </Switch>
+                </main>
+                <footer {...classes('footer')}>
+                    <Informations />
+                </footer>
+            </div>
+        </Router>
     );
 };
 
