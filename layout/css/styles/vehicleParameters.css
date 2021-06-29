@@ -1,6 +1,3 @@
 .parameters-form {
   width: min(max(20rem, 40%), 45rem);
-  display: flex;
-
-  flex-direction: column;
 }

@@ -2,9 +2,16 @@
   padding: 1.5rem 3rem;
   margin: 2rem auto;
 
+  display: flex;
+  flex-direction: column;
+
   background-color: var(--background-default);
   border-radius: 1rem;
   box-shadow: var(--shadow-dark) 0.5rem 0.5rem;
+}
+
+.form--centred {
+  align-items: center;
 }
 
 .form__input {
@@ -19,12 +26,22 @@
   border-width: 0.3rem;
 }
 
+.form__checkbox {
+  margin-left: auto;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
 .form__label {
   font-size: 1.5rem;
 
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+}
+
+.form__label--small {
+  font-size: 1.2rem;
 }
 
 .form__error {

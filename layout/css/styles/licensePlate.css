@@ -1,9 +1,5 @@
 .plate-form {
   width: min(max(20rem, 25%), 25rem);
-  display: flex;
-
-  flex-direction: column;
-  align-items: center;
 }
 
 .license-plate__number {

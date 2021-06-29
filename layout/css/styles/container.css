@@ -22,6 +22,10 @@
 
 .container__main {
   grid-area: main;
+  display: flex;
+
+  flex-direction: column;
+  justify-content: center;
 
   background-image: url("../../assets/background/background1920x1200.jpg");
   background-repeat: no-repeat;
