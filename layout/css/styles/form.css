@@ -1,0 +1,19 @@
+.form__error {
+  min-height: 1rem;
+
+  font-size: 0.8rem;
+  color: var(--text-error);
+}
+
+.form__submit {
+  font-size: 1.5rem;
+  font-weight: 600;
+
+  padding: 0.5rem;
+  margin-top: 1rem;
+
+  background-color: var(--background-highlight);
+  border-color: var(--border-highlight);
+  border-radius: 0.8rem;
+  border-width: 0.3rem;
+}
