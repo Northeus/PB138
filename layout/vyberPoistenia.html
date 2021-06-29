@@ -10,11 +10,10 @@
   <link rel="stylesheet" href="css/normalize.css">
 
   <link rel="stylesheet" href="css/styles/form.css">
+  <link rel="stylesheet" href="css/styles/insurace.css">
   <link rel="stylesheet" href="css/styles/container.css">
   <link rel="stylesheet" href="css/styles/checkpoints.css">
-  <link rel="stylesheet" href="css/styles/licensePlate.css">
   <link rel="stylesheet" href="css/styles/informations.css">
-  <link rel="stylesheet" href="css/styles/vehicleParameters.css">
 </head>
 <body>
   <div class="container">
@@ -22,48 +21,34 @@
       <nav class="checkpoints">
         <a href="#" class="checkpoints__item checkpoints__item--active checkpoints__item--hidden">
           <span class="checkpoints__name">Druh vozu</span></a>
-        <a href="#" class="checkpoints__item checkpoints__item--active">
+        <a href="#" class="checkpoints__item checkpoints__item--active checkpoints__item--hidden">
           <span class="checkpoints__name">Vyuzitie vozu</span>
         </a>
-        <a href="#" class="checkpoints__item checkpoints__item--current">
+        <a href="#" class="checkpoints__item checkpoints__item--active">
           <span class="checkpoints__name">Parametre vozu</span>
         </a>
-        <a href="#" class="checkpoints__item checkpoints__item--inactive">
+        <a href="#" class="checkpoints__item checkpoints__item--active">
           <span class="checkpoints__name">Majitel vozu</span>
         </a>
-        <a href="#" class="checkpoints__item checkpoints__item--inactive checkpoints__item--hidden">
+        <a href="#" class="checkpoints__item checkpoints__item--current">
           <span class="checkpoints__name">Typ poistenia</span>
         </a>
       </nav>
     </header>
     <main class="container__main">
-      <form class="form form--centred plate-form">
-        <label class="form__label" for="license-plate">Najdenie SPZ:</label>
-        <input class="license-plate__number" type="text" maxlength="7" minlength="7" name="license-plate"/>
-        <span class="form__error">*Nebolo mozne najst zadanu SPZ.</span>
-        <button class="form__submit" type="submit">Submit</button>
-      </form>
-      <form class="form parameters-form">
+      <form class="form insurance-form">
         <label class="form__label">
-          Objem motora v ml:
-          <input class="form__input" type="number" name="cylinder-volume">
+          Druh poistenia:
+          <select class="form__select" name="insurance-type">
+            <option value="copmulsory-insurace">PZP</option>
+            <option value="accident-insurance">Havarijne</option>
+          </select>
         </label>
-        <span class="form__error">*Zadana hodnota musi byt cele cislo.</span>
+        <span class="form__error">*Povinna hodnota.</span>
         <label class="form__label">
-          Vykon motora v kw:
-          <input class="form__input" type="number" name="power">
+          Pripoistenie skla:
+          <input class="form__checkbox" type="checkbox" name="glass-insurance">
         </label>
-        <span class="form__error">*Je nutne zadat hodnotu.</span>
-        <label class="form__label">
-          Povodna cena v €:
-          <input class="form__input" type="number" name="price">
-        </label>
-        <span class="form__error">*Zadana hodnota musi byt cele cislo.</span>
-        <label class="form__label">
-          Datum vyroby vozu:
-          <input class="form__input" type="date" name="creation-date">
-        </label>
-        <span class="form__error">*Zadane datum musi byt z minulosti.</span>
         <button class="form__submit" type="submit">Submit</button>
       </form>
     </main>
