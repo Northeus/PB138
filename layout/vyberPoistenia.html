@@ -10,10 +10,10 @@
   <link rel="stylesheet" href="css/normalize.css">
 
   <link rel="stylesheet" href="css/styles/form.css">
+  <link rel="stylesheet" href="css/styles/insurace.css">
   <link rel="stylesheet" href="css/styles/container.css">
   <link rel="stylesheet" href="css/styles/checkpoints.css">
   <link rel="stylesheet" href="css/styles/informations.css">
-  <link rel="stylesheet" href="css/styles/owner.css">
 </head>
 <body>
   <div class="container">
@@ -27,24 +27,27 @@
         <a href="#" class="checkpoints__item checkpoints__item--active">
           <span class="checkpoints__name">Parametre vozu</span>
         </a>
-        <a href="#" class="checkpoints__item checkpoints__item--current">
+        <a href="#" class="checkpoints__item checkpoints__item--active">
           <span class="checkpoints__name">Majitel vozu</span>
         </a>
-        <a href="#" class="checkpoints__item checkpoints__item--inactive">
+        <a href="#" class="checkpoints__item checkpoints__item--current">
           <span class="checkpoints__name">Typ poistenia</span>
         </a>
       </nav>
     </header>
     <main class="container__main">
-      <form class="form owner-form">
+      <form class="form insurance-form">
         <label class="form__label">
-          Vydanie VO / VOP:
-          <input class="form__input" type="date" name="VO-date">
+          Druh poistenia:
+          <select class="form__select" name="insurance-type">
+            <option value="copmulsory-insurace">PZP</option>
+            <option value="accident-insurance">Havarijne</option>
+          </select>
         </label>
         <span class="form__error">*Povinna hodnota.</span>
-        <label class="form__label form__label--small">
-          Zaskrtnite, ak ste sposobili nehodu v poslednych 3 rokoch.
-          <input class="form__checkbox" type="checkbox" name="cylinder-volume">
+        <label class="form__label">
+          Pripoistenie skla:
+          <input class="form__checkbox" type="checkbox" name="glass-insurance">
         </label>
         <button class="form__submit" type="submit">Submit</button>
       </form>

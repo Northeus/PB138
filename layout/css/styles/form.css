@@ -27,9 +27,10 @@
 }
 
 .form__checkbox {
-  margin-left: auto;
   width: 1.5rem;
   height: 1.5rem;
+
+  margin-left: auto;
 }
 
 .form__label {
@@ -42,6 +43,12 @@
 
 .form__label--small {
   font-size: 1.2rem;
+}
+
+.form__select {
+  width: 8rem;
+
+  margin-left: auto;
 }
 
 .form__error {
