@@ -3,8 +3,14 @@ import BEMHelper from 'react-bem-helper';
 import Informations from './components/Informations/Informations';
 import RoutingPaths from './utils/routingPaths';
 import VehicleType from './components/VehicleType/VehicleType';
+import VehicleUtilisation from './components/VehicleUtilisation/VehicleUtilisation';
+import VehicleParameters from './components/VehicleParameters/VehicleParameters';
+import VehicleOwner from './components/VehicleOwner/VehicleOwner';
+import InsuranceType from './components/InsuranceType/InsuranceType';
 import {Switch, Route, BrowserRouter as Router} from 'react-router-dom';
+import './utils/css/normalize.css';
 import './main.css';
+import './container.css';
 
 const classes = new BEMHelper('container');
 
@@ -34,6 +40,18 @@ const App = () : JSX.Element => {
                     <Switch>
                         <Route path={RoutingPaths.VehicleType}>
                             <VehicleType />
+                        </Route>
+                        <Route path={RoutingPaths.VehicleUtilisation}>
+                            <VehicleUtilisation />
+                        </Route>
+                        <Route path={RoutingPaths.VehicleParameters}>
+                            <VehicleParameters />
+                        </Route>
+                        <Route path={RoutingPaths.VehicleOwner}>
+                            <VehicleOwner />
+                        </Route>
+                        <Route path={RoutingPaths.InsuranceType}>
+                            <InsuranceType />
                         </Route>
                     </Switch>
                 </main>
