@@ -9,6 +9,7 @@
   --text-default: #000;
   --text-bright: #DDD;
   --text-inactive: #777;
+  --text-error: #F06;
 
   /* Border colors */
   --border-current: #E0A;

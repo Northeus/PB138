@@ -9,11 +9,12 @@
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/normalize.css">
 
+  <link rel="stylesheet" href="css/styles/form.css">
   <link rel="stylesheet" href="css/styles/container.css">
   <link rel="stylesheet" href="css/styles/checkpoints.css">
-  <link rel="stylesheet" href="css/styles/form.css">
   <link rel="stylesheet" href="css/styles/licensePlate.css">
   <link rel="stylesheet" href="css/styles/informations.css">
+  <link rel="stylesheet" href="css/styles/vehicleParameters.css">
 </head>
 <body>
   <div class="container">
@@ -39,9 +40,10 @@
       <form class="plate-form">
         <label class="license-plate__label" for="license-plate">Najdenie SPZ:</label>
         <input class="license-plate__number" type="text" maxlength="7" minlength="7" name="license-plate"/>
-        <button class="submit-button" type="submit">Submit</button>
+        <span class="form__error">*Nebolo mozne najst zadanu SPZ.</span>
+        <button class="form__submit" type="submit">Submit</button>
       </form>
-      <form class="parameters">
+      <form class="parameters-form">
         
       </form>
     </main>
