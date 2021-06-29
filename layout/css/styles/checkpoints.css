@@ -45,6 +45,11 @@
   vertical-align: middle;
 }
 
+.checkpoints__name--big {
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+
 @media only screen and (min-width: 60rem) {
   .checkpoints__item--hidden {
     display: table;
