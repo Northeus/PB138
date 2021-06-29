@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PZP</title>
+
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/normalize.css">
+
+  <link rel="stylesheet" href="css/styles/container.css">
+  <link rel="stylesheet" href="css/styles/checkpoints.css">
+  <link rel="stylesheet" href="css/styles/licensePlate.css">
+  <link rel="stylesheet" href="css/styles/informations.css">
+</head>
+<body>
+  <div class="container">
+    <header class="container__header">
+      <nav class="checkpoints">
+        <a href="#" class="checkpoints__item checkpoints__item--active checkpoints__item--hidden">
+          <span class="checkpoints__name">Druh vozu</span></a>
+        <a href="#" class="checkpoints__item checkpoints__item--active">
+          <span class="checkpoints__name">Vyuzitie vozu</span>
+        </a>
+        <a href="#" class="checkpoints__item checkpoints__item--current">
+          <span class="checkpoints__name">Parametre vozu</span>
+        </a>
+        <a href="#" class="checkpoints__item checkpoints__item--inactive">
+          <span class="checkpoints__name">Majitel vozu</span>
+        </a>
+        <a href="#" class="checkpoints__item checkpoints__item--inactive checkpoints__item--hidden">
+          <span class="checkpoints__name">Typ poistenia</span>
+        </a>
+      </nav>
+    </header>
+    <main class="container__main">
+      <form class="plate-form">
+        <label class="license-plate__label" for="license-plate">Najdenie SPZ:</label>
+        <input class="license-plate__number" type="text" maxlength="7" minlength="7" name="license-plate"/>
+        <button class="license-plate__submit" type="submit">Submit</button>
+      </form>
+      <form class="parameters">
+        
+      </form>
+    </main>
+    <footer class="container__footer">
+      <nav class="informations">
+        <a href="#" class="informations__item">
+          <span class="informations__name">Contact us</span>
+        </a>
+        <a href="#" class="informations__item">
+          <span class="informations__name">Our company</span>
+        </a>
+        <a href="#" class="informations__item">
+          <span class="informations__name">GDPR</span>
+        </a>
+      </nav>
+    </footer>
+  </div>
+</body>
+</html>
