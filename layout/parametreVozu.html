@@ -37,14 +37,34 @@
       </nav>
     </header>
     <main class="container__main">
-      <form class="plate-form">
-        <label class="license-plate__label" for="license-plate">Najdenie SPZ:</label>
+      <form class="form plate-form">
+        <label class="form__label" for="license-plate">Najdenie SPZ:</label>
         <input class="license-plate__number" type="text" maxlength="7" minlength="7" name="license-plate"/>
         <span class="form__error">*Nebolo mozne najst zadanu SPZ.</span>
         <button class="form__submit" type="submit">Submit</button>
       </form>
-      <form class="parameters-form">
-        
+      <form class="form parameters-form">
+        <label class="form__label">
+          Objem motora v ml:
+          <input class="form__input" type="number" name="cylinder-volume">
+        </label>
+        <span class="form__error">*Zadana hodnota musi byt cele cislo.</span>
+        <label class="form__label">
+          Vykon motora v kw:
+          <input class="form__input" type="number" name="power">
+        </label>
+        <span class="form__error">*Zadana hodnota musi byt cele cislo.</span>
+        <label class="form__label">
+          Povodna cena v €:
+          <input class="form__input" type="number" name="price">
+        </label>
+        <span class="form__error">*Zadana hodnota musi byt cele cislo.</span>
+        <label class="form__label">
+          Datum vyroby vozu:
+          <input class="form__input" type="date" name="creation-date">
+        </label>
+        <span class="form__error">*Zadane datum musi byt z minulosti.</span>
+        <button class="form__submit" type="submit">Submit</button>
       </form>
     </main>
     <footer class="container__footer">

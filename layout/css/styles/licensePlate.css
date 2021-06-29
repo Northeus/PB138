@@ -1,20 +1,9 @@
 .plate-form {
-  width: max(20rem, 25%);
+  width: min(max(20rem, 25%), 25rem);
   display: flex;
-  
-  padding: 1rem 3rem;
-  margin: 2rem auto;
 
   flex-direction: column;
   align-items: center;
-
-  background-color: var(--background-default);
-  border-radius: 1rem;
-  box-shadow: var(--shadow-dark) 0.5rem 0.5rem;
-}
-
-.license-plate__label {
-  font-size: 2rem;
 }
 
 .license-plate__number {

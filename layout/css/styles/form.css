@@ -1,11 +1,46 @@
+.form {
+  padding: 1.5rem 3rem;
+  margin: 2rem auto;
+
+  background-color: var(--background-default);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-dark) 0.5rem 0.5rem;
+}
+
+.form__input {
+  width: 12rem;
+
+  margin-left: auto;
+
+  font-size: 1.5rem;
+
+  border-color: var(--border-separate);
+  border-radius: 0.5rem;
+  border-width: 0.3rem;
+}
+
+.form__label {
+  font-size: 1.5rem;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
 .form__error {
   min-height: 1rem;
+
+  margin-bottom: 1rem;
 
   font-size: 0.8rem;
   color: var(--text-error);
 }
 
 .form__submit {
+  width: 10rem;
+
+  margin: auto;
+
   font-size: 1.5rem;
   font-weight: 600;
 
