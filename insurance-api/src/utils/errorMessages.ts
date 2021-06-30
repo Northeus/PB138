@@ -1,0 +1,1 @@
+export const carNotFound = 'Car was not found.';
