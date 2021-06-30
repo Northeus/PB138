@@ -9,6 +9,10 @@
   align-items: center;
 }
 
+.card:hover {
+  cursor: pointer;
+}
+
 .card {
   width: 12rem;
   height: 15rem;
