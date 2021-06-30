@@ -58,4 +58,4 @@ df_cars = df_cars.rename(columns={
 # Store do .csv
 number_of_rows_to_store = 100
 
-df_cars.sample(n=number_of_rows_to_store).to_csv('data.csv', index=False)
+df_cars.sample(n=number_of_rows_to_store).to_csv('./data/data.csv', index=False)

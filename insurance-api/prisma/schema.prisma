@@ -19,6 +19,7 @@ model Registrations {
 
 model Car {
   id                    Int               @id @default(autoincrement())
+  name                  String
   engineDisplcementMl   Float
   powerKw               Float
   marketPriceEur        Float
