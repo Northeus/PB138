@@ -11,9 +11,9 @@ const VehicleOwner = () => (
           Vydanie VO / VOP:
             <input {...classes('input')} type="date" name="VO-date" />
         </label>
-        <span {...classes('error')}>*Povinna hodnota.</span>
+        <span {...classes('error')}>*Povinná hodnota.</span>
         <label {...classes('label', 'small')}>
-          Zaskrtnite, ak ste sposobili nehodu v poslednych 3 rokoch.
+          Zaškrtnite v prípade, že ste spôsobili dopravnú nehodu za posledné 3 roky.
             <input {...classes('checkbox')} type="checkbox" name="cylinder-volume" />
         </label>
         <button {...classes('submit')} type="submit">Submit</button>

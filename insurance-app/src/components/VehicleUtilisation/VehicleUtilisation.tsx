@@ -1,8 +1,5 @@
 import React from 'react';
-// import BEMHelper from 'react-bem-helper';
 import Cards from '../Cards/Cards';
-
-// const classes = new BEMHelper('container');
 
 const VehicleUtilisation = () => {
     const cards = [

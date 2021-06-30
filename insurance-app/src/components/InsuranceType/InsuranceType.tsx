@@ -11,10 +11,10 @@ const InsuranceType = () => (
         Druh poistenia:
             <select {...classes('select')} name="insurance-type">
                 <option value="copmulsory-insurace">PZP</option>
-                <option value="accident-insurance">Havarijne</option>
+                <option value="accident-insurance">Havarijné</option>
             </select>
         </label>
-        <span {...classes('error')}>*Povinna hodnota.</span>
+        <span {...classes('error')}>*Povinná hodnota.</span>
         <label {...classes('label')}>
         Pripoistenie skla:
             <input {...classes('checkbox')} type="checkbox" name="glass-insurance" />

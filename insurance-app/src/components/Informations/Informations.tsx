@@ -7,10 +7,10 @@ const classes = new BEMHelper('informations');
 const Informations = () => (
     <nav {...classes()}>
         <a href="#" {...classes('item')}>
-            <span {...classes('name')}>Contact us</span>
+            <span {...classes('name')}>Kontaktujete nás</span>
         </a>
         <a href="#" {...classes('item')}>
-            <span {...classes('name')}>Our company</span>
+            <span {...classes('name')}>O nás</span>
         </a>
         <a href="#" {...classes('item')}>
             <span {...classes('name')}>GDPR</span>

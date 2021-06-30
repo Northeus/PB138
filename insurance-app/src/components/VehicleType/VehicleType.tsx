@@ -1,12 +1,9 @@
 import React from 'react';
-// import BEMHelper from 'react-bem-helper';
 import Car from '../../assets/vehicles/car.svg';
 import Van from '../../assets/vehicles/van.svg';
 import Bike from '../../assets/vehicles/bike.svg';
 import Quad from '../../assets/vehicles/quad.svg';
 import Cards from '../Cards/Cards';
-
-// const classes = new BEMHelper('container');
 
 const VehicleType = () => {
     const cards = [

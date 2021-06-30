@@ -9,9 +9,9 @@ const licenseClasses = new BEMHelper('license-plate');
 
 const VehicleParameters = () => (
     <><form {...classes({ modifiers: ['centered', 'plate'] })}>
-        <label {...classes('label')} htmlFor='license-plate'>Najdenie SPZ:</label>
+        <label {...classes('label')} htmlFor='license-plate'>Nájdenie ŠPZ:</label>
         <input {...licenseClasses('number')} type="text" maxLength={7} minLength={7} name="license-plate" />
-        <span {...classes('error')}>*Nebolo mozne najst zadanu SPZ.</span>
+        <span {...classes('error')}>*Nebolo možné nájsť zadanú ŠPZ.</span>
         <button {...classes('submit')} type="submit">Submit</button>
     </form>
     <form {...classes({modifier: 'parameters'})}>
@@ -19,22 +19,22 @@ const VehicleParameters = () => (
           Objem motora v ml:
             <input {...classes('input')} type="number" name="cylinder-volume" />
         </label>
-        <span {...classes('error')}>*Zadana hodnota musi byt cele cislo.</span>
+        <span {...classes('error')}>*Zadaná hodnota musí byť celé číslo.</span>
         <label {...classes('label')}>
-          Vykon motora v kw:
+          Výkon motora v kW:
             <input {...classes('input')} type="number" name="power" />
         </label>
-        <span {...classes('error')}>*Je nutne zadat hodnotu.</span>
+        <span {...classes('error')}>*Je nutné zadať hodnotu.</span>
         <label {...classes('label')}>
-          Povodna cena v €:
+          Pôvodna cena v €:
             <input {...classes('input')} type="number" name="price" />
         </label>
-        <span {...classes('error')}>*Zadana hodnota musi byt cele cislo.</span>
+        <span {...classes('error')}>*Zadaná hodnota musí byť celé číslo.</span>
         <label {...classes('label')}>
-          Datum vyroby vozu:
+          Dátum výroby vozu:
             <input {...classes('input')} type="date" name="creation-date" />
         </label>
-        <span {...classes('error')}>*Zadane datum musi byt z minulosti.</span>
+        <span {...classes('error')}>*Zadaný dátum musí byť z minulosti.</span>
         <button {...classes('submit')} type="submit">Submit</button>
     </form></>
 );

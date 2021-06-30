@@ -16,27 +16,28 @@ const classes = new BEMHelper('container');
 
 const App = () : JSX.Element => {
     return (
-        <Router>
-            <div {...classes()}>
-                <header {...classes('header')}>
-                    <nav className="checkpoints">
-                        <a href="#" className="checkpoints__item checkpoints__item--current">
-                            <span className="checkpoints__name">Druh vozu</span></a>
-                        <a href="#" className="checkpoints__item checkpoints__item--inactive">
-                            <span className="checkpoints__name">Vyuzitie vozu</span>
-                        </a>
-                        <a href="#" className="checkpoints__item checkpoints__item--inactive">
-                            <span className="checkpoints__name">Parametre vozu</span>
-                        </a>
-                        <a href="#" className="checkpoints__item checkpoints__item--inactive checkpoints__item--hidden">
-                            <span className="checkpoints__name">Majitel vozu</span>
-                        </a>
-                        <a href="#" className="checkpoints__item checkpoints__item--inactive checkpoints__item--hidden">
-                            <span className="checkpoints__name">Typ poistenia</span>
-                        </a>
-                    </nav>
-                </header>
-                <main {...classes('main')}>
+        
+        <div {...classes()}>
+            <header {...classes('header')}>
+                <nav className="checkpoints">
+                    <a href="#" className="checkpoints__item checkpoints__item--current">
+                        <span className="checkpoints__name">Druh vozu</span></a>
+                    <a href="#" className="checkpoints__item checkpoints__item--inactive">
+                        <span className="checkpoints__name">Vyuzitie vozu</span>
+                    </a>
+                    <a href="#" className="checkpoints__item checkpoints__item--inactive">
+                        <span className="checkpoints__name">Parametre vozu</span>
+                    </a>
+                    <a href="#" className="checkpoints__item checkpoints__item--inactive checkpoints__item--hidden">
+                        <span className="checkpoints__name">Majitel vozu</span>
+                    </a>
+                    <a href="#" className="checkpoints__item checkpoints__item--inactive checkpoints__item--hidden">
+                        <span className="checkpoints__name">Typ poistenia</span>
+                    </a>
+                </nav>
+            </header>
+            <main {...classes('main')}>
+                <Router>
                     <Switch>
                         <Route path={RoutingPaths.VehicleType}>
                             <VehicleType />
@@ -54,12 +55,12 @@ const App = () : JSX.Element => {
                             <InsuranceType />
                         </Route>
                     </Switch>
-                </main>
-                <footer {...classes('footer')}>
-                    <Informations />
-                </footer>
-            </div>
-        </Router>
+                </Router>
+            </main>
+            <footer {...classes('footer')}>
+                <Informations />
+            </footer>
+        </div>
     );
 };
 
