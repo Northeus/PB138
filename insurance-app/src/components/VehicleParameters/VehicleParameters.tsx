@@ -16,7 +16,7 @@ const VehicleParameters = () => (
     </form>
     <form {...classes({modifier: 'parameters'})}>
         <label {...classes('label')}>
-          Objem motora v ml:
+          Objem motora v cm³:
             <input {...classes('input')} type="number" name="cylinder-volume" />
         </label>
         <span {...classes('error')}>*Zadaná hodnota musí byť celé číslo.</span>
