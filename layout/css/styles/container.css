@@ -18,6 +18,8 @@
 
 .container__header {
   grid-area: header;
+
+  background-color: var(--background-default);
 }
 
 .container__main {
@@ -29,7 +31,6 @@
 
   background-image: url("../../assets/background/background1920x1200.jpg");
   background-repeat: no-repeat;
-  background-position: center;
 
   -webkit-box-shadow: 1rem 2rem 8rem 4rem var(--background-default) inset;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
   -moz-box-shadow: 1rem 2rem 8rem 4rem var(--background-default) inset;     /* Firefox 3.5 - 3.6 */

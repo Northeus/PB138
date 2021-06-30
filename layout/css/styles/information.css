@@ -1,0 +1,30 @@
+@import "../colors.css";
+
+.information-block {
+  width: min(60%, 60rem);
+
+  margin: 0.8rem auto;
+  padding: 1rem;
+
+  font-weight: 600;
+
+  background-color: ivory;
+  border-radius: 1rem;
+  box-shadow: var(--shadow-dark) 0.5rem 0.5rem; 
+}
+
+.information-block--faded {
+  filter: opacity(40%);
+}
+
+.information-block__title {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.informations__name {
+  display: table-cell;
+
+  color: var(--text-bright);
+  vertical-align: middle;
+}

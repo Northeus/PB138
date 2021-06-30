@@ -1,5 +1,5 @@
 .plate-form {
-  width: min(max(20rem, 25%), 25rem);
+  width: min(60%, 25rem);
 }
 
 .license-plate__number {

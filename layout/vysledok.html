@@ -19,10 +19,9 @@
   <link rel="stylesheet" href="css/normalize.css">
 
   <link rel="stylesheet" href="css/styles/logo.css">
-  <link rel="stylesheet" href="css/styles/form.css">
-  <link rel="stylesheet" href="css/styles/insurace.css">
   <link rel="stylesheet" href="css/styles/container.css">
   <link rel="stylesheet" href="css/styles/checkpoints.css">
+  <link rel="stylesheet" href="css/styles/information.css">
   <link rel="stylesheet" href="css/styles/informations.css">
 </head>
 <body>
@@ -30,38 +29,16 @@
     <header class="container__header">
       <img class="logo" src="./assets/logo.svg" alt="logo"/>
       <nav class="checkpoints">
-        <a href="#" class="checkpoints__item checkpoints__item--active checkpoints__item--hidden">
-          <span class="checkpoints__name">Druh vozu</span></a>
-        <a href="#" class="checkpoints__item checkpoints__item--active checkpoints__item--hidden">
-          <span class="checkpoints__name">Využitie vozu</span>
-        </a>
-        <a href="#" class="checkpoints__item checkpoints__item--active">
-          <span class="checkpoints__name">Parametre vozu</span>
-        </a>
-        <a href="#" class="checkpoints__item checkpoints__item--active">
-          <span class="checkpoints__name">Majiteľ vozu</span>
-        </a>
         <a href="#" class="checkpoints__item checkpoints__item--current">
-          <span class="checkpoints__name">Typ poistenia</span>
+          <span class="checkpoints__name checkpoints__name--big">Ohodnotenie</span>
         </a>
       </nav>
     </header>
     <main class="container__main">
-      <form class="form insurance-form">
-        <label class="form__label">
-          Druh poistenia:
-          <select class="form__select" name="insurance-type">
-            <option value="copmulsory-insurace">PZP</option>
-            <option value="accident-insurance">Havarijné</option>
-          </select>
-        </label>
-        <span class="form__error">*Povinná hodnota.</span>
-        <label class="form__label">
-          Pripoistenie skla:
-          <input class="form__checkbox" type="checkbox" name="glass-insurance">
-        </label>
-        <button class="form__submit" type="submit">Ďalej</button>
-      </form>
+      <div class="information-block">
+        <p>Cena havarijneho poistenia s pripoistenim skla pre vaše vozidlo je 333€.</p>
+        <p>Pokiaľ si prajete uzavrieť s nami dané poistenie, kontaktujte nás prosím cez nižšie uvedené odkazy.</p>
+      </div>
     </main>
     <footer class="container__footer">
       <nav class="informations">
