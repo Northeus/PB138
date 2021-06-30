@@ -45,6 +45,16 @@ df_cars['Model series launch date'] = df_cars['Model series launch date'].apply(
 df_cars = df_cars.dropna()
 
 
+# Rename columns
+df_cars = df_cars.rename(columns={
+  'Full car name': 'name',
+  'Displacement (ccm)': 'displacement',
+  'Power (kW)': 'power',
+  'Base price': 'price',
+  'Model series launch date': 'date'
+})
+
+
 # Store do .csv
 number_of_rows_to_store = 100
 
