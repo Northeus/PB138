@@ -9,10 +9,6 @@
   align-items: center;
 }
 
-.card:hover {
-  cursor: pointer;
-}
-
 .card {
   width: 12rem;
   height: 15rem;
@@ -27,6 +23,7 @@
 }
 
 .card:hover {
+  cursor: pointer;
   -webkit-transform: translate(-0.6rem, -0.6rem);
   -moz-transform: translate(-0.6rem, -0.6rem);
   -ms-transform: translate(-0.6rem, -0.6rem);
@@ -34,9 +31,9 @@
   transform: translate(-0.6rem, -0.6rem);
 
   box-shadow: 
-    var(--shadow-card-strong) 0.4rem 0.4rem,
-    var(--shadow-card) 0.8rem 0.8rem,
-    var(--shadow-card-weak) 1.2rem 1.2rem;
+  var(--shadow-card-strong) 0.4rem 0.4rem,
+  var(--shadow-card) 0.8rem 0.8rem,
+  var(--shadow-card-weak) 1.2rem 1.2rem;
 }
 
 .card--flat {
