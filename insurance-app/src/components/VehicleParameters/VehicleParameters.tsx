@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import './VehicleParameters.css';
 import '../Form/Form.css';
 import '../LicensePlate/LicensePlate.css';
+import { useRecoilState } from 'recoil';
 
 const classes = new BEMHelper('form');
 const licenseClasses = new BEMHelper('license-plate');
@@ -59,7 +60,6 @@ const VehicleParameters = () => {
         },
         onSubmit: async (values) => {
             console.log(values);
-            // formik1.resetForm();
         }
     });
     const formik2 = useFormik({
@@ -71,13 +71,13 @@ const VehicleParameters = () => {
         }});
     return (
         <>
-            <form {...classes({ modifiers: ['centered', 'plate'] })}>
+            <form {...classes({ modifiers: ['centered', 'plate'] })} onSubmit={formik1.handleSubmit}>
                 <label {...classes('label')} htmlFor='license-plate'>Nájdenie ŠPZ:</label>
                 <input {...licenseClasses('number')} onChange={formik1.handleChange} value={formik1.values.licensePlate} type="text" spellCheck="false" maxLength={7} minLength={7} name="licensePlate" id="licensePlate" />
                 {formik1.errors.licensePlate && <span {...classes('error')}>{formik1.errors.licensePlate}</span>}
                 <button {...classes('submit')} type="submit">Submit</button>
             </form>
-            <form {...classes({modifier: 'parameters'})}>
+            <form {...classes({modifier: 'parameters'})} onSubmit={formik2.handleSubmit}>
                 <label {...classes('label')}>
                     Objem motora v cm³:
                     <input {...classes('input')} onChange={formik2.handleChange} value={formik2.values.cylinderVolume} type="number" name="cylinderVolume" id="cylinderVolume"/>
