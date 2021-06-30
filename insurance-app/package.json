@@ -7,10 +7,12 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "formik": "^2.2.9",
     "react": "^17.0.0",
     "react-bem-helper": "^1.4.1",
     "react-dom": "^17.0.0",
-    "react-router-dom": "^5.2.0"
+    "react-router-dom": "^5.2.0",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "@types/react": "^17.0.0",
