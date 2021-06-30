@@ -9,3 +9,19 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
+
+model Registrations {
+  id                    Int               @id @default(autoincrement())
+  SPZ                   String
+  carId                 Int
+  car                   Car               @relation(fields: [carId], references: [id])
+}
+
+model Car {
+  id                    Int               @id @default(autoincrement())
+  engineDisplcementMl   Float
+  powerKw               Float
+  marketPriceEur        Float
+  madeAt                DateTime
+  registrations         Registrations[]
+}
