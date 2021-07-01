@@ -10,13 +10,7 @@ import { useRecoilState } from 'recoil';
 const classes = new BEMHelper('form');
 const licenseClasses = new BEMHelper('license-plate');
 
-// const validationSchema1 = Yup.object().shape({
-//     licensePlate: Yup.string()
-//         .uppercase()
-//         .matches(RegExp('[A-Z]{2,2}[A-Z0-9]{5,5}'))
-// });
-
-const licensePlaceRegex = new RegExp('[A-Z]{2,2}[A-Z0-9]{5,5}');
+const licensePlaceRegex = new RegExp('[A-Z]{2,2}([0-9]{3,3}[A-Z]{2,2}|[A-NP-WYZ]([A-Z]{3,3}[A-Z0-9]|[A-Z]{2,2}[A-Z0-9][0-9]))');
 
 const initialValues1 = {
     licensePlate: ''
