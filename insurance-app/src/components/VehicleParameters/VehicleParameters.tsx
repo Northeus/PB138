@@ -49,7 +49,7 @@ const VehicleParameters = () => {
             if (!licensePlaceRegex.test(values.licensePlate.toUpperCase())) {
                 return { licensePlate: 'Invalid' };
             }
-            // TODO validation, may not be capitalised
+            // TODO validation against database, may not be capitalised
             return { };
         },
         onSubmit: async (values) => {
@@ -66,7 +66,7 @@ const VehicleParameters = () => {
     return (
         <>
             <form {...classes({ modifiers: ['centered', 'plate'] })} onSubmit={formik1.handleSubmit}>
-                <label {...classes('label')} htmlFor='license-plate'>Nájdenie ŠPZ:</label>
+                <label {...classes('label')} htmlFor='licensePlate'>Nájdenie ŠPZ:</label>
                 <input {...licenseClasses('number')} onChange={formik1.handleChange} value={formik1.values.licensePlate} type="text" spellCheck="false" maxLength={7} minLength={7} name="licensePlate" id="licensePlate" />
                 {formik1.errors.licensePlate && <span {...classes('error')}>{formik1.errors.licensePlate}</span>}
                 <button {...classes('submit')} type="submit">Submit</button>
