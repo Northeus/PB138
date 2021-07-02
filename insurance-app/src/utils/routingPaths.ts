@@ -4,7 +4,8 @@ enum RoutingPaths {
     VehicleParameters = '/vehicle-parameters',
     VehicleOwner = '/vehicle-owner',
     InsuranceType = '/insurance-type',
-    Summary = '/summary'
+    Summary = '/summary',
+    Root = '/'
 }
 
 export default RoutingPaths;

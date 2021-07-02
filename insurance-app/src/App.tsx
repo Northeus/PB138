@@ -7,7 +7,7 @@ import VehicleUtilisation from './components/VehicleUtilisation/VehicleUtilisati
 import VehicleParameters from './components/VehicleParameters/VehicleParameters';
 import VehicleOwner from './components/VehicleOwner/VehicleOwner';
 import InsuranceType from './components/InsuranceType/InsuranceType';
-import {Switch, Route, BrowserRouter as Router} from 'react-router-dom';
+import {Switch, Route, BrowserRouter as Router, Redirect} from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import './utils/css/normalize.css';
 import './main.css';
@@ -42,23 +42,14 @@ const App = () : JSX.Element => {
                 <main {...classes('main')}>
                     <Router>
                         <Switch>
-                            <Route path={RoutingPaths.VehicleType}>
-                                <VehicleType />
-                            </Route>
-                            <Route path={RoutingPaths.VehicleUtilisation}>
-                                <VehicleUtilisation />
-                            </Route>
-                            <Route path={RoutingPaths.VehicleParameters}>
-                                <VehicleParameters />
-                            </Route>
-                            <Route path={RoutingPaths.VehicleOwner}>
-                                <VehicleOwner />
-                            </Route>
-                            <Route path={RoutingPaths.InsuranceType}>
-                                <InsuranceType />
-                            </Route>
-                            <Route path={RoutingPaths.Summary}>
-                                <Summary />
+                            <Route path={RoutingPaths.VehicleType} component={VehicleType} />
+                            <Route path={RoutingPaths.VehicleUtilisation} component={VehicleUtilisation} />
+                            <Route path={RoutingPaths.VehicleParameters} component={VehicleParameters} />
+                            <Route path={RoutingPaths.VehicleOwner} component={VehicleOwner} />
+                            <Route path={RoutingPaths.InsuranceType} component={InsuranceType} />
+                            <Route path={RoutingPaths.Summary} component={Summary} />
+                            <Route path={RoutingPaths.Root}>
+                                <Redirect to={RoutingPaths.VehicleType} />
                             </Route>
                         </Switch>
                     </Router>

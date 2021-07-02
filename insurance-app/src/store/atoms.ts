@@ -26,7 +26,7 @@ interface IVehicleParameters {
 
 interface IVehicleOwner {
     drivingLicenseDate: Date;
-    isLast3YearsWithoutAccident: boolean;
+    accidentIn3Years: boolean;
 }
 
 enum EInsuranceType {
@@ -63,8 +63,8 @@ export const vehicleParametersStateAtom = atom<IVehicleParameters>({
 export const vehicleOwnerStateAtom = atom<IVehicleOwner>({
     key: 'vehicleOwnerAtom',
     default: {
-        drivingLicenseDate: new Date(0),
-        isLast3YearsWithoutAccident: true
+        drivingLicenseDate: new Date(),
+        accidentIn3Years: false,
     }
 });
 
