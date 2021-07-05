@@ -1,0 +1,57 @@
+@import "../../utils/css/colors.css";
+
+.checkpoints {
+  display: flex;
+  height: calc(100% - 0.2rem);
+
+  justify-content: center;
+  gap: 4rem;
+
+  border-bottom: 0.2rem groove var(--border-separate);
+}
+
+.checkpoints__item {
+  display: table;
+  padding: 0.5rem;
+
+  border-bottom: 0.15rem solid var(--background-default);
+}
+
+.checkpoints__item--active {
+  transition: ease-in-out 0.5s;
+}
+
+.checkpoints__item--current {
+  cursor: default;
+}
+
+.checkpoints__item--active:hover, .checkpoints__item--current {
+  border-bottom: 0.15rem solid var(--border-current);
+}
+
+.checkpoints__item--inactive {
+  color: var(--text-inactive);
+
+  cursor: default;
+}
+
+.checkpoints__item--hidden {
+  display: none;
+}
+
+.checkpoints__name {
+  display: table-cell;
+
+  vertical-align: middle;
+}
+
+.checkpoints__name--big {
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+
+@media only screen and (min-width: 60rem) {
+  .checkpoints__item--hidden {
+    display: table;
+  }
+}

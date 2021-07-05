@@ -8,4 +8,13 @@ enum RoutingPaths {
     Root = '/'
 }
 
+export const order = [
+    RoutingPaths.VehicleType,
+    RoutingPaths.VehicleUtilisation,
+    RoutingPaths.VehicleParameters,
+    RoutingPaths.VehicleOwner,
+    RoutingPaths.InsuranceType,
+    RoutingPaths.Summary
+];
+
 export default RoutingPaths;

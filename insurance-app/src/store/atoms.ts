@@ -1,27 +1,15 @@
 import { atom } from 'recoil';
-
-enum EVehicleType {
-    Car = 0,
-    UpTo35Ton,
-    Motorcycle,
-    FourWheeler
-}
-
-enum EVehicleUtilisation {
-    Normal = 0,
-    Taxi,
-    Rent,
-    Vip,
-    Dangerous
-}
+import EInsuranceType from '../utils/eInsuranceType';
+import EVehicleType from '../utils/eVehicleType';
+import EVehicleUtilisation from '../utils/eVehicleUtilisation';
 
 interface IVehicleParameters {
-    licenseNumber: string | undefined;
+    licensePlate: string | undefined;
 
     cylinderVolume: number;
     enginePower: number;
     price: number;
-    dateOfMade: Date;
+    creationDate: Date;
 }
 
 interface IVehicleOwner {
@@ -29,15 +17,15 @@ interface IVehicleOwner {
     accidentIn3Years: boolean;
 }
 
-enum EInsuranceType {
-    MCI = 0, // PZP
-    AccidentInsurance
-}
-
 interface IInsuranceType {
     type: EInsuranceType;
     windowInsurance: boolean;
 }
+
+export const progressStateAtom = atom<number>({
+    key: 'progressAtom',
+    default: 0
+});
 
 export const vehicleTypeStateAtom = atom<EVehicleType>({
     key: 'vehicleTypeAtom',
@@ -52,11 +40,11 @@ export const vehicleUtilisationStateAtom = atom<EVehicleUtilisation>({
 export const vehicleParametersStateAtom = atom<IVehicleParameters>({
     key: 'vehicleParametersAtom',
     default: {
-        licenseNumber: undefined,
+        licensePlate: '',
         cylinderVolume: 50,
         enginePower: 100,
         price: 10000,
-        dateOfMade: new Date(0)
+        creationDate: new Date()
     }
 });
 

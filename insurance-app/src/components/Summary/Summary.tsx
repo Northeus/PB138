@@ -1,12 +1,12 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
-import { vehicleParametersState, vehicleTypeState } from '../../store/selectors';
+import { insuranceTypeState, vehicleParametersState, vehicleTypeState } from '../../store/selectors';
 
 import '../Informations/Information.css';
 
 const Summary = () => {
     // TODO: Calculate result sum based on user values
-    const x = useRecoilValue(vehicleParametersState);
+    const x = useRecoilValue(insuranceTypeState);
     console.log(x);
     return (
         <div className="information-block">

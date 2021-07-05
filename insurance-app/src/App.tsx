@@ -1,63 +1,13 @@
-import React, { useState } from 'react';
-import BEMHelper from 'react-bem-helper';
-import Informations from './components/Informations/Informations';
-import RoutingPaths from './utils/routingPaths';
-import VehicleType from './components/VehicleType/VehicleType';
-import VehicleUtilisation from './components/VehicleUtilisation/VehicleUtilisation';
-import VehicleParameters from './components/VehicleParameters/VehicleParameters';
-import VehicleOwner from './components/VehicleOwner/VehicleOwner';
-import InsuranceType from './components/InsuranceType/InsuranceType';
-import {Switch, Route, BrowserRouter as Router, Redirect} from 'react-router-dom';
+import React from 'react';
 import { RecoilRoot } from 'recoil';
+import Container from './components/Container/Container';
 import './utils/css/normalize.css';
 import './main.css';
-import './container.css';
-
-import Summary from './components/Summary/Summary';
-
-const classes = new BEMHelper('container');
 
 const App = () : JSX.Element => {
     return (
         <RecoilRoot>
-            <div {...classes()}>
-                <header {...classes('header')}>
-                    <nav className="checkpoints">
-                        <a href="#" className="checkpoints__item checkpoints__item--current">
-                            <span className="checkpoints__name">Druh vozu</span></a>
-                        <a href="#" className="checkpoints__item checkpoints__item--inactive">
-                            <span className="checkpoints__name">Vyuzitie vozu</span>
-                        </a>
-                        <a href="#" className="checkpoints__item checkpoints__item--inactive">
-                            <span className="checkpoints__name">Parametre vozu</span>
-                        </a>
-                        <a href="#" className="checkpoints__item checkpoints__item--inactive checkpoints__item--hidden">
-                            <span className="checkpoints__name">Majitel vozu</span>
-                        </a>
-                        <a href="#" className="checkpoints__item checkpoints__item--inactive checkpoints__item--hidden">
-                            <span className="checkpoints__name">Typ poistenia</span>
-                        </a>
-                    </nav>
-                </header>
-                <main {...classes('main')}>
-                    <Router>
-                        <Switch>
-                            <Route path={RoutingPaths.VehicleType} component={VehicleType} />
-                            <Route path={RoutingPaths.VehicleUtilisation} component={VehicleUtilisation} />
-                            <Route path={RoutingPaths.VehicleParameters} component={VehicleParameters} />
-                            <Route path={RoutingPaths.VehicleOwner} component={VehicleOwner} />
-                            <Route path={RoutingPaths.InsuranceType} component={InsuranceType} />
-                            <Route path={RoutingPaths.Summary} component={Summary} />
-                            <Route path={RoutingPaths.Root}>
-                                <Redirect to={RoutingPaths.VehicleType} />
-                            </Route>
-                        </Switch>
-                    </Router>
-                </main>
-                <footer {...classes('footer')}>
-                    <Informations />
-                </footer>
-            </div>
+            <Container></Container>
         </RecoilRoot>
     );
 };

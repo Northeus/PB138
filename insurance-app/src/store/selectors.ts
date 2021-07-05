@@ -1,5 +1,12 @@
 import { selector } from 'recoil';
-import { insuranceTypeStateAtom, vehicleOwnerStateAtom, vehicleParametersStateAtom, vehicleTypeStateAtom, vehicleUtilisationStateAtom } from './atoms';
+import { insuranceTypeStateAtom, progressStateAtom, vehicleOwnerStateAtom, vehicleParametersStateAtom, vehicleTypeStateAtom, vehicleUtilisationStateAtom } from './atoms';
+
+export const progressState = selector({
+    key: 'progress',
+    get: ({ get }) => {
+        return get(progressStateAtom);
+    },
+});
 
 export const vehicleTypeState = selector({
     key: 'vehicleType',
@@ -18,7 +25,7 @@ export const vehicleUtilisationState = selector({
 export const vehicleLicenseNumberState = selector({
     key: 'vehicleLicenseNumber',
     get: ({ get }) => {
-        return get(vehicleParametersStateAtom).licenseNumber;
+        return get(vehicleParametersStateAtom).licensePlate;
     },
 });
 
@@ -29,7 +36,7 @@ export const vehicleParametersState = selector({
         return { 'cylinderVolume': vehicleParams.cylinderVolume,
             'enginePower': vehicleParams.enginePower,
             'price': vehicleParams.price,
-            'dateOfMade': vehicleParams.dateOfMade };
+            'dateOfMade': vehicleParams.creationDate };
     },
 });
 

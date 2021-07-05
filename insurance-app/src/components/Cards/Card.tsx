@@ -11,16 +11,16 @@ interface ICardProp {
 const classes = new BEMHelper('card');
 
 const Card: React.FC<ICardProp> = (props) => {
-    const {image, name, picked} = props;
+    const {image, name, picked, action} = props;
     if (image == undefined) {
         return (
-            <button type="submit" {...classes({modifier: 'flat'})}>
+            <button type="button" {...classes({modifier: 'flat'})} onClick={action}>
                 <span {...classes('name')}>{name}</span>
             </button>
         );
     }
     return (
-        <button type="submit" {...classes()}>
+        <button type="button" {...classes()} onClick={action}>
             <img src={image} alt={name} {...(picked ? classes('picture', 'picked') : classes('picture'))} />
             <span {...classes('name', 'bottom')}>{name}</span>
         </button>

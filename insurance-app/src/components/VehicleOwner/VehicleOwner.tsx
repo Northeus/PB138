@@ -5,8 +5,9 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import './VehicleOwner.css';
 import '../Form/Form.css';
-import { vehicleOwnerStateAtom } from '../../store/atoms';
-import { Redirect } from 'react-router-dom';
+import { progressStateAtom, vehicleOwnerStateAtom } from '../../store/atoms';
+import { useHistory } from 'react-router-dom';
+import RoutingPaths from '../../utils/routingPaths';
 
 const classes = new BEMHelper('form');
 
@@ -17,10 +18,12 @@ const validationSchema = Yup.object().shape({
 
 const VehicleOwner = () => {
     const [vehicleOwner, setVehicleOwner] = useRecoilState(vehicleOwnerStateAtom);
+    const [ _, setProgress ] = useRecoilState(progressStateAtom);
     const initialValues = {
         drivingLicenseDate: vehicleOwner.drivingLicenseDate.toISOString().split('T')[0],
         accidentIn3Years: vehicleOwner.accidentIn3Years,
     };
+    const history = useHistory();
     const formik = useFormik({
         initialValues,
         validationSchema,
@@ -29,6 +32,8 @@ const VehicleOwner = () => {
                 drivingLicenseDate: new Date(values.drivingLicenseDate),
                 accidentIn3Years: values.accidentIn3Years
             });
+            setProgress(4);
+            history.push(RoutingPaths.InsuranceType);
         }
     });
     return (
@@ -40,7 +45,7 @@ const VehicleOwner = () => {
             {formik.errors.drivingLicenseDate && <span {...classes('error')}>{formik.errors.drivingLicenseDate}</span>}
             <label {...classes('label', 'small')}>
                 Zaškrtnite v prípade, že ste spôsobili dopravnú nehodu za posledné 3 roky.
-                <input {...classes('checkbox')} onChange={formik.handleChange} value={formik.values.accidentIn3Years.toString()} type="checkbox" name="accidentIn3Years" id="accidentIn3Years" />
+                <input {...classes('checkbox')} onChange={formik.handleChange} value={formik.values.accidentIn3Years.toString()} checked={formik.values.accidentIn3Years} type="checkbox" name="accidentIn3Years" id="accidentIn3Years" />
             </label>
             <button {...classes('submit')} type="submit">Submit</button>
         </form>
