@@ -6,8 +6,6 @@ import * as Yup from 'yup';
 import './VehicleOwner.css';
 import '../Form/Form.css';
 import { progressStateAtom, vehicleOwnerStateAtom } from '../../store/atoms';
-import { useHistory } from 'react-router-dom';
-import RoutingPaths from '../../utils/routingPaths';
 
 const classes = new BEMHelper('form');
 
@@ -23,7 +21,6 @@ const VehicleOwner = () => {
         drivingLicenseDate: vehicleOwner.drivingLicenseDate.toISOString().split('T')[0],
         accidentIn3Years: vehicleOwner.accidentIn3Years,
     };
-    const history = useHistory();
     const formik = useFormik({
         initialValues,
         validationSchema,
@@ -33,7 +30,6 @@ const VehicleOwner = () => {
                 accidentIn3Years: values.accidentIn3Years
             });
             setProgress(4);
-            history.push(RoutingPaths.InsuranceType);
         }
     });
     return (

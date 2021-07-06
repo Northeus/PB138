@@ -5,20 +5,16 @@ import Bike from '../../assets/vehicles/bike.svg';
 import Quad from '../../assets/vehicles/quad.svg';
 import Cards from '../Cards/Cards';
 import EVehicleType from '../../utils/eVehicleType';
-import { useHistory } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { progressStateAtom, vehicleTypeStateAtom } from '../../store/atoms';
-import RoutingPaths from '../../utils/routingPaths';
 
 const VehicleType = () => {
-    const history = useHistory();
     const [ vehicleType, setVehicleType] = useRecoilState(vehicleTypeStateAtom);
     const [ _, setProgress ] = useRecoilState(progressStateAtom);
     const getAction = (type: EVehicleType) => {
         return async () => {
             setVehicleType(type);
-            await setProgress(1); // this await is very important, idk why
-            history.push(RoutingPaths.VehicleUtilisation);
+            setProgress(1);
         };
     };
     const cards = [

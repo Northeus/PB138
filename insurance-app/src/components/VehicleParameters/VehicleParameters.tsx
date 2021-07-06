@@ -6,8 +6,6 @@ import './VehicleParameters.css';
 import '../Form/Form.css';
 import '../LicensePlate/LicensePlate.css';
 import { useRecoilState } from 'recoil';
-import { useHistory } from 'react-router-dom';
-import RoutingPaths from '../../utils/routingPaths';
 import { progressStateAtom, vehicleParametersStateAtom } from '../../store/atoms';
 
 const classes = new BEMHelper('form');
@@ -32,7 +30,6 @@ const validationSchema = Yup.object().shape({
 });
 
 const VehicleParameters = () => {
-    const history = useHistory();
     const [vehicleParameters, setVehicleParameters] = useRecoilState(vehicleParametersStateAtom);
     const [ _, setProgress ] = useRecoilState(progressStateAtom);
     const formik1 = useFormik({
@@ -49,7 +46,6 @@ const VehicleParameters = () => {
         },
         onSubmit: async (values) => {// TODO fetch values from DB and setVehicleParameters...
             setProgress(3);
-            history.push(RoutingPaths.VehicleOwner);
         }
     });
     const formik2 = useFormik({
@@ -69,7 +65,6 @@ const VehicleParameters = () => {
                 creationDate: new Date(values.creationDate)
             });
             setProgress(3);
-            history.push(RoutingPaths.VehicleOwner);
         }
     });
     return (

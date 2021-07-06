@@ -7,8 +7,6 @@ import { insuranceTypeStateAtom, progressStateAtom } from '../../store/atoms';
 import './InsuranceType.css';
 import '../Form/Form.css';
 import EInsuranceType from '../../utils/eInsuranceType';
-import { useHistory } from 'react-router-dom';
-import RoutingPaths from '../../utils/routingPaths';
 
 const classes = new BEMHelper('form');
 
@@ -20,7 +18,6 @@ const validationSchema = Yup.object().shape({
 });
 
 const InsuranceType = () => {
-    const history = useHistory();
     const [insuranceType, setInsuranceType] = useRecoilState(insuranceTypeStateAtom);
     const [ _, setProgress ] = useRecoilState(progressStateAtom);
     const formik = useFormik({
@@ -29,7 +26,6 @@ const InsuranceType = () => {
         onSubmit: async (values) => {
             setInsuranceType({type: +values.type, windowInsurance: values.windowInsurance});
             setProgress(5);
-            history.push(RoutingPaths.Summary);
         }
     });
     return (
