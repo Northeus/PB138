@@ -51,15 +51,6 @@ const Container = () => {
                         <Route path={RoutingPaths.Root}>
                             <Redirect to={order[progress]} />
                         </Route>
-                        {/* <Route path={RoutingPaths.VehicleType} component={VehicleType} />
-                        <Route path={RoutingPaths.VehicleUtilisation} component={VehicleUtilisation} />
-                        <Route path={RoutingPaths.VehicleParameters} component={VehicleParameters} />
-                        <Route path={RoutingPaths.VehicleOwner} component={VehicleOwner} />
-                        <Route path={RoutingPaths.InsuranceType} component={InsuranceType} />
-                        <Route path={RoutingPaths.Summary} component={Summary} />
-                        <Route path={RoutingPaths.Root}>
-                            <Redirect to={order[progress]} />
-                        </Route> */}
                     </Switch>
                 </Router>
             </main>
