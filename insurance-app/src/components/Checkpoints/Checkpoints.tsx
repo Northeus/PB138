@@ -42,7 +42,7 @@ const checkpoints = [
 
 const classes = new BEMHelper('checkpoints');
 
-const Checkpoints = () => {
+const Checkpoints = (): JSX.Element => {
     const [progress, setProgress] = useRecoilState(progressStateAtom);
     const previous = checkpoints.slice(progress - take, progress);
     const current = checkpoints[progress];
@@ -52,7 +52,7 @@ const Checkpoints = () => {
             {previous.map(c => (
                 <div {...classes('item', ['active'])} onClick={() => setProgress(c.index)} key={c.index}>
                     <span {...classes('name')}>{c.name}</span>
-                </div>    
+                </div>
             ))}
             {<div {...classes('item', 'current')} key={current.index}>
                 <span {...classes('name')}>{current.name}</span>
@@ -60,7 +60,7 @@ const Checkpoints = () => {
             {next.map(c => (
                 <div {...classes('item', ['inactive'])} key={c.index}>
                     <span {...classes('name')}>{c.name}</span>
-                </div>    
+                </div>
             ))}
         </nav>
     );

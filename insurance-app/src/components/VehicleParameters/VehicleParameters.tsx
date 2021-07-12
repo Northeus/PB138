@@ -29,9 +29,9 @@ const validationSchema = Yup.object().shape({
         .required('*Je nutné zadať dátum')
 });
 
-const VehicleParameters = () => {
+const VehicleParameters = (): JSX.Element => {
     const [vehicleParameters, setVehicleParameters] = useRecoilState(vehicleParametersStateAtom);
-    const [ _, setProgress ] = useRecoilState(progressStateAtom);
+    const [, setProgress] = useRecoilState(progressStateAtom);
     const formik1 = useFormik({
         initialValues: {licensePlate: vehicleParameters.licensePlate},
         validate: (values) => {
@@ -44,7 +44,7 @@ const VehicleParameters = () => {
             // TODO validation against database, may not be capitalised
             return { };
         },
-        onSubmit: async (values) => {// TODO fetch values from DB and setVehicleParameters...
+        onSubmit: async () => {// TODO fetch values from DB and setVehicleParameters...
             setProgress(3);
         }
     });
@@ -54,8 +54,8 @@ const VehicleParameters = () => {
             enginePower: vehicleParameters.enginePower,
             price: vehicleParameters.price,
             creationDate: vehicleParameters.creationDate.toISOString().split('T')[0]
-        }, 
-        validationSchema: validationSchema, 
+        },
+        validationSchema: validationSchema,
         onSubmit: async (values) => {
             setVehicleParameters({
                 licensePlate: vehicleParameters.licensePlate,

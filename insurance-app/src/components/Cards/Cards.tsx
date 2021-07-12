@@ -5,10 +5,10 @@ import './Cards.css';
 
 interface ICardsProps {
     cards: {
-        image: string | undefined,
-        name: string,
-        picked: boolean,
-        action: any
+        image: string | undefined;
+        name: string;
+        picked: boolean;
+        action: () => Promise<void>;
     }[]
 }
 

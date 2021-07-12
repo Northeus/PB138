@@ -2,10 +2,10 @@ import React from 'react';
 import BEMHelper from 'react-bem-helper';
 
 interface ICardProp {
-    image: string | undefined,
-    name: string,
-    picked: boolean,
-    action: any
+    image: string | undefined;
+    name: string;
+    picked: boolean;
+    action: () => Promise<void>;
 }
 
 const classes = new BEMHelper('card');

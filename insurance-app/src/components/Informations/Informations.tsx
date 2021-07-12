@@ -4,7 +4,7 @@ import './Informations.css';
 
 const classes = new BEMHelper('informations');
 
-const Informations = () => (
+const Informations = (): JSX.Element => (
     <nav {...classes()}>
         <a href="#" {...classes('item')}>
             <span {...classes('name')}>Kontaktujete nás</span>

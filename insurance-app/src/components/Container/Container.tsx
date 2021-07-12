@@ -19,7 +19,7 @@ import logo from '../../assets/logo.svg';
 const classes = new BEMHelper('container');
 const classLogo = new BEMHelper('logo');
 
-const Container = () => {
+const Container = (): JSX.Element => {
     const progress = useRecoilValue(progressState);
     return (
         <div {...classes()}>

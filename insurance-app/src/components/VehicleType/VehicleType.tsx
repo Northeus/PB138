@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Car from '../../assets/vehicles/car.svg';
 import Van from '../../assets/vehicles/van.svg';
 import Bike from '../../assets/vehicles/bike.svg';
@@ -8,9 +8,9 @@ import EVehicleType from '../../utils/eVehicleType';
 import { useRecoilState } from 'recoil';
 import { progressStateAtom, vehicleTypeStateAtom } from '../../store/atoms';
 
-const VehicleType = () => {
-    const [ vehicleType, setVehicleType] = useRecoilState(vehicleTypeStateAtom);
-    const [ _, setProgress ] = useRecoilState(progressStateAtom);
+const VehicleType = (): JSX.Element => {
+    const [vehicleType, setVehicleType] = useRecoilState(vehicleTypeStateAtom);
+    const [, setProgress] = useRecoilState(progressStateAtom);
     const getAction = (type: EVehicleType) => {
         return async () => {
             setVehicleType(type);
@@ -18,25 +18,25 @@ const VehicleType = () => {
         };
     };
     const cards = [
-        { 
+        {
             image: Car,
             name: 'Osobný automobil',
             picked: vehicleType == EVehicleType.Car,
             action: getAction(EVehicleType.Car)
         },
-        { 
+        {
             image: Van,
             name: 'Úžitkové vozidlo do 3.5t',
             picked: vehicleType == EVehicleType.UpTo35Ton,
             action: getAction(EVehicleType.UpTo35Ton)
         },
-        { 
+        {
             image: Bike,
             name: 'Motorka',
             picked: vehicleType == EVehicleType.Motorcycle,
             action: getAction(EVehicleType.Motorcycle)
         },
-        { 
+        {
             image: Quad,
             name: 'Štvorkolka',
             picked: vehicleType == EVehicleType.FourWheeler,

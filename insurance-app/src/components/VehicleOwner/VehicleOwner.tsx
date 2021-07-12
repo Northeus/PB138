@@ -14,9 +14,9 @@ const validationSchema = Yup.object().shape({
         .required('*Je nutné zadať hodnotu')
 });
 
-const VehicleOwner = () => {
+const VehicleOwner = (): JSX.Element => {
     const [vehicleOwner, setVehicleOwner] = useRecoilState(vehicleOwnerStateAtom);
-    const [ _, setProgress ] = useRecoilState(progressStateAtom);
+    const [, setProgress] = useRecoilState(progressStateAtom);
     const initialValues = {
         drivingLicenseDate: vehicleOwner.drivingLicenseDate.toISOString().split('T')[0],
         accidentIn3Years: vehicleOwner.accidentIn3Years,
