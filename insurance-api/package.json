@@ -21,7 +21,9 @@
     "@prisma/client": "^2.25.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "express-jsonschema": "^1.1.6"
+    "express-jsonschema": "^1.1.6",
+    "pug": "^3.0.2",
+    "html-pdf": "^3.0.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.10",

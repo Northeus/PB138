@@ -26,26 +26,27 @@ app.get('/vehicle/:spz', async (req, res) => {
     res.send(createResponse(vehicle));
 });
 
-// enum EVehicleType {
-//     'Car',
-//     'UpTo35Ton',
-//     'Motorcycle',
-//     'FourWheeler'
-// }
+/*
+enum EVehicleType {
+    'Car',
+    'UpTo35Ton',
+    'Motorcycle',
+    'FourWheeler'
+}
 
-// enum EVehicleUtilisation {
-//     'Normal',
-//     'Taxi',
-//     'Rent',
-//     'Vip',
-//     'Dangerous'
-// }
+enum EVehicleUtilisation {
+    'Normal',
+    'Taxi',
+    'Rent',
+    'Vip',
+    'Dangerous'
+}
 
-// enum EInsuranceType {
-//     'PZP',
-//     'AccidentInsurance'
-// }
-
+enum EInsuranceType {
+    'PZP',
+    'AccidentInsurance'
+}
+*/
 
 // Json schema
 const OfferInputSchema = {
@@ -143,7 +144,7 @@ const validateDates = (productionDate: string, birthDate: string, drivingLicense
     return false;
 };
 
-const validateBirthDrivingLicenseDates = (birthDate: string, drivingLicenseDate: string) : boolean => {
+const validateBirthDrivingLicenseDates = (birthDate: string, drivingLicenseDate: string) : boolean => {  // pozriet sa na toto
     const usersAge = Math.floor( (dateNow - Date.parse(birthDate)) / YEAR_IN_MILLISECONDS );
     if (usersAge < 17) {
         errorMessage = 'User must be at least 17 years old to use this app.';
@@ -192,6 +193,7 @@ const validateInput = (req: any, res: any, next: any) => {
         || validateBirthDrivingLicenseDates(birthDate, drivingLicenseDate) || validateBasedOnType(vehicleType, vehicleUtilisation, glassInsurance)
         || validateBasedOnInsurance(insuranceType, glassInsurance) ) {
         res.status(400).json({error: errorMessage});
+        res.status(400).send(errorMessage);
         return;
     }
     next();
@@ -244,6 +246,10 @@ const includeEngineSpecs = (displacement: number, maxPower: number) : void => {
     } else if (65 <= mernyObjemovyVykon) {
         priceResult *= 1.2;
     }
+
+    // priceResult *= 25 <= mernyObjemovyVykon && mernyObjemovyVykon < 65 ? 1.1 : 1;
+    // priceResult *= 65 <= mernyObjemovyVykon ? 1.2 : 1;
+
 };
 
 const evaluateVehicle = (productionDate: string, vehiclePrice: number) : void => {
@@ -331,6 +337,28 @@ app.post('/api/offer', validate({body: OfferInputSchema}), validateInput, functi
 
     res.json({ price: Math.round(priceResult * 100) / 100 });
 });
+
+
+// ################## PDF subor ########################################
+
+const pdf = require('html-pdf');
+const pug = require('pug');
+
+app.post('/api/test-pdf', async (req, res) => {
+
+    const offer = req.body;
+    const renderedHtml = pug.renderFile('src/views/offerPdf.pug', { offer: offer });
+
+    res.setHeader('Content-type', 'application/pdf');
+
+    pdf.create(renderedHtml).toStream(function(err: any, stream: any){
+        console.log(err);
+        stream.pipe(res);
+    });
+});
+
+// ################## PDF subor ########################################
+
 
 app.use(function(err: any, req: any, res: any, next: any) {
  
