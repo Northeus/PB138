@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { progressStateAtom, vehicleUtilisationStateAtom } from '../../store/atoms';
 import { vehicleTypeState } from '../../store/selectors';
 import EVehicleUtilisation from '../../utils/eVehicleUtilisation';
@@ -8,7 +8,7 @@ import EVehicleType from '../../utils/eVehicleType';
 
 const VehicleUtilisation = (): JSX.Element => {
     const [vehicleUtilisation, setVehicleUtilisaiton] = useRecoilState(vehicleUtilisationStateAtom);
-    const [, setProgress] = useRecoilState(progressStateAtom);
+    const setProgress = useSetRecoilState(progressStateAtom);
     const getAction = (utilisation: EVehicleUtilisation) => {
         return async () => {
             setVehicleUtilisaiton(utilisation);

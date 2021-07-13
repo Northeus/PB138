@@ -1,8 +1,8 @@
 enum EVehicleType {
-    Car = 0,
-    UpTo35Ton,
-    Motorcycle,
-    FourWheeler
+    Car = 'Car',
+    UpTo35Ton = 'UpTo35Ton',
+    Motorcycle = 'Motorcycle',
+    FourWheeler = 'FourWheeler'
 }
 
 export default EVehicleType;

@@ -17,9 +17,9 @@ const classes = new BEMHelper('cards');
 const Cards: React.FC<ICardsProps> = (props) => {
     const {cards} = props;
     return (
-        <form {...classes()}>
+        <div {...classes()}>
             {cards.map((c) => <Card {...c} key={c.name}/>)}
-        </form>
+        </div>
     );
 };
 

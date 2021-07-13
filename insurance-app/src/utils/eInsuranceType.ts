@@ -1,6 +1,6 @@
 enum EInsuranceType {
-    MCI = 0, // PZP
-    AccidentInsurance
+    PZP = 'PZP',
+    AccidentInsurance = 'AccidentInsurance'
 }
 
 export default EInsuranceType;

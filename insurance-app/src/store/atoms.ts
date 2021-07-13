@@ -1,4 +1,5 @@
 import { atom } from 'recoil';
+import { getNYearsAfter, getNYearsBefore } from '../utils/dateManipulation';
 import EInsuranceType from '../utils/eInsuranceType';
 import EVehicleType from '../utils/eVehicleType';
 import EVehicleUtilisation from '../utils/eVehicleUtilisation';
@@ -14,6 +15,7 @@ interface IVehicleParameters {
 
 interface IVehicleOwner {
     drivingLicenseDate: Date;
+    birthDate: Date;
     accidentIn3Years: boolean;
 }
 
@@ -27,14 +29,14 @@ export const progressStateAtom = atom<number>({
     default: 0
 });
 
-export const vehicleTypeStateAtom = atom<EVehicleType>({
+export const vehicleTypeStateAtom = atom<EVehicleType | undefined>({
     key: 'vehicleTypeAtom',
-    default: EVehicleType.Car
+    default: undefined
 });
 
-export const vehicleUtilisationStateAtom = atom<EVehicleUtilisation>({
+export const vehicleUtilisationStateAtom = atom<EVehicleUtilisation | undefined>({
     key: 'vehicleUtilisationAtom',
-    default: EVehicleUtilisation.Normal
+    default: undefined
 });
 
 export const vehicleParametersStateAtom = atom<IVehicleParameters>({
@@ -51,15 +53,16 @@ export const vehicleParametersStateAtom = atom<IVehicleParameters>({
 export const vehicleOwnerStateAtom = atom<IVehicleOwner>({
     key: 'vehicleOwnerAtom',
     default: {
-        drivingLicenseDate: new Date(),
-        accidentIn3Years: false,
+        birthDate: getNYearsBefore(new Date(), 18),
+        drivingLicenseDate: getNYearsAfter(new Date(), 17 - 18),
+        accidentIn3Years: false
     }
 });
 
 export const insuranceTypeStateAtom = atom<IInsuranceType>({
     key: 'insuranceTypeAtom',
     default: {
-        type: EInsuranceType.MCI,
+        type: EInsuranceType.PZP,
         windowInsurance: false
     }
 });

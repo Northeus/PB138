@@ -5,12 +5,12 @@ import Bike from '../../assets/vehicles/bike.svg';
 import Quad from '../../assets/vehicles/quad.svg';
 import Cards from '../Cards/Cards';
 import EVehicleType from '../../utils/eVehicleType';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { progressStateAtom, vehicleTypeStateAtom } from '../../store/atoms';
 
 const VehicleType = (): JSX.Element => {
     const [vehicleType, setVehicleType] = useRecoilState(vehicleTypeStateAtom);
-    const [, setProgress] = useRecoilState(progressStateAtom);
+    const setProgress = useSetRecoilState(progressStateAtom);
     const getAction = (type: EVehicleType) => {
         return async () => {
             setVehicleType(type);

@@ -1,9 +1,9 @@
 enum EVehicleUtilisation {
-    Normal = 0,
-    Taxi,
-    Rent,
-    Vip,
-    Dangerous
+    Normal = 'Normal',
+    Taxi = 'Taxi',
+    Rent = 'Rent',
+    Vip = 'Vip',
+    Dangerous = 'Dangerous'
 }
 
 export default EVehicleUtilisation;

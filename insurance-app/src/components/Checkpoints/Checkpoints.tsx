@@ -2,64 +2,43 @@ import React from 'react';
 import BEMHelper from 'react-bem-helper';
 import { useRecoilState } from 'recoil';
 import { progressStateAtom } from '../../store/atoms';
-import RoutingPaths from '../../utils/routingPaths';
 import './Checkpoints.css';
 
 const take = 1;
 
 const checkpoints = [
-    {
-        name: 'Druh vozu',
-        path: RoutingPaths.VehicleType,
-        index: 0
-    },
-    {
-        name: 'Využitie vozu',
-        path: RoutingPaths.VehicleUtilisation,
-        index: 1
-    },
-    {
-        name: 'Parametre vozu',
-        path: RoutingPaths.VehicleParameters,
-        index: 2
-    },
-    {
-        name: 'Majiteľ vozu',
-        path: RoutingPaths.VehicleOwner,
-        index: 3
-    },
-    {
-        name: 'Typ poistenia',
-        path: RoutingPaths.InsuranceType,
-        index: 4
-    },
-    {
-        name: 'Zhrnutie',
-        path: RoutingPaths.Summary,
-        index: 5
-    }
+    'Druh vozu',
+    'Využitie vozu',
+    'Parametre vozu',
+    'Majiteľ vozu',
+    'Typ poistenia',
+    'Zhrnutie',
 ];
 
 const classes = new BEMHelper('checkpoints');
 
 const Checkpoints = (): JSX.Element => {
     const [progress, setProgress] = useRecoilState(progressStateAtom);
-    const previous = checkpoints.slice(progress - take, progress);
-    const current = checkpoints[progress];
-    const next = checkpoints.slice(progress + 1, progress + take + 1);
+    const getClasses = (index: number) => {
+        if (index < progress - take) {
+            return classes('item', ['active', 'hidden']);
+        }
+        if (index < progress) {
+            return classes('item', 'active');
+        }
+        if (index == progress) {
+            return classes('item', 'current');
+        }
+        if (index <= progress + take) {
+            return classes('item', 'inactive');
+        }
+        return classes('item', ['inactive', 'hidden']);
+    };
     return (
         <nav {...classes()}>
-            {previous.map(c => (
-                <div {...classes('item', ['active'])} onClick={() => setProgress(c.index)} key={c.index}>
-                    <span {...classes('name')}>{c.name}</span>
-                </div>
-            ))}
-            {<div {...classes('item', 'current')} key={current.index}>
-                <span {...classes('name')}>{current.name}</span>
-            </div>}
-            {next.map(c => (
-                <div {...classes('item', ['inactive'])} key={c.index}>
-                    <span {...classes('name')}>{c.name}</span>
+            {checkpoints.map((c, i) => (
+                <div {...getClasses(i)} onClick={(i < progress ? () => setProgress(i) : undefined)} key={i}>
+                    <span {...classes('name')}>{c}</span>
                 </div>
             ))}
         </nav>
