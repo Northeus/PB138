@@ -3,12 +3,15 @@ import cors from 'cors';
 import { getCar } from './database';
 import createResponse from './utils/response';
 import { carNotFound } from './utils/errorMessages';
+import { getNYearsBefore } from './utils/dateManipulation';
+import pdf from 'html-pdf';
+import pug from 'pug';
+// import { validate } from 'json-schema';
 
-const port = 3000;
+const port = 3001;
 const app = express();
 
 app.use(cors());
-
 app.use(express.json());
 
 const validate = require('express-jsonschema').validate;
@@ -25,28 +28,6 @@ app.get('/vehicle/:spz', async (req, res) => {
 
     res.send(createResponse(vehicle));
 });
-
-/*
-enum EVehicleType {
-    'Car',
-    'UpTo35Ton',
-    'Motorcycle',
-    'FourWheeler'
-}
-
-enum EVehicleUtilisation {
-    'Normal',
-    'Taxi',
-    'Rent',
-    'Vip',
-    'Dangerous'
-}
-
-enum EInsuranceType {
-    'PZP',
-    'AccidentInsurance'
-}
-*/
 
 // Json schema
 const OfferInputSchema = {
@@ -102,217 +83,237 @@ const OfferInputSchema = {
     }
 };
 
-let errorMessage: string;
-let dateNow: number;
-let priceResult: number;
+const validateEngineSpecs = (req: any) : string => {
+    
+    const {
+        engineDisplacement,
+        engineMaxPower,
+    } = req.body;
 
-const YEAR_IN_MILLISECONDS = 365 * 24 * 60 * 60 * 1000;
-
-const validateEngineSpecs = (engineDisplacement: number, engineMaxPower: number) : boolean => {
     if (!Number.isInteger(engineDisplacement) || engineDisplacement < 0) {
-        errorMessage = 'Engine Displacement has to be a non-negative integer.';
-        return true;
+        return 'Engine Displacement has to be a non-negative integer.';
     }
     if (!Number.isInteger(engineMaxPower) || engineMaxPower < 0) {
-        errorMessage = 'Engine Max power has to be a non-negative integer.';
-        return true;
+        return 'Engine Max power has to be a non-negative integer.';
     }
-    return false;
+    return '';
 };
 
-const validatePrice = (price: number) : boolean => {
+const validatePrice = (req: any) : string => {
+    
+    const { price } = req.body;
+    
     if (price < 0) {
-        errorMessage = 'Vehicle price has to be a non-negative number.';
-        return true;
+        return 'Vehicle price has to be a non-negative number.';
     }
-    return false;
+    return '';
 };
 
-const validateDates = (productionDate: string, birthDate: string, drivingLicenseDate: string) : boolean => {
+const validateDates = (req: any) : string => {
+
+    const {
+        productionDate,
+        birthDate,
+        drivingLicenseDate
+    } = req.body;
+
     if (isNaN(Date.parse(productionDate))) {
-        errorMessage = 'Production date has to be a valid date.';
-        return true;
+        return 'Production date has to be a valid date.';
     }
     if (isNaN(Date.parse(birthDate))) {
-        errorMessage = 'Birth date has to be a valid date.';
-        return true;
+        return 'Birth date has to be a valid date.';
     }
     if (isNaN(Date.parse(drivingLicenseDate))) {
-        errorMessage = 'Driving licence date has to be a valid date.';
-        return true;
+        return 'Driving licence date has to be a valid date.';
     }
-    return false;
+    return '';
 };
 
-const validateBirthDrivingLicenseDates = (birthDate: string, drivingLicenseDate: string) : boolean => {  // pozriet sa na toto
-    const usersAge = Math.floor( (dateNow - Date.parse(birthDate)) / YEAR_IN_MILLISECONDS );
-    if (usersAge < 17) {
-        errorMessage = 'User must be at least 17 years old to use this app.';
-        return true;
+const validateBirthDrivingLicenseDates = (req: any) : string => {
+
+    const {
+        birthDate,
+        drivingLicenseDate
+    } = req.body;
+
+    if (new Date(birthDate) > getNYearsBefore(new Date(), 18)) {
+        return 'User must be at least 18 years old to use this app.';
     }
-    const drivingLicenseAge = Math.floor( (Date.parse(drivingLicenseDate) - Date.parse(birthDate)) / YEAR_IN_MILLISECONDS );
-    if (drivingLicenseAge < 17) {
-        errorMessage = 'User must be at least 17 years old to have a Driving license.';
-        return true;
+    if (new Date(birthDate) > getNYearsBefore(new Date(drivingLicenseDate), 17)) {
+        return 'User must be at least 17 years old to have a Driving license.';
     }
-    return false;
+    return '';
 };
 
-const validateBasedOnType = (vehicleType: string, vehicleUtilisation: string, glassInsurance: boolean) : boolean => {
-    if ( (vehicleType === 'Motorcycle' || vehicleType === 'FourWheeler')
-        && (vehicleUtilisation === 'Taxi' || vehicleUtilisation === 'Dangerous' || glassInsurance) ) {
-        errorMessage = 'Some attributes are wrong because of vehicle type.';
-        return true;
-    }
-    return false;
-};
+const validateBasedOnType = (req: any) : string => {
 
-const validateBasedOnInsurance = (insuranceType: string, glassInsurance: boolean) : boolean => {
-    if (glassInsurance && insuranceType === 'AccidentInsurance') {
-        errorMessage = 'Glass insurance cant be set with Accident insurance.';
-        return true;
-    }
-    return false;
-};
-
-const validateInput = (req: any, res: any, next: any) => {
-    dateNow = Date.now();
     const {
         vehicleType,
         vehicleUtilisation,
-        engineDisplacement,
-        engineMaxPower,
-        price,
-        productionDate,
-        birthDate,
-        drivingLicenseDate, 
+        glassInsurance
+    } = req.body;
+
+    if ( (vehicleType === 'Motorcycle' || vehicleType === 'FourWheeler')
+        && (vehicleUtilisation === 'Taxi' || vehicleUtilisation === 'Dangerous' || glassInsurance) ) {
+        return 'Some attributes are wrong because of vehicle type.';
+    }
+    return '';
+};
+
+const validateBasedOnInsurance = (req: any) : string => {
+    
+    const {
         insuranceType,
         glassInsurance
     } = req.body;
-    if ( validateEngineSpecs(engineDisplacement, engineMaxPower) || validatePrice(price) || validateDates(productionDate, birthDate, drivingLicenseDate)
-        || validateBirthDrivingLicenseDates(birthDate, drivingLicenseDate) || validateBasedOnType(vehicleType, vehicleUtilisation, glassInsurance)
-        || validateBasedOnInsurance(insuranceType, glassInsurance) ) {
-        res.status(400).json({error: errorMessage});
-        res.status(400).send(errorMessage);
-        return;
+    
+    if (glassInsurance && insuranceType === 'AccidentInsurance') {
+        return 'Glass insurance cant be set with Accident insurance.';
     }
+    return '';
+};
+
+const validateInput = (req: any, res: any, next: any) => {
+    const errors : string[] = [];
+    const validationFunctions = [
+        validateEngineSpecs,
+        validatePrice,
+        validateDates,
+        validateBirthDrivingLicenseDates,
+        validateBasedOnType,
+        validateBasedOnInsurance
+    ];
+
+    validationFunctions.map(f => {
+        const errorMessage = f(req);
+        if (errorMessage !== '') {
+            errors.push(errorMessage);
+        }
+    });
+
+    if (errors.length !== 0) {
+        return res.status(400).json(createResponse({errors: errors}, 'Found error(s). See included array of errors.'));
+    }
+
     next();
 };
 
-const includeInsuranceType = (insuranceType: string, glassInsurance: string) : void => {
-    if (insuranceType === 'PZP') {
-        priceResult += 100 + ( glassInsurance ? 10 : 0 );
-    }
-    else {
-        priceResult += 700;
-    }
+const includeInsuranceType = (insuranceType: string, glassInsurance: string) : number => {
+    return insuranceType !== 'PZP' ? 700 : ( 100 + ( glassInsurance ? 10 : 0 ) );
 };
 
-const includeVehicleTypeUtilisation = (vehicleType: string, vehicleUtilisation: string) : void => {
+const includeVehicleTypeUtilisation = (vehicleType: string, vehicleUtilisation: string) : number => {
+    let result = 1;
+
     switch (vehicleType) {
     case 'Motorcycle':
-        priceResult *= 1.02;
+        result *= 1.02;
         break;
     case 'FourWheeler':
-        priceResult *= 1.01;
+        result *= 1.01;
         break;
     default:  // 'Car' || 'UpTo35Ton'
-        priceResult *= 1;
+        result *= 1;
         break;
     }
     switch (vehicleUtilisation) {
     case 'Taxi':
-        priceResult *= 1.05;
+        result *= 1.05;
         break;
     case 'Rent':
-        priceResult *= 1.2;
+        result *= 1.2;
         break;
     case 'Vip':
-        priceResult *= 1.07;
+        result *= 1.07;
         break;
     case 'Dangerous':
-        priceResult *= 1.2;
+        result *= 1.2;
         break;
     default:  // 'Car'
-        priceResult *= 1;
+        result *= 1;
         break;
     }
+
+    return result;
 };
 
-const includeEngineSpecs = (displacement: number, maxPower: number) : void => {
-    const mernyObjemovyVykon = ( 1000 * maxPower ) / displacement; // no clue, how is it in english
-    if (25 <= mernyObjemovyVykon && mernyObjemovyVykon < 65) {
-        priceResult *= 1.1;
-    } else if (65 <= mernyObjemovyVykon) {
-        priceResult *= 1.2;
+const includeEngineSpecs = (displacement: number, maxPower: number) : number => {
+    const powerDisplacementRatio = ( 1000 * maxPower ) / displacement;
+    let result : number;
+
+    result = 25 <= powerDisplacementRatio && powerDisplacementRatio < 65 ? 1.1 : 1;
+    result = 65 <= powerDisplacementRatio ? 1.2 : 1;
+
+    return result;
+};
+
+const computeNumOfYears = (input: string) : number => {
+    const today = new Date();
+    const inputParsed = new Date(input);
+    let result = today.getFullYear() - inputParsed.getFullYear();
+    const m = today.getMonth() - inputParsed.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < inputParsed.getDate())) {
+        result--;
     }
-
-    // priceResult *= 25 <= mernyObjemovyVykon && mernyObjemovyVykon < 65 ? 1.1 : 1;
-    // priceResult *= 65 <= mernyObjemovyVykon ? 1.2 : 1;
-
+    return result;
 };
 
-const evaluateVehicle = (productionDate: string, vehiclePrice: number) : void => {
-    const parsedProductionDate = Date.parse(productionDate);
-    const yearsDifference = Math.floor((dateNow - parsedProductionDate) / YEAR_IN_MILLISECONDS);
-
+const evaluateVehicle = (productionDate: string, vehiclePrice: number) : number => {
+    const yearsDifference = computeNumOfYears(productionDate);
     const evaluation = Math.max(0, vehiclePrice - (vehiclePrice * yearsDifference) / 20);
 
     if (5000 < evaluation && evaluation <= 10000) {
-        priceResult *= 1.05;
+        return 1.05;
     }
     if (10000 < evaluation && evaluation <= 25000) {
-        priceResult *= 1.1;
+        return 1.1;
     }
     if (25000 < evaluation) {
-        priceResult *= 1.2;
+        return 1.2;
     }
+
+    return 1;
 };
 
-const includeAge = (birthDate: string) : void => {
-    const parsedBirthDate = Date.parse(birthDate);
-    const age = Math.floor((dateNow - parsedBirthDate) / YEAR_IN_MILLISECONDS);
+const includeAge = (birthDate: string) : number => {
+    const age = computeNumOfYears(birthDate);
 
     if (age < 25) {
-        priceResult *= 1.2;
+        return 1.2;
     }
     if (25 <= age && age < 35) {
-        priceResult *= 1.15;
+        return 1.15;
     }
     if (60 <= age && age < 70) {
-        priceResult *= 1.15;
+        return 1.15;
     }
     if (70 <= age && age < 75) {
-        priceResult *= 1.2;
+        return 1.2;
     }
     if (75 <= age && age < 80) {
-        priceResult *= 1.25;
+        return 1.25;
     }
     if (80 <= age) {
-        priceResult *= 1.3;
+        return 1.3;
     }
+
+    return 1;
 };
 
-const includeDriversLicense = (drivingLicenseDate: string) : void => {
-    const parsedDrivingLicenseDate = Date.parse(drivingLicenseDate);
-    const driversLicenseYears = Math.floor((dateNow - parsedDrivingLicenseDate) / YEAR_IN_MILLISECONDS);
+const includeDriversLicense = (drivingLicenseDate: string) : number => {
+    const driversLicenseYears = computeNumOfYears(drivingLicenseDate);
+    let result : number;
 
-    if (driversLicenseYears < 5) {
-        priceResult *= 1.2;
-    }
-    if (5 <= driversLicenseYears && driversLicenseYears < 15) {
-        priceResult *= 1.15;
-    }
+    result = driversLicenseYears < 5 ? 1.2 : 1;
+    result = 5 <= driversLicenseYears && driversLicenseYears < 15 ? 1.15 : 1;
+
+    return result;
 };
 
-const includeAccident = (accident: boolean) : void => {
-    if (accident) {
-        priceResult *= 1.2;
-    }
-};
+const includeAccident = (accident: boolean) : number => accident ? 1.2 : 1;
 
 app.post('/api/offer', validate({body: OfferInputSchema}), validateInput, function(req, res) {
-    priceResult = 0;
+    let priceResult = 0;
     const {
         vehicleType,
         vehicleUtilisation,
@@ -327,22 +328,19 @@ app.post('/api/offer', validate({body: OfferInputSchema}), validateInput, functi
         glassInsurance
     } = req.body;
 
-    includeInsuranceType(insuranceType, glassInsurance);
-    includeVehicleTypeUtilisation(vehicleType, vehicleUtilisation);
-    includeEngineSpecs(engineDisplacement, engineMaxPower);
-    evaluateVehicle(productionDate, price);
-    includeAge(birthDate);
-    includeDriversLicense(drivingLicenseDate);
-    includeAccident(accident);
+    priceResult += includeInsuranceType(insuranceType, glassInsurance);
+    priceResult *= includeVehicleTypeUtilisation(vehicleType, vehicleUtilisation);
+    priceResult *= includeEngineSpecs(engineDisplacement, engineMaxPower);
+    priceResult *= evaluateVehicle(productionDate, price);
+    priceResult *= includeAge(birthDate);
+    priceResult *= includeDriversLicense(drivingLicenseDate);
+    priceResult *= includeAccident(accident);
 
     res.json({ price: Math.round(priceResult * 100) / 100 });
 });
 
 
 // ################## PDF subor ########################################
-
-const pdf = require('html-pdf');
-const pug = require('pug');
 
 app.post('/api/test-pdf', async (req, res) => {
 
