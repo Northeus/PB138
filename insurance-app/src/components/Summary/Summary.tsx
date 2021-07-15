@@ -64,7 +64,8 @@ const Summary = (): JSX.Element => {
             <p>
                 <span {...classes('item-title')}>Typ poistenia: </span>
                 <span {...classes('item-body')}>{insuranceTypeString[insuranceType.type]}
-                    {insuranceType.type == EInsuranceType.PZP && (insuranceType.windowInsurance ? ' (s pripoistením skla)' : ' (bez pripoistenia skla)')}</span>
+                    {insuranceType.type == EInsuranceType.PZP && (insuranceType.windowInsurance ? ' (s pripoistením skla)' : ' (bez pripoistenia skla)')}
+                </span>
             </p>
             <p {...classes('price')}>
                 <span {...classes('item-title')}>ROČNÁ CENA: </span>
