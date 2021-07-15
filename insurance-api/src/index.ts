@@ -191,7 +191,13 @@ const validateBasedOnInsurance = (req: any) : string => {
     return '';
 };
 
-const validateInput = (req: any, res: any, next: any) => {
+const validateOfferPrice = (req: any) : string => {
+    const { offer } = req.body;
+    return offer >= 0 ? '' : 'Offer price cant be negative.';
+};
+
+const sharedInputValidation = (req: any) : string[] => {
+
     const errors : string[] = [];
     const validationFunctions = [
         validateEngineSpecs,
@@ -209,11 +215,34 @@ const validateInput = (req: any, res: any, next: any) => {
         }
     });
 
+    return errors;
+};
+
+const validateInputOffer = (req: any, res: any, next: any) => {
+
+    const errors : string[] = sharedInputValidation(req);
     if (errors.length !== 0) {
         return res.status(400).json(createResponse({errors: errors}, 'Found error(s). See included array of errors.'));
     }
 
     next();
+};
+
+const validateInputPdf = (req: any, res: any, next: any) => {
+
+    const errors : string[] = sharedInputValidation(req);
+
+    const errorMessage = validateOfferPrice(req);
+    if (errorMessage !== '') {
+        errors.push(errorMessage);
+    }
+
+    if (errors.length !== 0) {
+        return res.status(400).json(createResponse({errors: errors}, 'Found error(s). See included array of errors.'));
+    }
+
+    next();
+
 };
 
 const includeInsuranceType = (req: any) : number => {
@@ -336,7 +365,7 @@ const includeDriversLicense = (req: any) : number => {
 
 const includeAccident = (req: any) : number => req.body.accident ? 1.2 : 1;
 
-app.post('/api/offer', validate({body: OfferInputSchema}), validateInput, function(req, res) {
+app.post('/api/offer', validate({body: OfferInputSchema}), validateInputOffer, (req, res) => {
     
     const resultMultiplicationFunctions = [
         includeVehicleTypeUtilisation,
@@ -358,7 +387,7 @@ app.post('/api/offer', validate({body: OfferInputSchema}), validateInput, functi
 
 // ################## PDF subor ########################################
 
-app.post('/api/test-pdf', validate({body: PdfInputSchema}), async (req, res) => {
+app.post('/api/test-pdf', validate({body: PdfInputSchema}), validateInputPdf, (req, res) => {
 
     const offer = req.body;
     const renderedHtml = pug.renderFile('src/views/offerPdf.pug', { offer: offer });
