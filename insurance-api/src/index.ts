@@ -6,6 +6,9 @@ import { carNotFound } from './utils/errorMessages';
 import { getNYearsBefore } from './utils/dateManipulation';
 import pdf from 'html-pdf';
 import pug from 'pug';
+import EVehicleType from './utils/eVehicleType';
+import EVehicleUtilisation from './utils/eVehicleUtilisation';
+import EInsuranceType from './utils/eInsuranceType';
 // import { validate } from 'json-schema';
 
 const port = 3001;
@@ -29,59 +32,74 @@ app.get('/vehicle/:spz', async (req, res) => {
     res.send(createResponse(vehicle));
 });
 
-// Json schema
-const OfferInputSchema = {
-    type: 'object',
-    properties: {
-        vehicleType: {
-            type: 'string',
-            required: true,
-            enum: ['Car', 'UpTo35Ton', 'Motorcycle', 'FourWheeler']
-        },
-        vehicleUtilisation: {
-            type: 'string',
-            required: true,
-            enum: ['Normal', 'Taxi', 'Rent', 'Vip', 'Dangerous']
-        },
-        engineDisplacement: {
-            type: 'number',
-            required: true
-        },
-        engineMaxPower: {
-            type: 'number',
-            required: true
-        },
-        price: {
-            type: 'number',
-            required: true
-        },
-        productionDate: {
-            type: 'string',
-            required: true
-        },
-        birthDate: {
-            type: 'string',
-            required: true
-        },
-        drivingLicenseDate: {
-            type: 'string',
-            required: true
-        },
-        accident: {
-            type: 'boolean',
-            required: true
-        },
-        insuranceType: {
-            type: 'string',
-            required: true,
-            enum: ['PZP', 'AccidentInsurance']
-        },
-        glassInsurance: {
-            type: 'boolean',
-            required: true
-        },
+// ######################### Json schemes ###############################
+const sharedInputProperties = {
+    vehicleType: {
+        type: 'string',
+        required: true,
+        enum: Object.values(EVehicleType)
+    },
+    vehicleUtilisation: {
+        type: 'string',
+        required: true,
+        enum: Object.values(EVehicleUtilisation)
+    },
+    engineDisplacement: {
+        type: 'number',
+        required: true
+    },
+    engineMaxPower: {
+        type: 'number',
+        required: true
+    },
+    price: {
+        type: 'number',
+        required: true
+    },
+    productionDate: {
+        type: 'string',
+        required: true
+    },
+    birthDate: {
+        type: 'string',
+        required: true
+    },
+    drivingLicenseDate: {
+        type: 'string',
+        required: true
+    },
+    accident: {
+        type: 'boolean',
+        required: true
+    },
+    insuranceType: {
+        type: 'string',
+        required: true,
+        enum: Object.values(EInsuranceType)
+    },
+    glassInsurance: {
+        type: 'boolean',
+        required: true
     }
 };
+
+const OfferInputSchema = {
+    type: 'object',
+    properties: {...sharedInputProperties}
+};
+
+const PdfInputSchema = {
+    type: 'object',
+    properties: {
+        ...sharedInputProperties,
+        offer: {
+            type: 'number',
+            required: true
+        }
+    }
+};
+
+// ######################### Json schemes ###############################
 
 const validateEngineSpecs = (req: any) : string => {
     
@@ -153,8 +171,8 @@ const validateBasedOnType = (req: any) : string => {
         glassInsurance
     } = req.body;
 
-    if ( (vehicleType === 'Motorcycle' || vehicleType === 'FourWheeler')
-        && (vehicleUtilisation === 'Taxi' || vehicleUtilisation === 'Dangerous' || glassInsurance) ) {
+    if ( (vehicleType === EVehicleType.Motorcycle || vehicleType === EVehicleType.FourWheeler)
+        && (vehicleUtilisation === EVehicleUtilisation.Taxi || vehicleUtilisation === EVehicleUtilisation.Dangerous || glassInsurance) ) {
         return 'Some attributes are wrong because of vehicle type.';
     }
     return '';
@@ -167,7 +185,7 @@ const validateBasedOnInsurance = (req: any) : string => {
         glassInsurance
     } = req.body;
     
-    if (glassInsurance && insuranceType === 'AccidentInsurance') {
+    if (glassInsurance && insuranceType === EInsuranceType.AccidentInsurance) {
         return 'Glass insurance cant be set with Accident insurance.';
     }
     return '';
@@ -199,17 +217,17 @@ const validateInput = (req: any, res: any, next: any) => {
 };
 
 const includeInsuranceType = (insuranceType: string, glassInsurance: string) : number => {
-    return insuranceType !== 'PZP' ? 700 : ( 100 + ( glassInsurance ? 10 : 0 ) );
+    return insuranceType !== EInsuranceType.PZP ? 700 : ( 100 + ( glassInsurance ? 10 : 0 ) );
 };
 
 const includeVehicleTypeUtilisation = (vehicleType: string, vehicleUtilisation: string) : number => {
     let result = 1;
 
     switch (vehicleType) {
-    case 'Motorcycle':
+    case EVehicleType.Motorcycle:
         result *= 1.02;
         break;
-    case 'FourWheeler':
+    case EVehicleType.FourWheeler:
         result *= 1.01;
         break;
     default:  // 'Car' || 'UpTo35Ton'
@@ -217,16 +235,16 @@ const includeVehicleTypeUtilisation = (vehicleType: string, vehicleUtilisation: 
         break;
     }
     switch (vehicleUtilisation) {
-    case 'Taxi':
+    case EVehicleUtilisation.Taxi:
         result *= 1.05;
         break;
-    case 'Rent':
+    case EVehicleUtilisation.Rent:
         result *= 1.2;
         break;
-    case 'Vip':
+    case EVehicleUtilisation.Vip:
         result *= 1.07;
         break;
-    case 'Dangerous':
+    case EVehicleUtilisation.Dangerous:
         result *= 1.2;
         break;
     default:  // 'Car'
@@ -342,7 +360,7 @@ app.post('/api/offer', validate({body: OfferInputSchema}), validateInput, functi
 
 // ################## PDF subor ########################################
 
-app.post('/api/test-pdf', async (req, res) => {
+app.post('/api/test-pdf', validate({body: PdfInputSchema}), async (req, res) => {
 
     const offer = req.body;
     const renderedHtml = pug.renderFile('src/views/offerPdf.pug', { offer: offer });
