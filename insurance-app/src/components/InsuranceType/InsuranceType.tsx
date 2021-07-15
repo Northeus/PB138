@@ -36,8 +36,7 @@ const InsuranceType = (): JSX.Element => {
 
     const vehicleType = useRecoilValue(vehicleTypeState);
     const [isWindowInsuranceEnabled, setWindowInsuranceOption] = useState(
-        (vehicleType == EVehicleType.Car || vehicleType == EVehicleType.UpTo35Ton)
-        && insuranceType.type == EInsuranceType.PZP
+        (vehicleType == EVehicleType.Car || vehicleType == EVehicleType.UpTo35Ton) && insuranceType.type == EInsuranceType.PZP
     );
 
     const onTypeChanged = (event: ChangeEvent<HTMLSelectElement>) => {
