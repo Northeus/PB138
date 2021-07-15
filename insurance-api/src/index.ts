@@ -216,11 +216,13 @@ const validateInput = (req: any, res: any, next: any) => {
     next();
 };
 
-const includeInsuranceType = (insuranceType: string, glassInsurance: string) : number => {
+const includeInsuranceType = (req: any) : number => {
+    const { insuranceType, glassInsurance } = req.body;
     return insuranceType !== EInsuranceType.PZP ? 700 : ( 100 + ( glassInsurance ? 10 : 0 ) );
 };
 
-const includeVehicleTypeUtilisation = (vehicleType: string, vehicleUtilisation: string) : number => {
+const includeVehicleTypeUtilisation = (req: any) : number => {
+    const { vehicleType, vehicleUtilisation } = req.body;
     let result = 1;
 
     switch (vehicleType) {
@@ -255,7 +257,8 @@ const includeVehicleTypeUtilisation = (vehicleType: string, vehicleUtilisation: 
     return result;
 };
 
-const includeEngineSpecs = (displacement: number, maxPower: number) : number => {
+const includeEngineSpecs = (req: any) : number => {
+    const { displacement, maxPower } = req.body;
     const powerDisplacementRatio = ( 1000 * maxPower ) / displacement;
     let result : number;
 
@@ -276,7 +279,8 @@ const computeNumOfYears = (input: string) : number => {
     return result;
 };
 
-const evaluateVehicle = (productionDate: string, vehiclePrice: number) : number => {
+const evaluateVehicle = (req: any) : number => {
+    const { productionDate, vehiclePrice } = req.body;
     const yearsDifference = computeNumOfYears(productionDate);
     const evaluation = Math.max(0, vehiclePrice - (vehiclePrice * yearsDifference) / 20);
 
@@ -293,7 +297,8 @@ const evaluateVehicle = (productionDate: string, vehiclePrice: number) : number 
     return 1;
 };
 
-const includeAge = (birthDate: string) : number => {
+const includeAge = (req: any) : number => {
+    const { birthDate } = req.body;
     const age = computeNumOfYears(birthDate);
 
     if (age < 25) {
@@ -318,7 +323,8 @@ const includeAge = (birthDate: string) : number => {
     return 1;
 };
 
-const includeDriversLicense = (drivingLicenseDate: string) : number => {
+const includeDriversLicense = (req: any) : number => {
+    const { drivingLicenseDate } = req.body;
     const driversLicenseYears = computeNumOfYears(drivingLicenseDate);
     let result : number;
 
@@ -328,31 +334,23 @@ const includeDriversLicense = (drivingLicenseDate: string) : number => {
     return result;
 };
 
-const includeAccident = (accident: boolean) : number => accident ? 1.2 : 1;
+const includeAccident = (req: any) : number => req.body.accident ? 1.2 : 1;
 
 app.post('/api/offer', validate({body: OfferInputSchema}), validateInput, function(req, res) {
-    let priceResult = 0;
-    const {
-        vehicleType,
-        vehicleUtilisation,
-        engineDisplacement,
-        engineMaxPower,
-        price,
-        productionDate,
-        birthDate,
-        drivingLicenseDate, 
-        accident,
-        insuranceType,
-        glassInsurance
-    } = req.body;
+    
+    const resultMultiplicationFunctions = [
+        includeVehicleTypeUtilisation,
+        includeEngineSpecs,
+        evaluateVehicle,
+        includeAge,
+        includeDriversLicense,
+        includeAccident
+    ];
 
-    priceResult += includeInsuranceType(insuranceType, glassInsurance);
-    priceResult *= includeVehicleTypeUtilisation(vehicleType, vehicleUtilisation);
-    priceResult *= includeEngineSpecs(engineDisplacement, engineMaxPower);
-    priceResult *= evaluateVehicle(productionDate, price);
-    priceResult *= includeAge(birthDate);
-    priceResult *= includeDriversLicense(drivingLicenseDate);
-    priceResult *= includeAccident(accident);
+    let priceResult = includeInsuranceType(req);
+    resultMultiplicationFunctions.map(f => {
+        priceResult *= f(req);
+    });
 
     res.json({ price: Math.round(priceResult * 100) / 100 });
 });
