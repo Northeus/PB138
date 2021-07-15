@@ -6,7 +6,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { insuranceTypeStateAtom, progressStateAtom } from '../../store/atoms';
 import './InsuranceType.css';
 import '../Form/Form.css';
-import EInsuranceType from '../../utils/eInsuranceType';
+import EInsuranceType, { insuranceTypeString } from '../../utils/eInsuranceType';
 import { vehicleTypeState } from '../../store/selectors';
 import EVehicleType from '../../utils/eVehicleType';
 // import Cards from '../Cards/Cards';
@@ -59,8 +59,8 @@ const InsuranceType = (): JSX.Element => {
             <label {...classes('label')}>
                 Druh poistenia:
                 <select {...classes('select')} onChange={onTypeChanged} value={formik.values.type} name="type" id="type">
-                    <option value={EInsuranceType.PZP}>PZP</option>
-                    <option value={EInsuranceType.AccidentInsurance}>Havarijné</option>
+                    <option value={EInsuranceType.PZP}>{insuranceTypeString[EInsuranceType.PZP]}</option>
+                    <option value={EInsuranceType.AccidentInsurance}>{insuranceTypeString[EInsuranceType.AccidentInsurance]}</option>
                 </select>
             </label>
             {formik.errors.type && <span {...classes('error')}>{formik.errors.type}</span>}

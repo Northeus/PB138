@@ -4,7 +4,7 @@ import Van from '../../assets/vehicles/van.svg';
 import Bike from '../../assets/vehicles/bike.svg';
 import Quad from '../../assets/vehicles/quad.svg';
 import Cards from '../Cards/Cards';
-import EVehicleType from '../../utils/eVehicleType';
+import EVehicleType, { vehicleTypeString } from '../../utils/eVehicleType';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { progressStateAtom, vehicleTypeStateAtom } from '../../store/atoms';
 
@@ -20,25 +20,25 @@ const VehicleType = (): JSX.Element => {
     const cards = [
         {
             image: Car,
-            name: 'Osobný automobil',
+            name: vehicleTypeString[EVehicleType.Car],
             picked: vehicleType == EVehicleType.Car,
             action: getAction(EVehicleType.Car)
         },
         {
             image: Van,
-            name: 'Úžitkové vozidlo do 3.5t',
+            name: vehicleTypeString[EVehicleType.UpTo35Ton],
             picked: vehicleType == EVehicleType.UpTo35Ton,
             action: getAction(EVehicleType.UpTo35Ton)
         },
         {
             image: Bike,
-            name: 'Motorka',
+            name: vehicleTypeString[EVehicleType.Motorcycle],
             picked: vehicleType == EVehicleType.Motorcycle,
             action: getAction(EVehicleType.Motorcycle)
         },
         {
             image: Quad,
-            name: 'Štvorkolka',
+            name: vehicleTypeString[EVehicleType.FourWheeler],
             picked: vehicleType == EVehicleType.FourWheeler,
             action: getAction(EVehicleType.FourWheeler)
         }

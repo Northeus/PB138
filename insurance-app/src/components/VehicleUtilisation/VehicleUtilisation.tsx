@@ -2,7 +2,7 @@ import React from 'react';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { progressStateAtom, vehicleUtilisationStateAtom } from '../../store/atoms';
 import { vehicleTypeState } from '../../store/selectors';
-import EVehicleUtilisation from '../../utils/eVehicleUtilisation';
+import EVehicleUtilisation, { vehicleUtilisationString } from '../../utils/eVehicleUtilisation';
 import Cards from '../Cards/Cards';
 import EVehicleType from '../../utils/eVehicleType';
 
@@ -19,7 +19,7 @@ const VehicleUtilisation = (): JSX.Element => {
     const cards = [
         {
             image: undefined,
-            name: 'Bežné použitie',
+            name: vehicleUtilisationString[EVehicleUtilisation.Normal],
             picked: vehicleUtilisation == EVehicleUtilisation.Normal,
             action: getAction(EVehicleUtilisation.Normal)
         }
@@ -30,7 +30,7 @@ const VehicleUtilisation = (): JSX.Element => {
     if (allOptions) {
         cards.push({
             image: undefined,
-            name: 'Taxi',
+            name: vehicleUtilisationString[EVehicleUtilisation.Taxi],
             picked: vehicleUtilisation == EVehicleUtilisation.Taxi,
             action: getAction(EVehicleUtilisation.Taxi)
         });
@@ -38,13 +38,13 @@ const VehicleUtilisation = (): JSX.Element => {
 
     cards.push({
         image: undefined,
-        name: 'Vozidlo pre požičovňu',
+        name: vehicleUtilisationString[EVehicleUtilisation.Rent],
         picked: vehicleUtilisation == EVehicleUtilisation.Rent,
         action: getAction(EVehicleUtilisation.Rent)
     },
     {
         image: undefined,
-        name: 'Vozidlo s právom prednostnej jazdy',
+        name: vehicleUtilisationString[EVehicleUtilisation.Vip],
         picked: vehicleUtilisation == EVehicleUtilisation.Vip,
         action: getAction(EVehicleUtilisation.Vip)
     });
@@ -52,7 +52,7 @@ const VehicleUtilisation = (): JSX.Element => {
     if (allOptions) {
         cards.push({
             image: undefined,
-            name: 'Vozidlo na prepravu nebezpečných vecí',
+            name: vehicleUtilisationString[EVehicleUtilisation.Dangerous],
             picked: vehicleUtilisation == EVehicleUtilisation.Dangerous,
             action: getAction(EVehicleUtilisation.Dangerous)
         });

@@ -10,7 +10,7 @@
 
   background-color: ivory;
   border-radius: 1rem;
-  box-shadow: var(--shadow-dark) 0.5rem 0.5rem; 
+  box-shadow: var(--shadow-dark) 0.5rem 0.5rem;
 }
 
 .information-block--faded {
@@ -18,8 +18,9 @@
 }
 
 .information-block__title {
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-weight: 700;
+  margin-bottom: 2.5rem;
+  text-align: center;
 }
 
 .informations__name {
@@ -27,4 +28,17 @@
 
   color: var(--text-bright);
   vertical-align: middle;
+}
+
+.information-block__item-title {
+  margin: 0 0 0.75rem 0;
+  font-weight: 700;
+}
+
+.information-block__item-body {
+  margin: 0 0 0.75rem 0;
+}
+
+.information-block__price {
+  margin-top: 4rem;
 }
