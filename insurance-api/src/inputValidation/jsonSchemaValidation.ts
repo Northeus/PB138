@@ -61,7 +61,7 @@ export const PdfInputSchema = {
     type: 'object',
     properties: {
         ...sharedInputProperties,
-        offer: {
+        offerPrice: {
             type: 'number',
             required: true
         }

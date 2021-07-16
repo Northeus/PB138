@@ -5,4 +5,11 @@ enum EVehicleType {
     FourWheeler = 'FourWheeler'
 }
 
+export const vehicleTypeString = {
+    [EVehicleType.Car]: 'Osobný automobil',
+    [EVehicleType.UpTo35Ton]: 'Úžitkové vozidlo do 3.5t',
+    [EVehicleType.Motorcycle]: 'Motorka',
+    [EVehicleType.FourWheeler]: 'Štvorkolka'
+};
+
 export default EVehicleType;

@@ -4,7 +4,7 @@ import EVehicleType from '../utils/eVehicleType';
 import EVehicleUtilisation from '../utils/eVehicleUtilisation';
 import createResponse from '../utils/response';
 
-const validateEngineSpecs = (req: any) : string => {
+const validateEngineSpecs = (req: { body: { engineDisplacement: number; engineMaxPower: number; }; }) : string => {
     
     const {
         engineDisplacement,
@@ -20,7 +20,7 @@ const validateEngineSpecs = (req: any) : string => {
     return '';
 };
 
-const validatePrice = (req: any) : string => {
+const validatePrice = (req: { body: { price: number; }; }) : string => {
     
     const { price } = req.body;
     
@@ -30,7 +30,7 @@ const validatePrice = (req: any) : string => {
     return '';
 };
 
-const validateDates = (req: any) : string => {
+const validateDates = (req: { body: { productionDate: string; birthDate: string; drivingLicenseDate:string; }; }) : string => {
 
     const {
         productionDate,
@@ -50,7 +50,7 @@ const validateDates = (req: any) : string => {
     return '';
 };
 
-const validateBirthDrivingLicenseDates = (req: any) : string => {
+const validateBirthDrivingLicenseDates = (req: { body: { birthDate: string; drivingLicenseDate: string; }; }) : string => {
 
     const {
         birthDate,
@@ -66,7 +66,7 @@ const validateBirthDrivingLicenseDates = (req: any) : string => {
     return '';
 };
 
-const validateBasedOnType = (req: any) : string => {
+const validateBasedOnType = (req: { body: { vehicleType: EVehicleType; vehicleUtilisation: EVehicleUtilisation; glassInsurance: boolean; }; }) : string => {
 
     const {
         vehicleType,
@@ -81,7 +81,7 @@ const validateBasedOnType = (req: any) : string => {
     return '';
 };
 
-const validateBasedOnInsurance = (req: any) : string => {
+const validateBasedOnInsurance = (req: { body: { insuranceType: EInsuranceType; glassInsurance: boolean; }; }) : string => {
     
     const {
         insuranceType,
@@ -94,12 +94,12 @@ const validateBasedOnInsurance = (req: any) : string => {
     return '';
 };
 
-const validateOfferPrice = (req: any) : string => {
-    const { offer } = req.body;
-    return offer >= 0 ? '' : 'Offer price cant be negative.';
+const validateOfferPrice = (req: { body: { offerPrice: number; }; }) : string => {
+    const { offerPrice } = req.body;
+    return offerPrice >= 0 ? '' : 'Offer price cant be negative.';
 };
 
-const sharedInputValidation = (req: any) : string[] => {
+const sharedInputValidation = (req: { body: { vehicleType: EVehicleType; vehicleUtilisation: EVehicleUtilisation; glassInsurance: boolean; }; } & { body: { insuranceType: EInsuranceType; glassInsurance: boolean; }; } & { body: { engineDisplacement: number; engineMaxPower: number; }; } & { body: { price: number; }; } & { body: { productionDate: string; birthDate: string; drivingLicenseDate: string; }; }) : string[] => {
 
     const errors : string[] = [];
     const validationFunctions = [
@@ -121,7 +121,7 @@ const sharedInputValidation = (req: any) : string[] => {
     return errors;
 };
 
-export const validateInputOffer = (req: any, res: any, next: any) => {
+export const validateInputOffer = (req: any, res: any, next: any) : void => {
 
     const errors : string[] = sharedInputValidation(req);
     if (errors.length !== 0) {
@@ -131,7 +131,7 @@ export const validateInputOffer = (req: any, res: any, next: any) => {
     next();
 };
 
-export const validateInputPdf = (req: any, res: any, next: any) => {
+export const validateInputPdf = (req: any, res: any, next: any) : void => {
 
     const errors : string[] = sharedInputValidation(req);
 

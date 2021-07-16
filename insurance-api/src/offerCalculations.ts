@@ -2,12 +2,12 @@ import EInsuranceType from './utils/eInsuranceType';
 import EVehicleType from './utils/eVehicleType';
 import EVehicleUtilisation from './utils/eVehicleUtilisation';
 
-export const includeInsuranceType = (req: any) : number => {
+export const includeInsuranceType = (req: { body: { insuranceType: EInsuranceType, glassInsurance: boolean; }; }) : number => {
     const { insuranceType, glassInsurance } = req.body;
     return insuranceType !== EInsuranceType.PZP ? 700 : ( 100 + ( glassInsurance ? 10 : 0 ) );
 };
 
-export const includeVehicleTypeUtilisation = (req: any) : number => {
+export const includeVehicleTypeUtilisation = (req: { body: { vehicleType: EVehicleType; vehicleUtilisation: EVehicleUtilisation; }; }) : number => {
     const { vehicleType, vehicleUtilisation } = req.body;
     let result = 1;
 
@@ -43,7 +43,7 @@ export const includeVehicleTypeUtilisation = (req: any) : number => {
     return result;
 };
 
-export const includeEngineSpecs = (req: any) : number => {
+export const includeEngineSpecs = (req: { body: { displacement: number; maxPower: number; }; }) : number => {
     const { displacement, maxPower } = req.body;
     const powerDisplacementRatio = ( 1000 * maxPower ) / displacement;
     let result : number;
@@ -65,7 +65,7 @@ const computeNumOfYears = (input: string) : number => {
     return result;
 };
 
-export const evaluateVehicle = (req: any) : number => {
+export const evaluateVehicle = (req: { body: { productionDate: string; vehiclePrice: number; }; }) : number => {
     const { productionDate, vehiclePrice } = req.body;
     const yearsDifference = computeNumOfYears(productionDate);
     const evaluation = Math.max(0, vehiclePrice - (vehiclePrice * yearsDifference) / 20);
@@ -83,7 +83,7 @@ export const evaluateVehicle = (req: any) : number => {
     return 1;
 };
 
-export const includeAge = (req: any) : number => {
+export const includeAge = (req: { body: { birthDate: string; }; }) : number => {
     const { birthDate } = req.body;
     const age = computeNumOfYears(birthDate);
 
@@ -109,7 +109,7 @@ export const includeAge = (req: any) : number => {
     return 1;
 };
 
-export const includeDriversLicense = (req: any) : number => {
+export const includeDriversLicense = (req: { body: { drivingLicenseDate: string; }; }) : number => {
     const { drivingLicenseDate } = req.body;
     const driversLicenseYears = computeNumOfYears(drivingLicenseDate);
     let result : number;
@@ -120,4 +120,4 @@ export const includeDriversLicense = (req: any) : number => {
     return result;
 };
 
-export const includeAccident = (req: any) : number => req.body.accident ? 1.2 : 1;
+export const includeAccident = (req: { body: { accident: boolean; }; }) : number => req.body.accident ? 1.2 : 1;

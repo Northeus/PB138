@@ -8,7 +8,9 @@ import pug from 'pug';
 import { includeVehicleTypeUtilisation, includeEngineSpecs, evaluateVehicle, includeAge, includeDriversLicense, includeAccident, includeInsuranceType } from './offerCalculations';
 import { validateInputOffer, validateInputPdf } from './inputValidation/attributesValidation';
 import { OfferInputSchema, PdfInputSchema } from './inputValidation/jsonSchemaValidation';
-// import { validate } from 'json-schema';
+import { vehicleTypeString } from './utils/eVehicleType';
+import { vehicleUtilisationString } from './utils/eVehicleUtilisation';
+import { insuranceTypeString } from './utils/eInsuranceType';
 
 const port = 3001;
 const app = express();
@@ -52,18 +54,32 @@ app.post('/api/offer', validate({body: OfferInputSchema}), validateInputOffer, (
 
 app.post('/api/test-pdf', validate({body: PdfInputSchema}), validateInputPdf, (req, res) => {
 
+    const formatDate = (dateString: string) => {
+        const date = new Date(dateString);
+
+        return date.getDate() + '. ' + (date.getMonth() + 1) + '. ' + date.getFullYear();
+    };
+
     const offer = req.body;
-    const renderedHtml = pug.renderFile('src/views/offerPdf.pug', { offer: offer });
+    const renderedHtml = pug.renderFile(
+        'src/views/offerPdf.pug',
+        { 
+            offer: offer,
+            vehicleTypeString: vehicleTypeString,
+            vehicleUtilisationString: vehicleUtilisationString,
+            insuranceTypeString: insuranceTypeString,
+            formatDate: formatDate
+        }
+    );
 
     res.setHeader('Content-type', 'application/pdf');
 
-    pdf.create(renderedHtml).toStream(function(err: any, stream: any){
-        console.log(err);
+    pdf.create(renderedHtml).toStream( (_error, stream) => {
         stream.pipe(res);
     });
 });
 
-app.use(function(err: any, req: any, res: any, next: any) {
+app.use((err: any, req: any, res: any, next: any) => {
  
     if (err.name === 'JsonSchemaValidation') {
         if (req.get('Content-Type') === 'application/json') {
@@ -72,7 +88,7 @@ app.use(function(err: any, req: any, res: any, next: any) {
             res.status(400).json({ error: 'Invalid content-type in input. JsonSchemaValidation failed.' });
         }
     } else {
-        next(err);  // pass error to next error middleware handler
+        next(err);
     }
 });
 
