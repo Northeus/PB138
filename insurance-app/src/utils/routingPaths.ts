@@ -5,6 +5,7 @@ enum RoutingPaths {
     VehicleOwner = '/vehicle-owner',
     InsuranceType = '/insurance-type',
     Summary = '/summary',
+    Info = '/info',
     Root = '/'
 }
 

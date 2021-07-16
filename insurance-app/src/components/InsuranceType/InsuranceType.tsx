@@ -9,11 +9,8 @@ import '../Form/Form.css';
 import EInsuranceType, { insuranceTypeString } from '../../utils/eInsuranceType';
 import { vehicleTypeState } from '../../store/selectors';
 import EVehicleType from '../../utils/eVehicleType';
-// import Cards from '../Cards/Cards';
 
 const classes = new BEMHelper('form');
-// const classesForm = new BEMHelper('form');
-// const classesDescription = new BEMHelper('description');
 
 const validationSchema = Yup.object().shape({
     type: Yup.string()
@@ -81,36 +78,6 @@ const InsuranceType = (): JSX.Element => {
             <button {...classes('submit')} type="submit">Ďalej</button>
         </form>
     );
-//     const cards = [
-//         {
-//             image: undefined,
-//             name: 'Povinné Zmluvné Poistenie',
-//             picked: insuranceType.type == EInsuranceType.MCI,
-//             action: async () => {console.log('pzp');}
-//         },
-//         {
-//             image: undefined,
-//             name: 'Havarijné Poistenie',
-//             picked: insuranceType.type == EInsuranceType.AccidentInsurance,
-//             action: async () => {console.log('pzp');}
-//         }
-//     ];
-//     return (
-//         <>
-//             <Cards {...{cards}} />
-//             <form {...classesForm({modifier: 'insurance'})}>
-//                 <div {...classesForm('description')}>
-//                 Povinné zmluvné poistenie musí byť podľa zákona na Slovensku uzavreté pre každé vozidlo. Kryje škody na zdraví a majetku, ktoré prevádzkou vozidla spôsobíte ďalším osobám. Povinné zmluvné poistenie sa nevzťahuje na škody spôsobené na vašom vozidle, k tomu slúži havarijné poistenie. Ak spôsobíte dopravnú nehodu, PZP pokryje škodu na vozidle, ktorú ste spôsobili inej osobe.
-// V našej poisťovni pokryjeme škody, ktoré spôsobíte, do výšky 5,3 mil. € pri škodách na zdraví a živote, a do výšky 1,1 mil. € pri škodách na majetku.
-//                 </div>
-//                 <form ></form>
-//             </form>
-//         </>
-//     );
 };
 
 export default InsuranceType;
-
-// const Description = () => {
-
-// }

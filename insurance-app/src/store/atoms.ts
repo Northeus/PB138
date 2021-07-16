@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { getNYearsAfter, getNYearsBefore } from '../utils/dateManipulation';
+import { getNYearsBefore } from '../utils/dateUtils';
 import EInsuranceType from '../utils/eInsuranceType';
 import EVehicleType from '../utils/eVehicleType';
 import EVehicleUtilisation from '../utils/eVehicleUtilisation';
@@ -54,7 +54,7 @@ export const vehicleOwnerStateAtom = atom<IVehicleOwner>({
     key: 'vehicleOwnerAtom',
     default: {
         birthDate: getNYearsBefore(new Date(), 18),
-        drivingLicenseDate: getNYearsAfter(new Date(), 17 - 18),
+        drivingLicenseDate: getNYearsBefore(new Date(), 1),
         accidentIn3Years: false
     }
 });

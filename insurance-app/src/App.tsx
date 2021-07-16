@@ -7,7 +7,7 @@ import './main.css';
 const App = () : JSX.Element => {
     return (
         <RecoilRoot>
-            <Container></Container>
+            <Container />
         </RecoilRoot>
     );
 };

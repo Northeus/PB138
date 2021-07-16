@@ -16,3 +16,5 @@ export const getNYearsAfter = (date: Date, n: number): Date => {
     dateCopy.setFullYear(dateCopy.getFullYear() + n);
     return dateCopy;
 };
+
+export const getDateString = (date: Date): string => date.toISOString().split('T')[0];

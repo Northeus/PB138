@@ -7,6 +7,7 @@ import '../Form/Form.css';
 import '../LicensePlate/LicensePlate.css';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { progressStateAtom, vehicleParametersStateAtom } from '../../store/atoms';
+import { getDateString } from '../../utils/dateUtils';
 
 const classes = new BEMHelper('form');
 const licenseClasses = new BEMHelper('license-plate');
@@ -54,7 +55,7 @@ const VehicleParameters = (): JSX.Element => {
             cylinderVolume: vehicleParameters.cylinderVolume,
             enginePower: vehicleParameters.enginePower,
             price: vehicleParameters.price,
-            creationDate: vehicleParameters.creationDate.toISOString().split('T')[0]
+            creationDate: getDateString(vehicleParameters.creationDate)
         },
         validationSchema: validationSchema,
         onSubmit: async (values) => {
@@ -131,7 +132,7 @@ const VehicleParameters = (): JSX.Element => {
                         onChange={formik2.handleChange}
                         value={formik2.values.creationDate}
                         type="date"
-                        max={new Date().toISOString().split('T')[0]}
+                        max={getDateString(new Date())}
                         name="creationDate"
                         id="creationDate"
                     />

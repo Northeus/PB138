@@ -29,6 +29,10 @@
   border-bottom: 0.15rem solid var(--border-current);
 }
 
+.checkpoints__item--active:hover {
+  cursor: pointer;
+}
+
 .checkpoints__item--inactive {
   color: var(--text-inactive);
 

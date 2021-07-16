@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import './VehicleOwner.css';
 import '../Form/Form.css';
 import { progressStateAtom, vehicleOwnerStateAtom } from '../../store/atoms';
-import { getNYearsAfter, getNYearsBefore } from '../../utils/dateManipulation';
+import { getDateString, getNYearsAfter, getNYearsBefore } from '../../utils/dateUtils';
 
 const classes = new BEMHelper('form');
 
@@ -29,8 +29,8 @@ const VehicleOwner = (): JSX.Element => {
     const [vehicleOwner, setVehicleOwner] = useRecoilState(vehicleOwnerStateAtom);
     const setProgress = useSetRecoilState(progressStateAtom);
     const initialValues = {
-        birthDate: vehicleOwner.birthDate.toISOString().split('T')[0],
-        drivingLicenseDate: vehicleOwner.drivingLicenseDate.toISOString().split('T')[0],
+        birthDate: getDateString(vehicleOwner.birthDate),
+        drivingLicenseDate: getDateString(vehicleOwner.drivingLicenseDate),
         accidentIn3Years: vehicleOwner.accidentIn3Years,
     };
     const formik = useFormik({
@@ -53,7 +53,7 @@ const VehicleOwner = (): JSX.Element => {
                     {...classes('input')}
                     onChange={formik.handleChange}
                     value={formik.values.birthDate}
-                    max={getNYearsBefore(new Date(), 18).toISOString().split('T')[0]}
+                    max={getDateString(getNYearsBefore(new Date(), 18))}
                     type="date"
                     name="birthDate"
                     id="birthDate"
@@ -66,8 +66,8 @@ const VehicleOwner = (): JSX.Element => {
                     {...classes('input')}
                     onChange={formik.handleChange}
                     value={formik.values.drivingLicenseDate}
-                    min={getNYearsAfter(new Date(formik.values.birthDate), 17).toISOString().split('T')[0]}
-                    max={new Date().toISOString().split('T')[0]}
+                    min={getDateString(getNYearsAfter(new Date(formik.values.birthDate), 17))}
+                    max={getDateString(new Date())}
                     type="date"
                     name="drivingLicenseDate"
                     id="drivingLicenseDate"
@@ -81,7 +81,7 @@ const VehicleOwner = (): JSX.Element => {
                     onChange={formik.handleChange}
                     value={formik.values.accidentIn3Years.toString()}
                     checked={formik.values.accidentIn3Years}
-                    max={new Date().toISOString().split('T')[0]}
+                    max={getDateString(new Date())}
                     type="checkbox"
                     name="accidentIn3Years"
                     id="accidentIn3Years"
