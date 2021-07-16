@@ -14,13 +14,10 @@ interface ICardsProps {
 
 const classes = new BEMHelper('cards');
 
-const Cards: React.FC<ICardsProps> = (props) => {
-    const {cards} = props;
-    return (
-        <div {...classes()}>
-            {cards.map((c) => <Card {...c} key={c.name}/>)}
-        </div>
-    );
-};
+const Cards: React.FC<ICardsProps> = ({cards}) => (
+    <div {...classes()}>
+        {cards.map((c) => <Card {...c} key={c.name}/>)}
+    </div>
+);
 
 export default Cards;
