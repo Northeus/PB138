@@ -1,18 +1,18 @@
 import express from 'express';
 import cors from 'cors';
-import { getCar } from './database';
+import { getCar, createOffer, getOffer } from './database';
 import createResponse from './utils/response';
 import { carNotFound } from './utils/errorMessages';
 import pdf from 'html-pdf';
 import pug from 'pug';
 import { includeVehicleTypeUtilisation, includeEngineSpecs, evaluateVehicle, includeAge, includeDriversLicense, includeAccident, includeInsuranceType } from './offerCalculations';
-import { validateInputOffer, validateInputPdf } from './inputValidation/attributesValidation';
-import { OfferInputSchema, PdfInputSchema } from './inputValidation/jsonSchemaValidation';
+import { validateInputOffer } from './inputValidation/attributesValidation';
+import { OfferInputSchema } from './inputValidation/jsonSchemaValidation';
 import { vehicleTypeString } from './utils/eVehicleType';
 import { vehicleUtilisationString } from './utils/eVehicleUtilisation';
 import { insuranceTypeString } from './utils/eInsuranceType';
 
-const port = 3001;
+const port = 3000;
 const app = express();
 
 app.use(cors());
@@ -33,7 +33,7 @@ app.get('/vehicle/:spz', async (req, res) => {
     res.send(createResponse(vehicle));
 });
 
-app.post('/api/offer', validate({body: OfferInputSchema}), validateInputOffer, (req, res) => {
+app.post('/api/offer', validate({body: OfferInputSchema}), validateInputOffer, async (req, res) => {
     
     const resultMultiplicationFunctions = [
         includeVehicleTypeUtilisation,
@@ -49,10 +49,13 @@ app.post('/api/offer', validate({body: OfferInputSchema}), validateInputOffer, (
         priceResult *= f(req);
     });
 
-    res.json({ price: Math.round(priceResult * 100) / 100 });
+    const price = Math.round(priceResult * 100) / 100;
+    const offer = await createOffer(Object.assign({}, req.body, { offerPrice: price }));
+
+    res.json(offer);
 });
 
-app.post('/api/test-pdf', validate({body: PdfInputSchema}), validateInputPdf, (req, res) => {
+app.get('/api/offer/:offerId(\\d+)/pdf', async (req, res) => {
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
@@ -60,7 +63,8 @@ app.post('/api/test-pdf', validate({body: PdfInputSchema}), validateInputPdf, (r
         return date.getDate() + '. ' + (date.getMonth() + 1) + '. ' + date.getFullYear();
     };
 
-    const offer = req.body;
+    console.log(parseInt(req.params.offerId));
+    const offer = await getOffer(parseInt(req.params.offerId));
     const renderedHtml = pug.renderFile(
         'src/views/offerPdf.pug',
         { 
@@ -78,6 +82,8 @@ app.post('/api/test-pdf', validate({body: PdfInputSchema}), validateInputPdf, (r
         stream.pipe(res);
     });
 });
+
+// <a href=${'/api/offer/' + offer.id + '/pdf'} target="_blank" class="btn ">Text tlačítka</a>
 
 app.use((err: any, req: any, res: any, next: any) => {
  

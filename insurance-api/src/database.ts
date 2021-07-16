@@ -1,4 +1,4 @@
-import { Car, PrismaClient } from '@prisma/client';
+import { Car, Offer, PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -13,4 +13,20 @@ export const getCar = async (spz: string): Promise<Car | undefined> => {
     });
 
     return query?.car;
+};
+
+export const createOffer = async (offer: any) => {
+    return (
+        await prisma.offer.create({
+            data: offer
+        })
+    );
+};
+
+export const getOffer = async (offerId: number): Promise<Offer | null>  => {
+    return await prisma.offer.findFirst({
+        where: {
+            id: offerId
+        }
+    });
 };

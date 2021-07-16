@@ -26,3 +26,19 @@ model Car {
   madeAt                DateTime
   registrations         Registrations[]
 }
+
+model Offer {
+    id                      Int         @id @default(autoincrement())
+    vehicleType             String
+    vehicleUtilisation      String
+    engineDisplacement      Int
+    engineMaxPower          Int
+    price                   Int
+    productionDate          String
+    birthDate               String
+    drivingLicenseDate      String
+    accident                Boolean
+    insuranceType           String
+    glassInsurance          Boolean
+    offerPrice              Float
+}
