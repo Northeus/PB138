@@ -21,15 +21,7 @@ const validateEngineSpecs = (req: offerReq) : string => {
     return '';
 };
 
-const validatePrice = (req: offerReq) : string => {
-    
-    const { price } = req.body;
-    
-    if (price < 0) {
-        return 'Vehicle price has to be a non-negative number.';
-    }
-    return '';
-};
+const validatePrice = (req: offerReq) : string => req.body.price < 0 ? 'Vehicle price has to be a non-negative number.' : '';
 
 const validateDates = (req: offerReq) : string => {
 

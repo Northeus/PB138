@@ -47,7 +47,7 @@ export const includeVehicleTypeUtilisation = (req: offerReq) : number =>
 export const includeEngineSpecs = (req: offerReq) : number => {
     const powerDisplacementRatio = ( 1000 * req.body.engineMaxPower ) / req.body.engineDisplacement;
 
-    return powerDisplacementRatio && powerDisplacementRatio < 65
+    return 25 <= powerDisplacementRatio && powerDisplacementRatio < 65
         ? 1.1
         : 65 <= powerDisplacementRatio
             ? 1.2
@@ -72,7 +72,7 @@ const computeNumOfYears = (input: string) : number => {
         : years - 1;
 };
 
-const evaluationMultiplayer = (evaluation: number) : number => {
+const evaluationMultiplier = (evaluation: number) : number => {
     if (5000 < evaluation && evaluation <= 10000) {
         return 1.05;
     }
@@ -90,10 +90,10 @@ export const evaluateVehicle = (req: offerReq) : number => {
     const yearsDifference = computeNumOfYears(req.body.productionDate);
     const evaluation = Math.max(0, req.body.price * (1 - yearsDifference / 20));
 
-    return evaluationMultiplayer(evaluation);
+    return evaluationMultiplier(evaluation);
 };
 
-const ageMultiplayer = (age: number) : number => {
+const ageMultiplier = (age: number) : number => {
     if (age < 25) {
         return 1.2;
     }
@@ -117,15 +117,13 @@ const ageMultiplayer = (age: number) : number => {
 };
 
 export const includeAge = (req: offerReq) : number => {
-    const { birthDate } = req.body;
-    const age = computeNumOfYears(birthDate);
+    const age = computeNumOfYears(req.body.birthDate);
 
-    return ageMultiplayer(age);
+    return ageMultiplier(age);
 };
 
 export const includeDriversLicense = (req: offerReq) : number => {
-    const { drivingLicenseDate } = req.body;
-    const driversLicenseYears = computeNumOfYears(drivingLicenseDate);
+    const driversLicenseYears = computeNumOfYears(req.body.drivingLicenseDate);
 
     return driversLicenseYears < 5
         ? 1.2

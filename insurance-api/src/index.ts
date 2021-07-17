@@ -46,12 +46,11 @@ app.post('/api/offer', validate({body: OfferInputSchema}), validateInputOffer, a
     ];
 
     const priceResult = includeInsuranceType(req);
-    const multiplayer = resultMultiplicationFunctions
-        .map(evaluationMultiplayer => evaluationMultiplayer(req))
+    const multiplier = resultMultiplicationFunctions
+        .map(evaluationMultiplier => evaluationMultiplier(req))
         .reduce((acc, curr) => acc * curr, 1);
-    
 
-    const offerPrice = Math.round((priceResult * multiplayer) * 100) / 100;
+    const offerPrice = Math.round((priceResult * multiplier) * 100) / 100;
 
     try {
         const offer = await createOffer(Object.assign({}, req.body, { offerPrice: offerPrice }));
