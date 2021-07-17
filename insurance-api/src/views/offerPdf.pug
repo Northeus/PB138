@@ -1,0 +1,127 @@
+doctype html
+html
+    head
+        meta(charset='UTF-8')
+        meta(http-equiv='X-UA-Compatible' content='IE=edge')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
+        title Offer
+        
+        style.
+
+            body {
+                font-size: 14px;
+            }
+
+            .header-title {
+                text-align: center;
+            }
+
+            .logo {
+                position: fixed;
+                width: 3.5rem;
+                height: 3.5rem;
+            }
+
+            .summary__item-title {
+                margin: 0 0 0.75rem 0;
+                font-size: 1.3rem;
+                font-weight: bold;
+            }
+            
+            .summary__item-body {
+                font-size: 1.3rem;
+                margin: 0 0 0.75rem 0;
+            }
+
+            .summary__item-price {
+                margin-top: 3rem;
+            }
+
+            .contacts {
+                margin-top: 5rem;
+            }
+
+            .contacts__title {
+                font-size: 1.5rem;
+                font-weight: bold;
+            }
+
+            .contacts__list {
+                padding: 0;
+                list-style: none;
+            }
+            
+            .contact {
+                width: 33%;
+                float: left;
+                text-align: center;
+            }
+
+            .contact__image {
+                width: 3rem;
+                height: 3rem;
+                display: block;
+                margin: 0 auto;
+            }
+
+            .contact__info {
+                font-size: 0.8rem;
+            }
+
+            .contact__info--bottom {
+                min-height: 1.6rem;
+                margin-top: auto;
+            }
+
+    body
+        header
+            img.logo(src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNzAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmVyc2lvbj0iMS4xIj4KICAgIDwhLS0gR2VuZXJhdG9yOiBTa2V0Y2ggNTEuMyAoNTc1NDQpIC0gaHR0cDovL3d3dy5ib2hlbWlhbmNvZGluZy5jb20vc2tldGNoIC0tPgogICAgPHRpdGxlPjAwNyAtIENhciBJbnN1cmFuY2U8L3RpdGxlPgogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CgogICAgPGc+CiAgICAgICAgPHRpdGxlPkxheWVyIDE8L3RpdGxlPgogICAgICAgIDxnIGZpbGwtcnVsZT0iZXZlbm9kZCIgZmlsbD0ibm9uZSIgaWQ9IlBhZ2UtMSI+CiAgICAgICAgICAgIDxnIGZpbGwtcnVsZT0ibm9uemVybyIgZmlsbD0iIzAwMDAwMCIgaWQ9IjAwNy0tLUNhci1JbnN1cmFuY2UiPgogICAgICAgICAgICAgICAgPHBhdGggaWQ9IlNoYXBlIiBkPSJtMzYuNDM2NDYsMjcuMTE3NjFsNy44MTIsNS41NjFjMC4zNDcxNiwwLjI0NzE4IDAuODEyODQsMC4yNDcxOCAxLjE2LDBsNy44MTIsLTUuNTYxYzEuNjI3NDEsLTEuMTUyNjQgMi41OTg1OCwtMy4wMTk3NyAyLjYwOCwtNS4wMTRsMCwtMTEuODMyYzAuMDAwNTksLTAuMzk4MTYgLTAuMjM1MDgsLTAuNzU4NzQgLTAuNiwtMC45MThsLTEwLC00LjMyYy0wLjI1Mjc1LC0wLjEwOSAtMC41MzkyNSwtMC4xMDkgLTAuNzkyLDBsLTEwLDQuMzJjLTAuMzY0OTIsMC4xNTkyNiAtMC42MDA1OSwwLjUxOTg0IC0wLjYsMC45MThsMCwxMS44MzJjMC4wMDc3NCwxLjk5MjczIDAuOTc1NzUsMy44NTk1IDIuNiw1LjAxNHptLTAuNjA4LC0xNi4xODlsOSwtMy44ODdsOSwzLjg4N2wwLDExLjE3NWMtMC4wMDczLDEuMzQ5NzIgLTAuNjY2MiwyLjYxMjc3IC0xLjc2OSwzLjM5MWwtNy4yMzEsNS4xNDJsLTcuMjMxLC01LjE0OGMtMS4xMDE0NywtMC43NzY2NiAtMS43NjAyNiwtMi4wMzcyOCAtMS43NjksLTMuMzg1bDAsLTExLjE3NXoiIC8+CiAgICAgICAgICAgICAgICA8cGF0aCBpZD0iU2hhcGUiIGQ9Im00Mi4yMjg0NiwyNC4zOTQ2MWMwLjQzMjA0LDAuMzI0MjMgMS4wNDM0OSwwLjI0Njc1IDEuMzgxLC0wLjE3NWw4LC0xMGMwLjM0NTE4LC0wLjQzMTMzIDAuMjc1MzMsLTEuMDYwODIgLTAuMTU2LC0xLjQwNmMtMC40MzEzMywtMC4zNDUxOCAtMS4wNjA4MiwtMC4yNzUzMyAtMS40MDYsMC4xNTZsLTcuNCw5LjI0NGwtMy4yMTksLTIuNDE5Yy0wLjI4NTgxLC0wLjIxNDM2IC0wLjY2NDI3LC0wLjI1OTk2IC0wLjk5MjgyLC0wLjExOTYyYy0wLjMyODU1LDAuMTQwMzUgLTAuNTU3MjcsMC40NDUzIC0wLjYsMC44Yy0wLjA0MjczLDAuMzU0NzEgMC4xMDcwMSwwLjcwNTI2IDAuMzkyODIsMC45MTk2Mmw0LDN6IiAvPgogICAgICAgICAgICAgICAgPHBhdGggaWQ9IlNoYXBlIiBkPSJtMS44Mjg0Niw1My41OTQ2MWwxLDBsMCw0YzAsMS42NTY4NSAxLjM0MzE1LDMgMywzbDYsMGMxLjY1Njg1LDAgMywtMS4zNDMxNSAzLC0zbDAsLTRsMjQsMGwwLDRjMCwxLjY1Njg1IDEuMzQzMTUsMyAzLDNsNiwwYzEuNjU2ODUsMCAzLC0xLjM0MzE1IDMsLTNsMCwtNGwxLDBjMS4xMDQ1NywwIDIsLTAuODk1NDMgMiwtMmwwLC0xNWMwLjAwMzcyLC0xLjQ0OTI2IC0wLjYyODI2LC0yLjgyNzI2IC0xLjcyOSwtMy43N2wzLjQ0LC0yLjQ0OGMyLjY4MDk4LC0xLjkwMzkyIDQuMjc4MTksLTQuOTg0NzcgNC4yODksLTguMjczbDAsLTE0LjQ2MWMwLjAwMDU5LC0wLjM5ODE2IC0wLjIzNTA4LC0wLjc1ODc0IC0wLjYsLTAuOTE4bC0xNCwtNi4wNDhjLTAuMjUyNzUsLTAuMTA5IC0wLjUzOTI1LC0wLjEwOSAtMC43OTIsMGwtMTQuMDA4LDYuMDQ4Yy0wLjM2NDkyLDAuMTU5MjYgLTAuNjAwNTksMC41MTk4NCAtMC42LDAuOTE4bDAsMy45NTJsLTE1LjEzLDBjLTIuMTIwMTEsMC4wMDA3MiAtNC4wMDkyOCwxLjMzODQ0IC00LjcxNCwzLjMzOGwtNS44OSwxNi43MzZjLTIuNDQ1MTksMC4zNTk4NiAtNC4yNTkxNywyLjQ1NDQ4IC00LjI2Niw0LjkyNmwwLDE1YzAsMS4xMDQ1NyAwLjg5NTQzLDIgMiwyem0xMSw0YzAsMC41NTIyOCAtMC40NDc3MiwxIC0xLDFsLTYsMGMtMC41NTIyOCwwIC0xLC0wLjQ0NzcyIC0xLC0xbDAsLTRsOCwwbDAsNHptLTQsLTZsLTIsMGwwLC0ybDIsMGwwLDJ6bTQwLDZjMCwwLjU1MjI4IC0wLjQ0NzcyLDEgLTEsMWwtNiwwYy0wLjU1MjI4LDAgLTEsLTAuNDQ3NzIgLTEsLTFsMCwtNGw4LDBsMCw0em0tMiwtNmwtMiwwbDAsLTJsMiwwbDAsMnptLTE1LC00My4yOTVsMTMsLTUuNjE2bDEzLDUuNjE2bDAsMTMuOGMtMC4wMDk5LDIuNjQxNTQgLTEuMjk0MzUsNS4xMTU4MyAtMy40NDksNi42NDRsLTkuNTUxLDYuODAzbC05LjU1MSwtNi44Yy0yLjE1NDM3LC0xLjUyNzk2IC0zLjQzODc4LC00LjAwMTgyIC0zLjQ0OSwtNi42NDNsMCwtMTMuODA0em0xNSwyOS4yOTVjMC41NTIyOCwwIDEsMC40NDc3MiAxLDFsMCwyYzAsMC41NTIyOCAtMC40NDc3MiwxIC0xLDFsLTYsMGMtMC41NTIyOCwwIC0xLC0wLjQ0NzcyIC0xLC0xYzAsLTEuNjU2ODUgMS4zNDMxNSwtMyAzLC0zbDQsMHptLTE3LC0yMGwwLDJsLTcsMGwwLC0ybDcsMHptMCwtMmwtMiwwbDAsLTJsMiwwbDAsMnptLTE3Ljk1NywwYzAuNDIzNjEsLTEuMTk4MTUgMS41NTYxNywtMS45OTk0IDIuODI3LC0ybDExLjEzLDBsMCwybC0zLDBjLTEuMTA0NTcsMCAtMiwwLjg5NTQzIC0yLDJsMCwyYzAsMS4xMDQ1NyAwLjg5NTQzLDIgMiwybDcsMGwwLDAuNTA5YzAuMDEwODEsMy4yODgyMyAxLjYwODAyLDYuMzY5MDggNC4yODksOC4yNzNsMS43MTEsMS4yMThsLTI5LjU4OCwwbDUuNjMxLC0xNnptLTEwLjA0MywyMWMwLC0xLjY1Njg1IDEuMzQzMTUsLTMgMywtM2wzMy44MSwwbDMuMDIyLDIuMTUyYy0yLjI0MjYsMC41Mzg3NyAtMy44MjU3LDIuNTQxNiAtMy44MzIsNC44NDhjMCwxLjY1Njg1IDEuMzQzMTUsMyAzLDNsNiwwYzEuNjU2ODUsMCAzLC0xLjM0MzE1IDMsLTNsMCwtMmMtMC4wMDMyNiwtMS4yMzUyNiAtMC43NjMzNSwtMi4zNDIyNSAtMS45MTUsLTIuNzg5bDIuNDc2LC0xLjc2M2MwLjg5Njg0LDAuNTM2NyAxLjQ0Mzg3LDEuNTA2ODUgMS40MzksMi41NTJsMC4wMDAwMywxNWwtMy4wMDAwMywwbDAsLTJjMCwtMS4xMDQ1NyAtMC44OTU0MywtMiAtMiwtMmwtMiwwYy0xLjEwNDU3LDAgLTIsMC44OTU0MyAtMiwybDAsMmwtMzIsMGwwLC0yYzAsLTEuMTA0NTcgLTAuODk1NDMsLTIgLTIsLTJsLTIsMGMtMS4xMDQ1NywwIC0yLDAuODk1NDMgLTIsMmwwLDJsLTMsMGwwLC0xNXoiIC8+CiAgICAgICAgICAgICAgICA8cGF0aCBpZD0iU2hhcGUiIGQ9Im0xNy44Mjg0NiwxNS41OTQ2MWwtMS43MTEsMGMtMS4yNzEyNiwwLjAwMTQzIC0yLjQwNDI3LDAuODAyMTQgLTIuODMsMmwtMy43NTQsMTAuNjY4Yy0wLjE4MzM2LDAuNTIxMDggMC4wOTA0MiwxLjA5MjE0IDAuNjExNSwxLjI3NTVjMC41MjEwOCwwLjE4MzM2IDEuMDkyMTQsLTAuMDkwNDIgMS4yNzU1LC0wLjYxMTVsMy43NTQsLTEwLjY2NGMwLjE0MDgzLC0wLjQwMDE0IDAuNTE4OCwtMC42Njc4OCAwLjk0MywtMC42NjhsMS43MTEsMGMwLjU1MjI4LDAgMSwtMC40NDc3MiAxLC0xYzAsLTAuNTUyMjggLTAuNDQ3NzIsLTEgLTEsLTF6IiAvPgogICAgICAgICAgICAgICAgPHBhdGggaWQ9IlNoYXBlIiBkPSJtNi44Mjg0Niw0My41OTQ2MWw2LDBjMS42NTY4NSwwIDMsLTEuMzQzMTUgMywtM2MtMC4wMDMzMSwtMi43NjAwNSAtMi4yMzk5NSwtNC45OTY2OSAtNSwtNWwtNCwwYy0xLjY1Njg1LDAgLTMsMS4zNDMxNSAtMywzbDAsMmMwLDEuNjU2ODUgMS4zNDMxNSwzIDMsM3ptLTEsLTVjMCwtMC41NTIyOCAwLjQ0NzcyLC0xIDEsLTFsNCwwYzEuNjU2ODUsMCAzLDEuMzQzMTUgMywzYzAsMC41NTIyOCAtMC40NDc3MiwxIC0xLDFsLTYsMGMtMC41NTIyOCwwIC0xLC0wLjQ0NzcyIC0xLC0xbDAsLTJ6IiAvPgogICAgICAgICAgICAgICAgPHBhdGggaWQ9IlNoYXBlIiBkPSJtMTkuODI4NDYsNDkuNTk0NjFsMTQsMGMxLjEwNDU3LDAgMiwtMC44OTU0MyAyLC0ybDAsLTRjMCwtMS4xMDQ1NyAtMC44OTU0MywtMiAtMiwtMmwtMTQsMGMtMS4xMDQ1NywwIC0yLDAuODk1NDMgLTIsMmwwLDRjMCwxLjEwNDU3IDAuODk1NDMsMiAyLDJ6bTAsLTZsMTQsMGwwLDRsLTE0LDBsMCwtNHoiIC8+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICAgICAgPHRleHQgdHJhbnNmb3JtPSJtYXRyaXgoMS40NTc5NSwgMCwgMCwgMS4xOTE0NCwgLTQuMTA1NCwgLTE0LjYzNykiIGZvbnQtc3R5bGU9Im5vcm1hbCIgZm9udC13ZWlnaHQ9Im5vcm1hbCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgdGV4dC1hbmNob3I9InN0YXJ0IiBmb250LWZhbWlseT0iJ1JhY2luZyBTYW5zIE9uZSciIGZvbnQtc2l6ZT0iMTIiIGlkPSJzdmdfMiIgeT0iNjguNzIwNDEiIHg9IjE0Ljc4MDUzIiBzdHJva2Utd2lkdGg9IjAiIHN0cm9rZT0iIzAwMCIgZmlsbD0iIzAwMDAwMCI+Q0k8L3RleHQ+CiAgICA8L2c+Cjwvc3ZnPg==')
+            h1.header-title Naša ponuka pre Vás:
+        main
+            p
+                span.summary__item-title Typ vozidla: 
+                span.summary__item-body #{vehicleTypeString[offer.vehicleType]}
+            p
+                span.summary__item-title Využitie vozidla: 
+                span.summary__item-body #{vehicleUtilisationString[offer.vehicleUtilisation]}
+            p
+                span.summary__item-title Objem valcov: 
+                span.summary__item-body=`${offer.engineDisplacement} cm³`
+            p
+                span.summary__item-title Maximálny výkon: 
+                span.summary__item-body=`${offer.engineMaxPower} kW`
+            p
+                span.summary__item-title Kúpna cena: 
+                span.summary__item-body=`${offer.price} €`
+            p
+                span.summary__item-title Dátum výroby: 
+                span.summary__item-body=formatDate(offer.productionDate)
+            p
+                span.summary__item-title Dátum narodenia: 
+                span.summary__item-body=formatDate(offer.birthDate)
+            p
+                span.summary__item-title Dátum získania VO/VP: 
+                span.summary__item-body=formatDate(offer.drivingLicenseDate)
+            p
+                span.summary__item-title Mali ste nehodu za posledné 3 roky?: 
+                span.summary__item-body=offer.accident ? 'Áno' : 'Nie'
+            p
+                span.summary__item-title Typ poistenia: 
+                span.summary__item-body #{insuranceTypeString[offer.insuranceType]}#{offer.insuranceType === 'PZP' ? ' (' + (offer.glassInsurance ? 's pripoistením skla' : 'bez pripoistenia skla') + ')' : ''}
+            p.summary__item-price
+                span.summary__item-title ROČNÁ CENA: 
+                span.summary__item-body=`${offer.offerPrice} €`
+            p.summary__item-body
+                | Pokiaľ si prajete uzavrieť s nami dané poistenie, kontaktujte nás prosím cez nižšie uvedené kontakty.
+        footer.contacts
+            span.contacts__title Kontakty:
+            ul.contacts__list
+                li.contact
+                    img.contact__image(src='data:image/svg+xml;base64,PHN2ZyBpZD0iQ2FwYV8xIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA1MTIgNTEyIiBoZWlnaHQ9IjUxMiIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHdpZHRoPSI1MTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgICA8Zz4KICAgICAgICA8cGF0aCBkPSJtMjI2IDM5MGg2MHYxMjJoLTYweiIgLz4KICAgICAgICA8cGF0aCBkPSJtMTIxLjAyMyA1MTJoNzQuOTc3di0xNTJoMTIwdjE1Mmg3NS4zMzN2LTUxMmgtMjcwLjMxem0yMDkuOTc3LTQ1MmgzMHYzMGgtMzB6bTAgNjBoMzB2MzBoLTMwem0wIDYwaDMwdjMwaC0zMHptMCA2MGgzMHYzMGgtMzB6bTAgNjBoMzB2MzBoLTMwem0tNjAtMjQwaDMwdjMwaC0zMHptMCA2MGgzMHYzMGgtMzB6bTAgNjBoMzB2MzBoLTMwem0wIDYwaDMwdjMwaC0zMHptMCA2MGgzMHYzMGgtMzB6bS02MC0yNDBoMzB2MzBoLTMwem0wIDYwaDMwdjMwaC0zMHptMCA2MGgzMHYzMGgtMzB6bTAgNjBoMzB2MzBoLTMwem0wIDYwaDMwdjMwaC0zMHptLTYwLTI0MGgzMHYzMGgtMzB6bTAgNjBoMzB2MzBoLTMwem0wIDYwaDMwdjMwaC0zMHptMCA2MGgzMHYzMGgtMzB6bTAgNjBoMzB2MzBoLTMweiIgLz4KICAgICAgICA8cGF0aCBkPSJtNDIwLjYzNyAxMjBoOTEuMzYzdjM5MmgtOTEuMzYzeiIgLz4KICAgICAgICA8cGF0aCBkPSJtMCAxMjBoOTAuOTk2djM5MmgtOTAuOTk2eiIgLz4KICAgIDwvZz4KPC9zdmc+Cg==' alt='Adresa')
+                    span.contact__info.contact__info--bottom Botanická 3, 974 01, Banská Bystrica
+                li.contact
+                    img.contact__image(src='data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDUxMy42NCA1MTMuNjQiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMy42NCA1MTMuNjQ7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KICAgIDxnPgogICAgICAgIDxnPgogICAgICAgICAgICA8cGF0aCBkPSJNNDk5LjY2LDM3Ni45NmwtNzEuNjgtNzEuNjhjLTI1LjYtMjUuNi02OS4xMi0xNS4zNTktNzkuMzYsMTcuOTJjLTcuNjgsMjMuMDQxLTMzLjI4LDM1Ljg0MS01Ni4zMiwzMC43MgoJCQljLTUxLjItMTIuOC0xMjAuMzItNzkuMzYtMTMzLjEyLTEzMy4xMmMtNy42OC0yMy4wNDEsNy42OC00OC42NDEsMzAuNzItNTYuMzJjMzMuMjgtMTAuMjQsNDMuNTItNTMuNzYsMTcuOTItNzkuMzZsLTcxLjY4LTcxLjY4CgkJCWMtMjAuNDgtMTcuOTItNTEuMi0xNy45Mi02OS4xMiwwbC00OC42NCw0OC42NGMtNDguNjQsNTEuMiw1LjEyLDE4Ni44OCwxMjUuNDQsMzA3LjJjMTIwLjMyLDEyMC4zMiwyNTYsMTc2LjY0MSwzMDcuMiwxMjUuNDQKCQkJbDQ4LjY0LTQ4LjY0QzUxNy41ODEsNDI1LjYsNTE3LjU4MSwzOTQuODgsNDk5LjY2LDM3Ni45NnoiIC8+CiAgICAgICAgPC9nPgogICAgPC9nPgogICAgPGc+PC9nPgogICAgPGc+PC9nPgogICAgPGc+PC9nPgogICAgPGc+PC9nPgogICAgPGc+PC9nPgogICAgPGc+PC9nPgogICAgPGc+PC9nPgogICAgPGc+PC9nPgogICAgPGc+PC9nPgogICAgPGc+PC9nPgogICAgPGc+PC9nPgogICAgPGc+PC9nPgogICAgPGc+PC9nPgogICAgPGc+PC9nPgogICAgPGc+PC9nPgo8L3N2Zz4=' alt='Telefon')
+                    span.contact__info.contact__info--bottom +421 987 654 321 (NONSTOP)
+                li.contact
+                    img.contact__image(src='data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MTIgNTEyOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CiAgICA8Zz4KICAgICAgICA8Zz4KICAgICAgICAgICAgPGc+CiAgICAgICAgICAgICAgICA8cGF0aCBkPSJNMTAuNjg4LDk1LjE1NkM4MC45NTgsMTU0LjY2NywyMDQuMjYsMjU5LjM2NSwyNDAuNSwyOTIuMDFjNC44NjUsNC40MDYsMTAuMDgzLDYuNjQ2LDE1LjUsNi42NDYKCQkJCWM1LjQwNiwwLDEwLjYxNS0yLjIxOSwxNS40NjktNi42MDRjMzYuMjcxLTMyLjY3NywxNTkuNTczLTEzNy4zODUsMjI5Ljg0NC0xOTYuODk2YzQuMzc1LTMuNjk4LDUuMDQyLTEwLjE5OCwxLjUtMTQuNzE5CgkJCQlDNDk0LjYyNSw2OS45OSw0ODIuNDE3LDY0LDQ2OS4zMzMsNjRINDIuNjY3Yy0xMy4wODMsMC0yNS4yOTIsNS45OS0zMy40NzksMTYuNDM4QzUuNjQ2LDg0Ljk1OCw2LjMxMyw5MS40NTgsMTAuNjg4LDk1LjE1NnoiIC8+CiAgICAgICAgICAgICAgICA8cGF0aCBkPSJNNTA1LjgxMywxMjcuNDA2Yy0zLjc4MS0xLjc2LTguMjI5LTEuMTQ2LTExLjM3NSwxLjU0MkM0MTYuNTEsMTk1LjAxLDMxNy4wNTIsMjc5LjY4OCwyODUuNzYsMzA3Ljg4NQoJCQkJYy0xNy41NjMsMTUuODU0LTQxLjkzOCwxNS44NTQtNTkuNTQyLTAuMDIxYy0zMy4zNTQtMzAuMDUyLTE0NS4wNDItMTI1LTIwOC42NTYtMTc4LjkxN2MtMy4xNjctMi42ODgtNy42MjUtMy4yODEtMTEuMzc1LTEuNTQyCgkJCQlDMi40MTcsMTI5LjE1NiwwLDEzMi45MjcsMCwxMzcuMDgzdjI2OC4yNUMwLDQyOC44NjUsMTkuMTM1LDQ0OCw0Mi42NjcsNDQ4aDQyNi42NjdDNDkyLjg2NSw0NDgsNTEyLDQyOC44NjUsNTEyLDQwNS4zMzMKCQkJCXYtMjY4LjI1QzUxMiwxMzIuOTI3LDUwOS41ODMsMTI5LjE0Niw1MDUuODEzLDEyNy40MDZ6IiAvPgogICAgICAgICAgICA8L2c+CiAgICAgICAgPC9nPgogICAgPC9nPgogICAgPGc+PC9nPgogICAgPGc+PC9nPgogICAgPGc+PC9nPgogICAgPGc+PC9nPgogICAgPGc+PC9nPgogICAgPGc+PC9nPgogICAgPGc+PC9nPgogICAgPGc+PC9nPgogICAgPGc+PC9nPgogICAgPGc+PC9nPgogICAgPGc+PC9nPgogICAgPGc+PC9nPgogICAgPGc+PC9nPgogICAgPGc+PC9nPgogICAgPGc+PC9nPgo8L3N2Zz4=' alt='Email')
+                    span.contact__info.contact__info--bottom info@carinsurance.sk

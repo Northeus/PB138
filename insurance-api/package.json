@@ -1,0 +1,48 @@
+{
+  "name": "insurance-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "eslint \"**/*.ts\" && ts-node src/index.ts",
+    "seed": "prisma db seed --preview-feature",
+    "migrate": "prisma migrate dev",
+    "prisma": "prisma studio",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Northeus/PB138"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^2.27.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-jsonschema": "^1.1.6",
+    "html-pdf": "^3.0.1",
+    "pug": "^3.0.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.10",
+    "@types/express": "^4.17.13",
+    "@types/express-jsonschema": "^1.1.1",
+    "@types/html-pdf": "^2.2.1",
+    "@types/node": "^15.12.5",
+    "@types/pug": "^2.0.5",
+    "@typescript-eslint/eslint-plugin": "^4.28.1",
+    "@typescript-eslint/parser": "^4.28.1",
+    "csv-parser": "^3.0.0",
+    "eslint": "^7.29.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-standard": "^5.0.0",
+    "prisma": "^2.27.0",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.4"
+  }
+}
