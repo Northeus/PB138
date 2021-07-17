@@ -94,12 +94,7 @@ const validateBasedOnInsurance = (req: { body: { insuranceType: EInsuranceType; 
     return '';
 };
 
-const validateOfferPrice = (req: { body: { offerPrice: number; }; }) : string => {
-    const { offerPrice } = req.body;
-    return offerPrice >= 0 ? '' : 'Offer price cant be negative.';
-};
-
-const sharedInputValidation = (req: { body: { vehicleType: EVehicleType; vehicleUtilisation: EVehicleUtilisation; glassInsurance: boolean; }; } & { body: { insuranceType: EInsuranceType; glassInsurance: boolean; }; } & { body: { engineDisplacement: number; engineMaxPower: number; }; } & { body: { price: number; }; } & { body: { productionDate: string; birthDate: string; drivingLicenseDate: string; }; }) : string[] => {
+export const validateInputOffer = (req: any, res: any, next: any) : void => {
 
     const errors : string[] = [];
     const validationFunctions = [
@@ -117,28 +112,6 @@ const sharedInputValidation = (req: { body: { vehicleType: EVehicleType; vehicle
             errors.push(errorMessage);
         }
     });
-
-    return errors;
-};
-
-export const validateInputOffer = (req: any, res: any, next: any) : void => {
-
-    const errors : string[] = sharedInputValidation(req);
-    if (errors.length !== 0) {
-        return res.status(400).json(createResponse({errors: errors}, 'Found error(s). See included array of errors.'));
-    }
-
-    next();
-};
-
-export const validateInputPdf = (req: any, res: any, next: any) : void => {
-
-    const errors : string[] = sharedInputValidation(req);
-
-    const errorMessage = validateOfferPrice(req);
-    if (errorMessage !== '') {
-        errors.push(errorMessage);
-    }
 
     if (errors.length !== 0) {
         return res.status(400).json(createResponse({errors: errors}, 'Found error(s). See included array of errors.'));

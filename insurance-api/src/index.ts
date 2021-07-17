@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { getCar, createOffer, getOffer } from './database';
 import createResponse from './utils/response';
-import { carNotFound } from './utils/errorMessages';
+import { carNotFound, offerNotFound, prismaError } from './utils/errorMessages';
 import pdf from 'html-pdf';
 import pug from 'pug';
 import { includeVehicleTypeUtilisation, includeEngineSpecs, evaluateVehicle, includeAge, includeDriversLicense, includeAccident, includeInsuranceType } from './offerCalculations';
@@ -49,38 +49,56 @@ app.post('/api/offer', validate({body: OfferInputSchema}), validateInputOffer, a
         priceResult *= f(req);
     });
 
-    const price = Math.round(priceResult * 100) / 100;
-    const offer = await createOffer(Object.assign({}, req.body, { offerPrice: price }));
+    const offerPrice = Math.round(priceResult * 100) / 100;
 
-    res.json(offer);
+    try {
+    
+        const offer = await createOffer(Object.assign({}, req.body, { offerPrice: offerPrice }));
+        return res.send(createResponse(offer));
+        // res.json(offer);
+
+    } catch(error) {
+        return res.status(500).send(createResponse({}, prismaError));
+    }
 });
 
-app.get('/api/offer/:offerId(\\d+)/pdf', async (req, res) => {
+app.get('/api/offer/:offerId/pdf', async (req, res) => {
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
-
         return date.getDate() + '. ' + (date.getMonth() + 1) + '. ' + date.getFullYear();
     };
 
-    console.log(parseInt(req.params.offerId));
-    const offer = await getOffer(parseInt(req.params.offerId));
-    const renderedHtml = pug.renderFile(
-        'src/views/offerPdf.pug',
-        { 
-            offer: offer,
-            vehicleTypeString: vehicleTypeString,
-            vehicleUtilisationString: vehicleUtilisationString,
-            insuranceTypeString: insuranceTypeString,
-            formatDate: formatDate
+    try {
+
+        const offer = await getOffer(req.params.offerId);
+        if (!offer) {
+            res.status(404).send(createResponse({}, offerNotFound));
+            return;
         }
-    );
 
-    res.setHeader('Content-type', 'application/pdf');
+        const renderedHtml = pug.renderFile(
+            'src/views/offerPdf.pug',
+            { 
+                offer: offer,
+                vehicleTypeString: vehicleTypeString,
+                vehicleUtilisationString: vehicleUtilisationString,
+                insuranceTypeString: insuranceTypeString,
+                formatDate: formatDate
+            }
+        );
 
-    pdf.create(renderedHtml).toStream( (_error, stream) => {
-        stream.pipe(res);
-    });
+        res.setHeader('Content-type', 'application/pdf');
+
+        pdf.create(renderedHtml).toStream( (_error, stream) => {
+            stream.pipe(res);
+        });
+        
+        return;
+
+    } catch(error) {
+        return res.status(500).send(createResponse({}, prismaError));
+    }
 });
 
 // <a href=${'/api/offer/' + offer.id + '/pdf'} target="_blank" class="btn ">Text tlačítka</a>

@@ -28,7 +28,7 @@ model Car {
 }
 
 model Offer {
-    id                      Int         @id @default(autoincrement())
+    id                      String      @id @default(uuid())
     vehicleType             String
     vehicleUtilisation      String
     engineDisplacement      Int
@@ -41,4 +41,5 @@ model Offer {
     insuranceType           String
     glassInsurance          Boolean
     offerPrice              Float
+    createdAt               DateTime    @db.Timestamp @default(now())
 }
