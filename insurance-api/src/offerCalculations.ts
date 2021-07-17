@@ -1,75 +1,92 @@
 import EInsuranceType from './utils/eInsuranceType';
 import EVehicleType from './utils/eVehicleType';
-import EVehicleUtilisation from './utils/eVehicleUtilisation';
+import EVehicleUtilisation, { vehicleUtilisationString } from './utils/eVehicleUtilisation';
 
-export const includeInsuranceType = (req: { body: { insuranceType: EInsuranceType, glassInsurance: boolean; }; }) : number => {
+interface InsuranceReq {
+    body: {
+        insuranceType: EInsuranceType,
+        glassInsurance: boolean
+    }
+}
+
+export const includeInsuranceType = (req: InsuranceReq) : number => {
     const { insuranceType, glassInsurance } = req.body;
-    return insuranceType !== EInsuranceType.PZP ? 700 : ( 100 + ( glassInsurance ? 10 : 0 ) );
+    return insuranceType !== EInsuranceType.PZP
+        ? 700
+        : ( 100 + ( glassInsurance ? 10 : 0 ) );
 };
 
-export const includeVehicleTypeUtilisation = (req: { body: { vehicleType: EVehicleType; vehicleUtilisation: EVehicleUtilisation; }; }) : number => {
-    const { vehicleType, vehicleUtilisation } = req.body;
-    let result = 1;
+interface VehicleTypeReq {
+    body: { 
+        vehicleType: EVehicleType, 
+        vehicleUtilisation: EVehicleUtilisation
+    }
+}
 
+const vehilceTypeMultiplayer = (vehicleType : EVehicleType) => {
     switch (vehicleType) {
-    case EVehicleType.Motorcycle:
-        result *= 1.02;
-        break;
-    case EVehicleType.FourWheeler:
-        result *= 1.01;
-        break;
-    default:  // 'Car' || 'UpTo35Ton'
-        result *= 1;
-        break;
-    }
-    switch (vehicleUtilisation) {
-    case EVehicleUtilisation.Taxi:
-        result *= 1.05;
-        break;
-    case EVehicleUtilisation.Rent:
-        result *= 1.2;
-        break;
-    case EVehicleUtilisation.Vip:
-        result *= 1.07;
-        break;
-    case EVehicleUtilisation.Dangerous:
-        result *= 1.2;
-        break;
-    default:  // 'Car'
-        result *= 1;
-        break;
-    }
+        case EVehicleType.Motorcycle:
+            return 1.02;
+        case EVehicleType.FourWheeler:
+            return 1.01;
+        case EVehicleType.UpTo35Ton:
+        case EVehicleType.Car:
+            return 1;
+        default:
+            return 1;
+        }
+}
 
-    return result;
-};
+const vehicleUtilisationMultiplayer = (vehicleUtilisation : EVehicleUtilisation) => {
+    switch (vehicleUtilisation) {
+        case EVehicleUtilisation.Taxi:
+            return 1.05;
+        case EVehicleUtilisation.Rent:
+            return 1.2;
+        case EVehicleUtilisation.Vip:
+            return 1.07;
+        case EVehicleUtilisation.Dangerous:
+            return 1.2;
+        case EVehicleUtilisation.Normal:
+            return 1;
+        default:
+            return 1;
+    }
+}
+
+export const includeVehicleTypeUtilisation = (req: VehicleTypeReq) : number =>
+    vehilceTypeMultiplayer(req.body.vehicleType) * vehicleUtilisationMultiplayer(req.body.vehicleUtilisation);
 
 export const includeEngineSpecs = (req: { body: { displacement: number; maxPower: number; }; }) : number => {
     const { displacement, maxPower } = req.body;
     const powerDisplacementRatio = ( 1000 * maxPower ) / displacement;
-    let result : number;
 
-    result = 25 <= powerDisplacementRatio && powerDisplacementRatio < 65 ? 1.1 : 1;
-    result = 65 <= powerDisplacementRatio ? 1.2 : 1;
-
-    return result;
+    return powerDisplacementRatio && powerDisplacementRatio < 65
+        ? 1.1
+        : 65 <= powerDisplacementRatio
+            ? 1.2
+            : 1;
 };
+
+const hasCompletedFullYear = (date: Date) => {
+    const today = new Date();
+    const months = today.getMonth() - date.getMonth();
+    
+    return months < 0 || (months === 0 && today.getDate() < date.getDate());
+}
 
 const computeNumOfYears = (input: string) : number => {
     const today = new Date();
-    const inputParsed = new Date(input);
-    let result = today.getFullYear() - inputParsed.getFullYear();
-    const m = today.getMonth() - inputParsed.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < inputParsed.getDate())) {
-        result--;
-    }
-    return result;
+    const date = new Date(input);
+    
+    const years = today.getFullYear() - date.getFullYear();
+    
+    return hasCompletedFullYear(date)
+        ? years
+        : years - 1;
 };
 
-export const evaluateVehicle = (req: { body: { productionDate: string; vehiclePrice: number; }; }) : number => {
-    const { productionDate, vehiclePrice } = req.body;
-    const yearsDifference = computeNumOfYears(productionDate);
-    const evaluation = Math.max(0, vehiclePrice - (vehiclePrice * yearsDifference) / 20);
-
+const evaluationMultiplayer = (evaluation: number) : number => {
     if (5000 < evaluation && evaluation <= 10000) {
         return 1.05;
     }
@@ -81,12 +98,23 @@ export const evaluateVehicle = (req: { body: { productionDate: string; vehiclePr
     }
 
     return 1;
+}
+
+interface evaluationReq {
+    body: {
+        productionDate: string,
+        vehiclePrice: number
+    }
+}
+
+export const evaluateVehicle = (req: evaluationReq) : number => {
+    const yearsDifference = computeNumOfYears(req.body.productionDate);
+    const evaluation = Math.max(0, req.body.vehiclePrice * (1 - yearsDifference / 20));
+
+    return evaluationMultiplayer(evaluation);
 };
 
-export const includeAge = (req: { body: { birthDate: string; }; }) : number => {
-    const { birthDate } = req.body;
-    const age = computeNumOfYears(birthDate);
-
+const ageMultiplayer = (age: number) : number => {
     if (age < 25) {
         return 1.2;
     }
@@ -107,17 +135,24 @@ export const includeAge = (req: { body: { birthDate: string; }; }) : number => {
     }
 
     return 1;
+}
+
+export const includeAge = (req: { body: { birthDate: string; }; }) : number => {
+    const { birthDate } = req.body;
+    const age = computeNumOfYears(birthDate);
+
+    return ageMultiplayer(age);
 };
 
 export const includeDriversLicense = (req: { body: { drivingLicenseDate: string; }; }) : number => {
     const { drivingLicenseDate } = req.body;
     const driversLicenseYears = computeNumOfYears(drivingLicenseDate);
-    let result : number;
 
-    result = driversLicenseYears < 5 ? 1.2 : 1;
-    result = 5 <= driversLicenseYears && driversLicenseYears < 15 ? 1.15 : 1;
-
-    return result;
+    return driversLicenseYears < 5
+        ? 1.2
+        : 5 <= driversLicenseYears && driversLicenseYears < 15 
+            ? 1.15
+            : 1;
 };
 
 export const includeAccident = (req: { body: { accident: boolean; }; }) : number => req.body.accident ? 1.2 : 1;

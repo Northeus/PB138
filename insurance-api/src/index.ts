@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { response } from 'express';
 import cors from 'cors';
 import { getCar, createOffer, getOffer } from './database';
 import createResponse from './utils/response';
@@ -12,6 +12,7 @@ import { vehicleTypeString } from './utils/eVehicleType';
 import { vehicleUtilisationString } from './utils/eVehicleUtilisation';
 import { insuranceTypeString } from './utils/eInsuranceType';
 
+// Todo make better noncoliding port
 const port = 3000;
 const app = express();
 
@@ -44,34 +45,32 @@ app.post('/api/offer', validate({body: OfferInputSchema}), validateInputOffer, a
         includeAccident
     ];
 
-    let priceResult = includeInsuranceType(req);
-    resultMultiplicationFunctions.map(f => {
-        priceResult *= f(req);
-    });
+    const priceResult = includeInsuranceType(req);
+    const multiplayer = resultMultiplicationFunctions
+        .map(evaluationMultiplayer => evaluationMultiplayer(req))
+        .reduce((acc, curr) => acc * curr, 1);
+    
 
-    const offerPrice = Math.round(priceResult * 100) / 100;
+    const offerPrice = Math.round((priceResult * multiplayer) * 100) / 100;
 
     try {
-    
         const offer = await createOffer(Object.assign({}, req.body, { offerPrice: offerPrice }));
         return res.send(createResponse(offer));
-        // res.json(offer);
-
     } catch(error) {
         return res.status(500).send(createResponse({}, prismaError));
     }
 });
 
+const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    
+    return date.getDate() + '. ' + (date.getMonth() + 1) + '. ' + date.getFullYear();
+};
+
 app.get('/api/offer/:offerId/pdf', async (req, res) => {
-
-    const formatDate = (dateString: string) => {
-        const date = new Date(dateString);
-        return date.getDate() + '. ' + (date.getMonth() + 1) + '. ' + date.getFullYear();
-    };
-
     try {
-
         const offer = await getOffer(req.params.offerId);
+        
         if (!offer) {
             res.status(404).send(createResponse({}, offerNotFound));
             return;
@@ -101,16 +100,14 @@ app.get('/api/offer/:offerId/pdf', async (req, res) => {
     }
 });
 
-// <a href=${'/api/offer/' + offer.id + '/pdf'} target="_blank" class="btn ">Text tlačítka</a>
-
 app.use((err: any, req: any, res: any, next: any) => {
- 
     if (err.name === 'JsonSchemaValidation') {
-        if (req.get('Content-Type') === 'application/json') {
-            res.status(400).json({ error: 'Invalid input content. JsonSchemaValidation failed.' });
-        } else {
-            res.status(400).json({ error: 'Invalid content-type in input. JsonSchemaValidation failed.' });
-        }
+        res.status(400).send(createResponse(
+            {},
+            req.get('Content-Type') === 'application/json'
+                ? 'Invalid input content. JsonSchemaValidation failed.'
+                : 'Invalid content-type in input. JsonSchemaValidation failed.'
+        ));
     } else {
         next(err);
     }
