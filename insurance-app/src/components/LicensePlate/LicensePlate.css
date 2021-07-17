@@ -1,0 +1,24 @@
+.form--plate {
+    width: min(max(20rem, 25%), 25rem);
+  }
+  
+  .license-plate__number {
+    width: 20rem;
+    height: 5rem;
+  
+    padding-left: 3rem;
+    margin-top: 1rem;
+  
+    font-size: 3rem;
+    font-weight: 600;
+    font-family: monospace;
+    letter-spacing: 1rem;
+    text-transform: uppercase;
+  
+    background-image: url("../../assets/licensePlate.svg");
+    background-size: cover;
+    background-color: none;
+    background-color: var(--background-bright);
+    border-radius: 0.5rem;
+    border: none;
+  }
