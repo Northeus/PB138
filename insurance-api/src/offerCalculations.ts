@@ -1,65 +1,51 @@
+import offerReq from './models/offerReq';
 import EInsuranceType from './utils/eInsuranceType';
 import EVehicleType from './utils/eVehicleType';
-import EVehicleUtilisation, { vehicleUtilisationString } from './utils/eVehicleUtilisation';
+import EVehicleUtilisation from './utils/eVehicleUtilisation';
 
-interface InsuranceReq {
-    body: {
-        insuranceType: EInsuranceType,
-        glassInsurance: boolean
-    }
-}
-
-export const includeInsuranceType = (req: InsuranceReq) : number => {
+export const includeInsuranceType = (req: offerReq) : number => {
     const { insuranceType, glassInsurance } = req.body;
     return insuranceType !== EInsuranceType.PZP
         ? 700
         : ( 100 + ( glassInsurance ? 10 : 0 ) );
 };
 
-interface VehicleTypeReq {
-    body: { 
-        vehicleType: EVehicleType, 
-        vehicleUtilisation: EVehicleUtilisation
-    }
-}
-
 const vehilceTypeMultiplayer = (vehicleType : EVehicleType) => {
     switch (vehicleType) {
-        case EVehicleType.Motorcycle:
-            return 1.02;
-        case EVehicleType.FourWheeler:
-            return 1.01;
-        case EVehicleType.UpTo35Ton:
-        case EVehicleType.Car:
-            return 1;
-        default:
-            return 1;
-        }
-}
+    case EVehicleType.Motorcycle:
+        return 1.02;
+    case EVehicleType.FourWheeler:
+        return 1.01;
+    case EVehicleType.UpTo35Ton:
+    case EVehicleType.Car:
+        return 1;
+    default:
+        return 1;
+    }
+};
 
 const vehicleUtilisationMultiplayer = (vehicleUtilisation : EVehicleUtilisation) => {
     switch (vehicleUtilisation) {
-        case EVehicleUtilisation.Taxi:
-            return 1.05;
-        case EVehicleUtilisation.Rent:
-            return 1.2;
-        case EVehicleUtilisation.Vip:
-            return 1.07;
-        case EVehicleUtilisation.Dangerous:
-            return 1.2;
-        case EVehicleUtilisation.Normal:
-            return 1;
-        default:
-            return 1;
+    case EVehicleUtilisation.Taxi:
+        return 1.05;
+    case EVehicleUtilisation.Rent:
+        return 1.2;
+    case EVehicleUtilisation.Vip:
+        return 1.07;
+    case EVehicleUtilisation.Dangerous:
+        return 1.2;
+    case EVehicleUtilisation.Normal:
+        return 1;
+    default:
+        return 1;
     }
-}
+};
 
-export const includeVehicleTypeUtilisation = (req: VehicleTypeReq) : number =>
+export const includeVehicleTypeUtilisation = (req: offerReq) : number =>
     vehilceTypeMultiplayer(req.body.vehicleType) * vehicleUtilisationMultiplayer(req.body.vehicleUtilisation);
 
-export const includeEngineSpecs = (req: { body: { displacement: number; maxPower: number; }; }) : number => {
-    const { displacement, maxPower } = req.body;
-    const powerDisplacementRatio = ( 1000 * maxPower ) / displacement;
+export const includeEngineSpecs = (req: offerReq) : number => {
+    const powerDisplacementRatio = ( 1000 * req.body.engineMaxPower ) / req.body.engineDisplacement;
 
     return powerDisplacementRatio && powerDisplacementRatio < 65
         ? 1.1
@@ -73,7 +59,7 @@ const hasCompletedFullYear = (date: Date) => {
     const months = today.getMonth() - date.getMonth();
     
     return months < 0 || (months === 0 && today.getDate() < date.getDate());
-}
+};
 
 const computeNumOfYears = (input: string) : number => {
     const today = new Date();
@@ -98,18 +84,11 @@ const evaluationMultiplayer = (evaluation: number) : number => {
     }
 
     return 1;
-}
+};
 
-interface evaluationReq {
-    body: {
-        productionDate: string,
-        vehiclePrice: number
-    }
-}
-
-export const evaluateVehicle = (req: evaluationReq) : number => {
+export const evaluateVehicle = (req: offerReq) : number => {
     const yearsDifference = computeNumOfYears(req.body.productionDate);
-    const evaluation = Math.max(0, req.body.vehiclePrice * (1 - yearsDifference / 20));
+    const evaluation = Math.max(0, req.body.price * (1 - yearsDifference / 20));
 
     return evaluationMultiplayer(evaluation);
 };
@@ -135,16 +114,16 @@ const ageMultiplayer = (age: number) : number => {
     }
 
     return 1;
-}
+};
 
-export const includeAge = (req: { body: { birthDate: string; }; }) : number => {
+export const includeAge = (req: offerReq) : number => {
     const { birthDate } = req.body;
     const age = computeNumOfYears(birthDate);
 
     return ageMultiplayer(age);
 };
 
-export const includeDriversLicense = (req: { body: { drivingLicenseDate: string; }; }) : number => {
+export const includeDriversLicense = (req: offerReq) : number => {
     const { drivingLicenseDate } = req.body;
     const driversLicenseYears = computeNumOfYears(drivingLicenseDate);
 
@@ -155,4 +134,7 @@ export const includeDriversLicense = (req: { body: { drivingLicenseDate: string;
             : 1;
 };
 
-export const includeAccident = (req: { body: { accident: boolean; }; }) : number => req.body.accident ? 1.2 : 1;
+export const includeAccident = (req: offerReq) : number =>
+    req.body.accident
+        ? 1.2
+        : 1;

@@ -1,4 +1,5 @@
 import { Car, Offer, PrismaClient } from '@prisma/client';
+import offer from './models/offer';
 
 const prisma = new PrismaClient();
 
@@ -15,7 +16,7 @@ export const getCar = async (spz: string): Promise<Car | undefined> => {
     return query?.car;
 };
 
-export const createOffer = async (offer: any): Promise<Offer> => {
+export const createOffer = async (offer: offer): Promise<Offer> => {
     return (
         await prisma.offer.create({
             data: offer

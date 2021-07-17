@@ -1,10 +1,11 @@
+import offerReq from '../models/offerReq';
 import { getNYearsBefore } from '../utils/dateManipulation';
 import EInsuranceType from '../utils/eInsuranceType';
 import EVehicleType from '../utils/eVehicleType';
 import EVehicleUtilisation from '../utils/eVehicleUtilisation';
 import createResponse from '../utils/response';
 
-const validateEngineSpecs = (req: { body: { engineDisplacement: number; engineMaxPower: number; }; }) : string => {
+const validateEngineSpecs = (req: offerReq) : string => {
     
     const {
         engineDisplacement,
@@ -20,7 +21,7 @@ const validateEngineSpecs = (req: { body: { engineDisplacement: number; engineMa
     return '';
 };
 
-const validatePrice = (req: { body: { price: number; }; }) : string => {
+const validatePrice = (req: offerReq) : string => {
     
     const { price } = req.body;
     
@@ -30,7 +31,7 @@ const validatePrice = (req: { body: { price: number; }; }) : string => {
     return '';
 };
 
-const validateDates = (req: { body: { productionDate: string; birthDate: string; drivingLicenseDate:string; }; }) : string => {
+const validateDates = (req: offerReq) : string => {
 
     const {
         productionDate,
@@ -50,7 +51,7 @@ const validateDates = (req: { body: { productionDate: string; birthDate: string;
     return '';
 };
 
-const validateBirthDrivingLicenseDates = (req: { body: { birthDate: string; drivingLicenseDate: string; }; }) : string => {
+const validateBirthDrivingLicenseDates = (req: offerReq) : string => {
 
     const {
         birthDate,
@@ -66,7 +67,7 @@ const validateBirthDrivingLicenseDates = (req: { body: { birthDate: string; driv
     return '';
 };
 
-const validateBasedOnType = (req: { body: { vehicleType: EVehicleType; vehicleUtilisation: EVehicleUtilisation; glassInsurance: boolean; }; }) : string => {
+const validateBasedOnType = (req: offerReq) : string => {
 
     const {
         vehicleType,
@@ -81,7 +82,7 @@ const validateBasedOnType = (req: { body: { vehicleType: EVehicleType; vehicleUt
     return '';
 };
 
-const validateBasedOnInsurance = (req: { body: { insuranceType: EInsuranceType; glassInsurance: boolean; }; }) : string => {
+const validateBasedOnInsurance = (req: offerReq) : string => {
     
     const {
         insuranceType,
@@ -94,7 +95,7 @@ const validateBasedOnInsurance = (req: { body: { insuranceType: EInsuranceType; 
     return '';
 };
 
-export const validateInputOffer = (req: any, res: any, next: any) : void => {
+export const validateInputOffer = (req: offerReq, res: any, next: any) : void => {
 
     const errors : string[] = [];
     const validationFunctions = [

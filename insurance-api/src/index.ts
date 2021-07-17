@@ -1,4 +1,4 @@
-import express, { response } from 'express';
+import express from 'express';
 import cors from 'cors';
 import { getCar, createOffer, getOffer } from './database';
 import createResponse from './utils/response';
