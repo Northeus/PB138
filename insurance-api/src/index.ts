@@ -12,8 +12,7 @@ import { vehicleTypeString } from './utils/eVehicleType';
 import { vehicleUtilisationString } from './utils/eVehicleUtilisation';
 import { insuranceTypeString } from './utils/eInsuranceType';
 
-// Todo make better noncoliding port
-const port = 3000;
+const port = 5000;
 const app = express();
 
 app.use(cors());
@@ -35,7 +34,6 @@ app.get('/vehicle/:spz', async (req, res) => {
 });
 
 app.post('/api/offer', validate({body: OfferInputSchema}), validateInputOffer, async (req, res) => {
-    
     const resultMultiplicationFunctions = [
         includeVehicleTypeUtilisation,
         includeEngineSpecs,
@@ -63,7 +61,7 @@ app.post('/api/offer', validate({body: OfferInputSchema}), validateInputOffer, a
 const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     
-    return date.getDate() + '. ' + (date.getMonth() + 1) + '. ' + date.getFullYear();
+    return `${date.getDate()}. ${date.getMonth() + 1}. ${date.getFullYear()}`;
 };
 
 app.get('/api/offer/:offerId/pdf', async (req, res) => {

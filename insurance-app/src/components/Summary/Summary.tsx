@@ -44,13 +44,15 @@ const Summary = (): JSX.Element => {
                 })
             };
 
-            const response = await fetch('http://localhost:5000/api/offer', requestOptions);
-            if (response.status != 200) {
+            const response = await fetch('http://localhost:5000/api/offer', requestOptions)
+                .catch(() => undefined);
+                
+            if (!response || response.status != 200) {
                 setPrice(0);
             }
             else {
                 const responseJson = await response.json();
-                setPrice(Number(responseJson.data.offerPrice));
+                setPrice(+responseJson.data.offerPrice);
                 setOfferId(responseJson.data.id);
             }
         };
@@ -117,7 +119,7 @@ const Summary = (): JSX.Element => {
                 <span {...classes('item-title')}>ROČNÁ CENA: </span>
                 <span {...classes('item-body')}>{price} €</span>
             </p>
-            <a {...classes('pdf')} href={'http://localhost:5000/api/offer/' + offerId + '/pdf'} target='_blank'>PDF s ponukou</a>
+            <a {...classes('pdf')} href={`http://localhost:5000/api/offer/${offerId}/pdf`} target='_blank'>PDF s ponukou</a>
             <p>Pokiaľ si prajete uzavrieť s nami dané poistenie, kontaktujte nás prosím cez nižšie uvedené odkazy.</p>
         </div>
     );

@@ -39,22 +39,26 @@ const VehicleParameters = (): JSX.Element => {
         initialValues: {licensePlate: vehicleParameters.licensePlate},
         validate: async (values) => {
             if (!values.licensePlate || values.licensePlate === '') {
-                return { licensePlate: 'Required' };
+                return { licensePlate: '*Je nutné zadať hodnotu.' };
             }
             if (!licensePlaceRegex.test(values.licensePlate.toUpperCase())) {
-                return { licensePlate: 'Invalid' };
+                return { licensePlate: '*Nevalidná ŠPZ' };
             }
-
-            setLicenseResponse(await fetch('http://localhost:5000/vehicle/' + values.licensePlate.toUpperCase()));
-            if (licenseResponse.status == 404) {
-                if (licenseResponse.bodyUsed) {
-                    return { licensePlate: 'Could not validate' };
+            const response = await fetch(`http://localhost:5000/vehicle/${values.licensePlate.toUpperCase()}`)
+                .catch(() => {
+                    return undefined;
+                });
+            if (!response) {
+                return {licensePlate: '*Problém s pripojením k databáze'};
+            }
+            if (response.status == 404) {
+                if (response.bodyUsed) {
+                    return { licensePlate: '*Problém s validáciou' };
                 }
-
-                const responseJson = await licenseResponse.json();
-                return { licensePlate: responseJson.message };
+                const responseJson = await response.json();
+                return { licensePlate: `*${responseJson.message}` };
             }
-
+            setLicenseResponse(response);
             return { };
         },
         onSubmit: async (values) => {
@@ -67,7 +71,6 @@ const VehicleParameters = (): JSX.Element => {
                 return;
             }
 
-            console.log(responseJson.data.powerKw);
             setVehicleParameters({
                 licensePlate: values.licensePlate,
                 cylinderVolume: responseJson.data.engineDisplcementMl,
