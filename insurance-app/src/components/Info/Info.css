@@ -42,3 +42,15 @@
 .information-block__price {
   margin-top: 4rem;
 }
+
+.information-block__pdf {
+  color: blue;
+}
+
+.information-block__pdf:hover {
+  color: red;
+}
+
+.information-block__pdf:visited {
+  color: purple;
+}

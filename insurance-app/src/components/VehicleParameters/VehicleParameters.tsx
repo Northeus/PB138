@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import BEMHelper from 'react-bem-helper';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
@@ -34,22 +34,51 @@ const validationSchema = Yup.object().shape({
 const VehicleParameters = (): JSX.Element => {
     const [vehicleParameters, setVehicleParameters] = useRecoilState(vehicleParametersStateAtom);
     const setProgress = useSetRecoilState(progressStateAtom);
+    const [licenseResponse, setLicenseResponse] = useState(new Response());
     const formik1 = useFormik({
         initialValues: {licensePlate: vehicleParameters.licensePlate},
-        validate: (values) => {
+        validate: async (values) => {
             if (!values.licensePlate || values.licensePlate === '') {
                 return { licensePlate: 'Required' };
             }
             if (!licensePlaceRegex.test(values.licensePlate.toUpperCase())) {
                 return { licensePlate: 'Invalid' };
             }
-            // TODO validation against database, may not be capitalised
+
+            setLicenseResponse(await fetch('http://localhost:5000/vehicle/' + values.licensePlate.toUpperCase()));
+            if (licenseResponse.status == 404) {
+                if (licenseResponse.bodyUsed) {
+                    return { licensePlate: 'Could not validate' };
+                }
+
+                const responseJson = await licenseResponse.json();
+                return { licensePlate: responseJson.message };
+            }
+
             return { };
         },
-        onSubmit: async () => {// TODO fetch values from DB and setVehicleParameters...
+        onSubmit: async (values) => {
+            const responseJson = await licenseResponse.json();
+            if (licenseResponse.status == 404) {
+                if (licenseResponse.bodyUsed) {
+                    return;
+                }
+
+                return;
+            }
+
+            console.log(responseJson.data.powerKw);
+            setVehicleParameters({
+                licensePlate: values.licensePlate,
+                cylinderVolume: responseJson.data.engineDisplcementMl,
+                enginePower: responseJson.data.powerKw,
+                price: responseJson.data.marketPriceEur,
+                creationDate: new Date(responseJson.data.madeAt),
+            });
             setProgress(3);
         }
     });
+
     const formik2 = useFormik({
         initialValues: {
             cylinderVolume: vehicleParameters.cylinderVolume,
