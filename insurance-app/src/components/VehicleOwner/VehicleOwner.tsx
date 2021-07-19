@@ -10,6 +10,13 @@ import { getDateString, getNYearsAfter, getNYearsBefore } from '../../utils/date
 
 const classes = new BEMHelper('form');
 
+const fixDate = (date: Date) => {
+    if (date.getTime() === date.getTime()) {
+        return date;
+    }
+    return new Date(0);
+};
+
 const validationSchema = Yup.object().shape({
     birthDate: Yup.date()
         .max(getNYearsBefore(new Date(), 18), '*Musíte mať aspoň 18 rokov')
@@ -38,8 +45,8 @@ const VehicleOwner = (): JSX.Element => {
         validationSchema,
         onSubmit: async (values) => {
             setVehicleOwner({
-                drivingLicenseDate: new Date(values.drivingLicenseDate),
                 birthDate: new Date(values.birthDate),
+                drivingLicenseDate: new Date(values.drivingLicenseDate),
                 accidentIn3Years: values.accidentIn3Years
             });
             setProgress(4);
@@ -66,7 +73,7 @@ const VehicleOwner = (): JSX.Element => {
                     {...classes('input')}
                     onChange={formik.handleChange}
                     value={formik.values.drivingLicenseDate}
-                    min={getDateString(getNYearsAfter(new Date(formik.values.birthDate), 17))}
+                    min={getDateString(fixDate(getNYearsAfter(new Date(formik.values.birthDate), 17)))}
                     max={getDateString(new Date())}
                     type="date"
                     name="drivingLicenseDate"
