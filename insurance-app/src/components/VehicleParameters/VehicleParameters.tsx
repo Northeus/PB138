@@ -3,8 +3,8 @@ import BEMHelper from 'react-bem-helper';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import './VehicleParameters.css';
-import '../Form/Form.css';
-import '../LicensePlate/LicensePlate.css';
+import '../../utils/css/Form.css';
+import './LicensePlate.css';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { progressStateAtom, vehicleParametersStateAtom } from '../../store/atoms';
 import { getDateString } from '../../utils/dateUtils';
@@ -35,7 +35,7 @@ const VehicleParameters = (): JSX.Element => {
     const [vehicleParameters, setVehicleParameters] = useRecoilState(vehicleParametersStateAtom);
     const setProgress = useSetRecoilState(progressStateAtom);
     const [licenseResponse, setLicenseResponse] = useState(new Response());
-    const formik1 = useFormik({
+    const formikLicense = useFormik({
         initialValues: {licensePlate: vehicleParameters.licensePlate},
         validate: async (values) => {
             if (!values.licensePlate || values.licensePlate === '') {
@@ -82,7 +82,7 @@ const VehicleParameters = (): JSX.Element => {
         }
     });
 
-    const formik2 = useFormik({
+    const formikParameters = useFormik({
         initialValues: {
             cylinderVolume: vehicleParameters.cylinderVolume,
             enginePower: vehicleParameters.enginePower,
@@ -103,12 +103,12 @@ const VehicleParameters = (): JSX.Element => {
     });
     return (
         <>
-            <form {...classes({ modifiers: ['centered', 'plate'] })} onSubmit={formik1.handleSubmit}>
+            <form {...classes({ modifiers: ['centered', 'plate'] })} onSubmit={formikLicense.handleSubmit}>
                 <label {...classes('label')} htmlFor='licensePlate'>Nájdenie ŠPZ:</label>
                 <input
                     {...licenseClasses('number')}
-                    onChange={formik1.handleChange}
-                    value={formik1.values.licensePlate}
+                    onChange={formikLicense.handleChange}
+                    value={formikLicense.values.licensePlate}
                     type="text"
                     spellCheck="false"
                     autoComplete="off"
@@ -117,59 +117,59 @@ const VehicleParameters = (): JSX.Element => {
                     name="licensePlate"
                     id="licensePlate"
                 />
-                {formik1.errors.licensePlate && <span {...classes('error')}>{formik1.errors.licensePlate}</span>}
+                {formikLicense.errors.licensePlate && <span {...classes('error')}>{formikLicense.errors.licensePlate}</span>}
                 <button {...classes('submit')} type="submit">Ďalej</button>
             </form>
-            <form {...classes({modifier: 'parameters'})} onSubmit={formik2.handleSubmit}>
+            <form {...classes({modifier: 'parameters'})} onSubmit={formikParameters.handleSubmit}>
                 <label {...classes('label')}>
                     Objem motora v cm³:
                     <input
                         {...classes('input')}
-                        onChange={formik2.handleChange}
-                        value={formik2.values.cylinderVolume}
+                        onChange={formikParameters.handleChange}
+                        value={formikParameters.values.cylinderVolume}
                         type="number"
                         name="cylinderVolume"
                         id="cylinderVolume"
                     />
                 </label>
-                {formik2.errors.cylinderVolume && <span {...classes('error')}>{formik2.errors.cylinderVolume}</span>}
+                {formikParameters.errors.cylinderVolume && <span {...classes('error')}>{formikParameters.errors.cylinderVolume}</span>}
                 <label {...classes('label')}>
                     Výkon motora v kW:
                     <input
                         {...classes('input')}
-                        onChange={formik2.handleChange}
-                        value={formik2.values.enginePower}
+                        onChange={formikParameters.handleChange}
+                        value={formikParameters.values.enginePower}
                         type="number"
                         name="enginePower"
                         id="enginePower"
                     />
                 </label>
-                {formik2.errors.enginePower && <span {...classes('error')}>{formik2.errors.enginePower}</span>}
+                {formikParameters.errors.enginePower && <span {...classes('error')}>{formikParameters.errors.enginePower}</span>}
                 <label {...classes('label')}>
                     Pôvodna cena v €:
                     <input
                         {...classes('input')}
-                        onChange={formik2.handleChange}
-                        value={formik2.values.price}
+                        onChange={formikParameters.handleChange}
+                        value={formikParameters.values.price}
                         type="number"
                         name="price"
                         id="price"
                     />
                 </label>
-                {formik2.errors.price && <span {...classes('error')}>{formik2.errors.price}</span>}
+                {formikParameters.errors.price && <span {...classes('error')}>{formikParameters.errors.price}</span>}
                 <label {...classes('label')}>
                     Dátum výroby vozu:
                     <input
                         {...classes('input')}
-                        onChange={formik2.handleChange}
-                        value={formik2.values.creationDate}
+                        onChange={formikParameters.handleChange}
+                        value={formikParameters.values.creationDate}
                         type="date"
                         max={getDateString(new Date())}
                         name="creationDate"
                         id="creationDate"
                     />
                 </label>
-                {formik2.errors.creationDate && <span {...classes('error')}>{formik2.errors.creationDate}</span>}
+                {formikParameters.errors.creationDate && <span {...classes('error')}>{formikParameters.errors.creationDate}</span>}
                 <button {...classes('submit')} type="submit">Ďalej</button>
             </form>
         </>

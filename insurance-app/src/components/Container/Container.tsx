@@ -48,63 +48,30 @@ const subpages = [
     }
 ];
 
-const Container = (): JSX.Element => {
-    const currentProgress = useRecoilValue(progressState);
-    const getRoute = (path: RoutingPaths, component: JSX.Element, progress: number) => {
-        return (
-            <Route path={path} key={progress}>
-                <header {...classes('header')}>
-                    <img {...classLogo()} src={logo} alt="logo"/>
-                    <Checkpoints />
-                </header>
-                <main {...classes('main')}>
-                    {currentProgress == progress ? component : <Redirect to={order[currentProgress]} />}
-                </main>
-                <footer {...classes('footer')}>
-                    <Informations newTab={true}/>
-                </footer>
-            </Route>
-        );
-    };
+const getRoute = (path: RoutingPaths, component: JSX.Element, progress: number, currentProgress: number) => {
     return (
-        <div {...classes()}>
-            {/* <header {...classes('header')}>
+        <Route path={path} key={progress}>
+            <header {...classes('header')}>
                 <img {...classLogo()} src={logo} alt="logo"/>
                 <Checkpoints />
             </header>
             <main {...classes('main')}>
-                <Router>
-                    <Switch>
-                        <Route path={RoutingPaths.VehicleType}>
-                            {progress == 0 ? <VehicleType /> : <Redirect to={order[progress]} />}
-                        </Route>
-                        <Route path={RoutingPaths.VehicleUtilisation}>
-                            {progress == 1 ? <VehicleUtilisation /> : <Redirect to={order[progress]} />}
-                        </Route>
-                        <Route path={RoutingPaths.VehicleParameters}>
-                            {progress == 2 ? <VehicleParameters /> : <Redirect to={order[progress]} />}
-                        </Route>
-                        <Route path={RoutingPaths.VehicleOwner}>
-                            {progress == 3 ? <VehicleOwner /> : <Redirect to={order[progress]} />}
-                        </Route>
-                        <Route path={RoutingPaths.InsuranceType}>
-                            {progress == 4 ? <InsuranceType /> : <Redirect to={order[progress]} />}
-                        </Route>
-                        <Route path={RoutingPaths.Summary}>
-                            {progress == 5 ? <Summary /> : <Redirect to={order[progress]} />}
-                        </Route>
-                        <Route path={RoutingPaths.Root}>
-                            <Redirect to={order[progress]} />
-                        </Route>
-                    </Switch>
-                </Router>
+                {currentProgress == progress ? component : <Redirect to={order[currentProgress]} />}
             </main>
             <footer {...classes('footer')}>
-                <Informations />
-            </footer> */}
+                <Informations newTab={true}/>
+            </footer>
+        </Route>
+    );
+};
+
+const Container = (): JSX.Element => {
+    const currentProgress = useRecoilValue(progressState);
+    return (
+        <div {...classes()}>
             <Router>
                 <Switch>
-                    {subpages.map((sp, i) => getRoute(sp.path, sp.component, i))}
+                    {subpages.map((sp, i) => getRoute(sp.path, sp.component, i, currentProgress))}
                     <Route path={RoutingPaths.Info}>
                         <header {...classes('header')}>
                             <img {...classLogo()} src={logo} alt="logo"/>

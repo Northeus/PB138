@@ -4,7 +4,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import './VehicleOwner.css';
-import '../Form/Form.css';
+import '../../utils/css/Form.css';
 import { progressStateAtom, vehicleOwnerStateAtom } from '../../store/atoms';
 import { getDateString, getNYearsAfter, getNYearsBefore } from '../../utils/dateUtils';
 

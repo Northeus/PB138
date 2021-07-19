@@ -4,7 +4,7 @@ import { useRecoilState } from 'recoil';
 import { progressStateAtom } from '../../store/atoms';
 import './Checkpoints.css';
 
-const take = 1;
+const mobileTake = 1;
 
 const checkpoints = [
     'Druh vozu',
@@ -17,27 +17,32 @@ const checkpoints = [
 
 const classes = new BEMHelper('checkpoints');
 
+const getItemModifier = (index: number, progress: number) => {
+    if (index < progress - mobileTake) {
+        return ['active', 'hidden'];
+    }
+    if (index < progress) {
+        return ['active'];
+    }
+    if (index == progress) {
+        return ['current'];
+    }
+    if (index <= progress + mobileTake) {
+        return ['inactive'];
+    }
+    return ['inactive', 'hidden'];
+};
+
 const Checkpoints = (): JSX.Element => {
     const [progress, setProgress] = useRecoilState(progressStateAtom);
-    const getClasses = (index: number) => {
-        if (index < progress - take) {
-            return classes('item', ['active', 'hidden']);
-        }
-        if (index < progress) {
-            return classes('item', 'active');
-        }
-        if (index == progress) {
-            return classes('item', 'current');
-        }
-        if (index <= progress + take) {
-            return classes('item', 'inactive');
-        }
-        return classes('item', ['inactive', 'hidden']);
-    };
     return (
         <nav {...classes()}>
             {checkpoints.map((c, i) => (
-                <div {...getClasses(i)} onClick={(i < progress ? () => setProgress(i) : undefined)} key={i}>
+                <div 
+                    {...classes('item', getItemModifier(i, progress))}
+                    onClick={(i < progress ? () => setProgress(i) : undefined)}
+                    key={i}
+                >
                     <span {...classes('name')}>{c}</span>
                 </div>
             ))}

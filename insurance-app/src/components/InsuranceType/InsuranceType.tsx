@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { insuranceTypeStateAtom, progressStateAtom } from '../../store/atoms';
 import './InsuranceType.css';
-import '../Form/Form.css';
+import '../../utils/css/Form.css';
 import EInsuranceType, { insuranceTypeString } from '../../utils/eInsuranceType';
 import { vehicleTypeState } from '../../store/selectors';
 import EVehicleType from '../../utils/eVehicleType';

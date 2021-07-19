@@ -3,26 +3,9 @@ import { getNYearsBefore } from '../utils/dateUtils';
 import EInsuranceType from '../utils/eInsuranceType';
 import EVehicleType from '../utils/eVehicleType';
 import EVehicleUtilisation from '../utils/eVehicleUtilisation';
-
-interface IVehicleParameters {
-    licensePlate: string | undefined;
-
-    cylinderVolume: number;
-    enginePower: number;
-    price: number;
-    creationDate: Date;
-}
-
-interface IVehicleOwner {
-    drivingLicenseDate: Date;
-    birthDate: Date;
-    accidentIn3Years: boolean;
-}
-
-interface IInsuranceType {
-    type: EInsuranceType;
-    windowInsurance: boolean;
-}
+import IInsuranceType from './models/InsuranceType';
+import IVehicleOwner from './models/VehicleOwner';
+import IVehicleParameters from './models/VehicleParameters';
 
 export const progressStateAtom = atom<number>({
     key: 'progressAtom',

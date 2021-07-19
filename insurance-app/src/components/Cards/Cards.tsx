@@ -1,15 +1,11 @@
 import React from 'react';
 import BEMHelper from 'react-bem-helper';
 import Card from './Card';
+import ICardProp from './CardProp';
 import './Cards.css';
 
 interface ICardsProps {
-    cards: {
-        image: string | undefined;
-        name: string;
-        picked: boolean;
-        action: () => Promise<void>;
-    }[]
+    cards: ICardProp[]
 }
 
 const classes = new BEMHelper('cards');
