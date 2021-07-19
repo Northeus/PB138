@@ -1,3 +1,3 @@
-export const carNotFound = 'Car was not found.';
-export const offerNotFound = 'ERROR Offer was not found.';
+export const carNotFound = 'ŠPZ nebola nájdená.';
+export const offerNotFound = 'ERROR Ponuka nebola nájdená.';
 export const prismaError = 'ERROR Prisma error';
