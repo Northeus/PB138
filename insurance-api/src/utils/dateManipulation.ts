@@ -1,4 +1,3 @@
-// REACT boys maju presne toto, pri spojeni sa 1 z toho zmaze
 export const getNYearsBefore = (date: Date, n: number): Date => {
     const dateCopy = new Date(date);
     dateCopy.setFullYear(dateCopy.getFullYear() - n);
