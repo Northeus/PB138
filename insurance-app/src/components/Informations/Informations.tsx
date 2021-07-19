@@ -1,5 +1,6 @@
 import React from 'react';
 import BEMHelper from 'react-bem-helper';
+import { Link } from 'react-router-dom';
 import InfoPaths from '../../utils/infoPaths';
 import RoutingPaths from '../../utils/routingPaths';
 import './Informations.css';
@@ -12,24 +13,24 @@ interface InformationsProps {
 
 const Informations: React.FC<InformationsProps> = ({newTab}) => (
     <nav {...classes()}>
-        <a
+        <Link
             {...classes('item')}
             target={newTab ? '_blank' : undefined}
-            href={`${RoutingPaths.Info}/${InfoPaths.Contacts}`}>
+            to={`${RoutingPaths.Info}/${InfoPaths.Contacts}`}>
             <span {...classes('name')}>Kontaktujete nás</span>
-        </a>
-        <a
+        </Link>
+        <Link
             {...classes('item')}
             target={newTab ? '_blank' : undefined}
-            href={`${RoutingPaths.Info}/${InfoPaths.AboutUs}`}>
+            to={`${RoutingPaths.Info}/${InfoPaths.AboutUs}`}>
             <span {...classes('name')}>O nás</span>
-        </a>
-        <a
+        </Link>
+        <Link
             {...classes('item')}
             target={newTab ? '_blank' : undefined}
-            href={`${RoutingPaths.Info}/${InfoPaths.GDPR}`}>
+            to={`${RoutingPaths.Info}/${InfoPaths.GDPR}`}>
             <span {...classes('name')}>GDPR</span>
-        </a>
+        </Link>
     </nav>
 );
 
